@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
 * Студент: [Елизавета Баздырева](https://up.htmlacademy.ru/react/8/user/59826).
-* Наставник: `Неизвестно`.
+* Наставник: [Ruslan Malogulko](https://htmlacademy.ru/profile/id9728).
 
 ---
 
