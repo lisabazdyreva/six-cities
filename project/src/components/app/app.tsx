@@ -1,4 +1,5 @@
 import MainScreen from '../main-screen/main-screen';
+import Icons from '../icons/icons';
 
 type AppScreenProps = {
   rentOffersValue: number,
@@ -6,9 +7,13 @@ type AppScreenProps = {
 
 function App({rentOffersValue}: AppScreenProps): JSX.Element {
   return (
-    <MainScreen
-      rentOffersValue={rentOffersValue}
-    />
+    <>
+      <Icons/>
+      <MainScreen
+        rentOffersValue={rentOffersValue}
+      />
+    </>
+
   );
 }
 
