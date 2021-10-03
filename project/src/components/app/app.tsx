@@ -1,5 +1,20 @@
-function App(): JSX.Element {
-  return <p>Hello, world!</p>;
+import MainScreen from '../main-screen/main-screen';
+import Icons from '../icons/icons';
+
+type AppScreenProps = {
+  rentOffersValue: number,
+}
+
+function App({rentOffersValue}: AppScreenProps): JSX.Element {
+  return (
+    <>
+      <Icons/>
+      <MainScreen
+        rentOffersValue={rentOffersValue}
+      />
+    </>
+
+  );
 }
 
 export default App;
