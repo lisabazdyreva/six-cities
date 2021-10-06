@@ -1,5 +1,15 @@
 import MainScreen from '../main-screen/main-screen';
-import Icons from '../icons/icons';
+import LoginScreen from '../login-screen/login-screen';
+import FavoritesScreen from '../favorites-screen/favorites-screen';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
+import OfferScreen from '../offer-screen/offer-screen';
+
+import PrivateRoute from '../private-route/private-route';
+
+import {AppRoute, AuthorizationStatus} from '../../const';
+
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
+
 
 type AppScreenProps = {
   rentOffersValue: number,
@@ -7,13 +17,31 @@ type AppScreenProps = {
 
 function App({rentOffersValue}: AppScreenProps): JSX.Element {
   return (
-    <>
-      <Icons/>
-      <MainScreen
-        rentOffersValue={rentOffersValue}
-      />
-    </>
-
+    <BrowserRouter>
+      <Switch>
+        <Route path={AppRoute.Main} exact>
+          <MainScreen
+            rentOffersValue={rentOffersValue}
+          />
+        </Route>
+        <Route path={AppRoute.Login} exact >
+          <LoginScreen />
+        </Route>
+        <PrivateRoute
+          exact
+          path={AppRoute.Favorites}
+          render={() => <FavoritesScreen />}
+          authorizationStatus={AuthorizationStatus.NoAuth}
+        >
+        </PrivateRoute>
+        <Route path={AppRoute.Room} exact>
+          <OfferScreen />
+        </Route>
+        <Route>
+          <NotFoundScreen />
+        </Route>
+      </Switch>
+    </BrowserRouter>
   );
 }
 
