@@ -1,32 +1,36 @@
-type locationTypes = {
+const AVATAR_IMG_ANGELINA = 'img/avatar-angelina.jpg';
+const AVATAR_IMG_MAX = 'img/avatar-max.jpg';
+const AVATAR_DEFAULT = 'img/avatar.svg';
+
+type Location = {
   latitude: number,
   longitude: number,
   zoom: number,
 }
 
-type hostTypes = {
+type Host = {
   avatarUrl: string,
   id: number,
   isPro: boolean,
   name: string,
 }
 
-type cityTypes = {
-  location: locationTypes,
+type City = {
+  location: Location,
   name: string,
 }
 
-type offersTypes = {
+export type Offer = {
   bedrooms: number,
-  city: cityTypes,
+  city: City,
   description: string,
   goods: string[],
-  host: hostTypes,
+  host: Host,
   id: number,
   images: string[],
   isFavorite: boolean,
   isPremium: boolean,
-  location: locationTypes,
+  location: Location,
   maxAdults: number,
   previewImage: string,
   price: number,
@@ -35,8 +39,9 @@ type offersTypes = {
   type: string,
 };
 
+export type Offers = Offer[];
 
-const offers: offersTypes[] = [
+export const offers: Offers = [
   {
     "bedrooms": 3,
     "city": {
@@ -50,7 +55,7 @@ const offers: offersTypes[] = [
     "description": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
     "goods": ["Heating", "Kitchen", "Cable TV", "Washing machine", "Coffee machine", "Dishwasher"],
     "host": {
-      "avatarUrl": "img/1.png",
+      "avatarUrl": AVATAR_IMG_ANGELINA,
       "id": 3,
       "isPro": true,
       "name": "Angelina",
@@ -86,10 +91,10 @@ const offers: offersTypes[] = [
     "description": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Paris.",
     "goods": ["Coffee machine", "Dishwasher"],
     "host": {
-      "avatarUrl": "img/2.png",
+      "avatarUrl": AVATAR_IMG_ANGELINA,
       "id": 3,
       "isPro": true,
-      "name": "Anastasia",
+      "name": "Angelina",
     },
     "id": 2,
     "images": ["img/1.png", "img/2.png"],
@@ -122,10 +127,10 @@ const offers: offersTypes[] = [
     "description": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Paris.",
     "goods": ["Coffee machine"],
     "host": {
-      "avatarUrl": "img/2.png",
-      "id": 3,
+      "avatarUrl": AVATAR_IMG_MAX,
+      "id": 2,
       "isPro": true,
-      "name": "Anastasia",
+      "name": "Max",
     },
     "id": 3,
     "images": ["img/1.png", "img/2.png"],
@@ -157,10 +162,10 @@ const offers: offersTypes[] = [
     "description": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Paris.",
     "goods": ["Coffee machine"],
     "host": {
-      "avatarUrl": "img/2.png",
-      "id": 3,
-      "isPro": true,
-      "name": "Anastasia",
+      "avatarUrl": AVATAR_DEFAULT,
+      "id": 1,
+      "isPro": false,
+      "name": "None",
     },
     "id": 4,
     "images": ["img/1.png", "img/2.png"],
@@ -178,7 +183,4 @@ const offers: offersTypes[] = [
     "title": "Beautiful studio at great location",
     "type": "apartment",
   },
-
 ];
-
-export {offers};

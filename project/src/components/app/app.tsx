@@ -7,15 +7,17 @@ import OfferScreen from '../offer-screen/offer-screen';
 import PrivateRoute from '../private-route/private-route';
 
 import {AppRoute, AuthorizationStatus} from '../../const';
+import {Offers} from '../../mocks/offers';
 
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
 
 type AppScreenProps = {
   rentOffersValue: number,
+  offers: Offers,
 }
 
-function App({rentOffersValue}: AppScreenProps): JSX.Element {
+function App({rentOffersValue, offers}: AppScreenProps): JSX.Element {
   return (
     <BrowserRouter>
       <Switch>

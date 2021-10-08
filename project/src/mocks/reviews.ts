@@ -1,19 +1,21 @@
-type userTypes = {
+type user = {
   avatarUrl: string,
   id: number,
   isPro: boolean,
   name: string,
 }
 
-type reviewsTypes = {
+type review = {
   comment: string,
   date: string,
   id: number,
   rating: number,
-  user: userTypes,
+  user: user,
 }
 
-const reviews: reviewsTypes[] = [
+export type reviews = review[];
+
+export const reviews: reviews= [
   {
     "comment": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
     "date": "2019-05-08T14:13:56.569Z",
@@ -27,5 +29,3 @@ const reviews: reviewsTypes[] = [
     }
   }
 ];
-
-export {reviews};
