@@ -1,11 +1,14 @@
-import Card from '../card/card';
 import Icons from '../icons/icons';
+import CardsList from '../cards-list/cards-list';
+
+import {Offers} from '../../types/offer';
 
 type MainScreenProps = {
-  rentOffersValue: number,
-}
+  rentOffersValue: number;
+  offers: Offers;
+};
 
-function MainScreen({rentOffersValue}: MainScreenProps): JSX.Element {
+function MainScreen({rentOffersValue, offers}: MainScreenProps): JSX.Element {
   return (
     <>
       <Icons />
@@ -81,7 +84,7 @@ function MainScreen({rentOffersValue}: MainScreenProps): JSX.Element {
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{rentOffersValue} places to stay in Amsterdam</b>
-                <form className="places__sorting" action="#" method="get">
+                <form className="places__sorting" action="#" method="get" style={{display: 'none'}}>
                   <span className="places__sorting-caption">Sort by</span>
                   <span className="places__sorting-type" tabIndex={0}>
                   Popular
@@ -96,13 +99,9 @@ function MainScreen({rentOffersValue}: MainScreenProps): JSX.Element {
                     <li className="places__option" tabIndex={0}>Top rated first</li>
                   </ul>
                 </form>
-                <div className="cities__places-list places__list tabs__content">
-                  <Card />
-                  <Card />
-                  <Card />
-                  <Card />
-                  <Card />
-                </div>
+                <CardsList
+                  offers={offers}
+                />
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map"/>

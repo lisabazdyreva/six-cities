@@ -7,15 +7,15 @@ import OfferScreen from '../offer-screen/offer-screen';
 import PrivateRoute from '../private-route/private-route';
 
 import {AppRoute, AuthorizationStatus} from '../../const';
-import {Offers} from '../../mocks/offers';
+import {Offers} from '../../types/offer';
 
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
 
 type AppScreenProps = {
-  rentOffersValue: number,
-  offers: Offers,
-}
+  rentOffersValue: number;
+  offers: Offers;
+};
 
 function App({rentOffersValue, offers}: AppScreenProps): JSX.Element {
   return (
@@ -24,6 +24,7 @@ function App({rentOffersValue, offers}: AppScreenProps): JSX.Element {
         <Route path={AppRoute.Main} exact>
           <MainScreen
             rentOffersValue={rentOffersValue}
+            offers={offers}
           />
         </Route>
         <Route path={AppRoute.Login} exact >
