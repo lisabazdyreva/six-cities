@@ -1,12 +1,14 @@
+
 import {Offer} from '../../types/offer';
 
 type CardProps = {
   offer: Offer;
+  onMouse: (id: number) => void;
 };
 
 
 function Card (props: CardProps): JSX.Element {
-  const {offer} = props;
+  const {offer, onMouse} = props;
   const {
     price,
     type,
@@ -15,13 +17,14 @@ function Card (props: CardProps): JSX.Element {
     rating,
     previewImage,
     isFavorite,
+    id,
   } = offer;
 
   const typeText = type.slice(0, 1).toUpperCase() + type.slice(1);
   const ratingPercentValue = `${(rating * 100 / 5)}%`;
 
   return (
-    <article className="cities__place-card place-card">
+    <article className="cities__place-card place-card" onMouseEnter={() => onMouse(id)} onMouseLeave={() => onMouse(0)}>
       {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
