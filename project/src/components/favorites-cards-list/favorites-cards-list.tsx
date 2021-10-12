@@ -1,4 +1,4 @@
-import {Offers, Offer} from '../../types/offer';
+import {Offers} from '../../types/offer';
 
 import FavoriteCards from '../favorite-cards/favorite-cards';
 
@@ -7,7 +7,7 @@ type FavoritesCardsListProps = {
 };
 
 type FavoriteCardsByCities = {
-  [propertyName: string] : Offer[],
+  [propertyName: string] : Offers,
 }[];
 
 function getFavoriteCardsByCities(cards: Offers): FavoriteCardsByCities {

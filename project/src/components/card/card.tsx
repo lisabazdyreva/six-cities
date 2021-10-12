@@ -1,5 +1,8 @@
 import {formatType, getRatingPercentValue} from '../../utils';
+import {Link} from 'react-router-dom';
 import {Offer} from '../../types/offer';
+
+import {AppRoute} from '../../const';
 
 type CardProps = {
   card: Offer;
@@ -51,7 +54,7 @@ function Card (props: CardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to={AppRoute.Room}>{title}</Link>
         </h2>
         <p className="place-card__type">{typeText}</p>
       </div>

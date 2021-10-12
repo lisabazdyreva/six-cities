@@ -136,7 +136,7 @@ export const offers: Offers = [
     // 'id': new Date().getTime(),
     'id': 4,
     'images': ['img/1.png', 'img/2.png'],
-    'isFavorite': true,
+    'isFavorite': false,
     'isPremium': true,
     'location': {
       'latitude': 52.35514938496378,
