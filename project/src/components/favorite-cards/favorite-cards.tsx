@@ -1,17 +1,18 @@
+import {formatType, getRatingPercentValue} from '../../utils';
 import {Offers, Offer} from '../../types/offer';
 
-type FavoriteOfferProps = {
-  offersByCity: Offers;
+type FavoriteCardsProps = {
+  cardsByCity: Offers;
 };
 
-function FavoriteOffer({offersByCity}: FavoriteOfferProps): JSX.Element {
+function FavoriteCards({cardsByCity}: FavoriteCardsProps): JSX.Element {
   return (
     <>
-      {offersByCity.map((offer: Offer): JSX.Element  => {
-        const {price, id, rating, type, title, previewImage} = offer;
+      {cardsByCity.map((card: Offer): JSX.Element  => {
+        const {price, id, rating, type, title, previewImage} = card;
 
-        const ratingPercentValue = `${(rating * 100 / 5)}%`;
-        const typeText = type.slice(0, 1).toUpperCase() + type.slice(1);
+        const ratingPercentValue = getRatingPercentValue(rating);
+        const typeText = formatType(type);
 
         return (
           <article className="favorites__card place-card" key={id}>
@@ -51,4 +52,4 @@ function FavoriteOffer({offersByCity}: FavoriteOfferProps): JSX.Element {
   );
 }
 
-export default FavoriteOffer;
+export default FavoriteCards;

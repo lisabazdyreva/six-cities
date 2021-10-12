@@ -1,14 +1,14 @@
-
+import {formatType, getRatingPercentValue} from '../../utils';
 import {Offer} from '../../types/offer';
 
 type CardProps = {
-  offer: Offer;
+  card: Offer;
   onMouse: (id: number) => void;
 };
 
 
 function Card (props: CardProps): JSX.Element {
-  const {offer, onMouse} = props;
+  const {card, onMouse} = props;
   const {
     price,
     type,
@@ -18,10 +18,10 @@ function Card (props: CardProps): JSX.Element {
     previewImage,
     isFavorite,
     id,
-  } = offer;
+  } = card;
 
-  const typeText = type.slice(0, 1).toUpperCase() + type.slice(1);
-  const ratingPercentValue = `${(rating * 100 / 5)}%`;
+  const typeText = formatType(type);
+  const ratingPercentValue = getRatingPercentValue(rating);
 
   return (
     <article className="cities__place-card place-card" onMouseEnter={() => onMouse(id)} onMouseLeave={() => onMouse(0)}>

@@ -100,7 +100,7 @@ function MainScreen({rentOffersValue, offers}: MainScreenProps): JSX.Element {
                   </ul>
                 </form>
                 <CardsList
-                  offers={offers}
+                  cards={offers}
                 />
               </section>
               <div className="cities__right-section">

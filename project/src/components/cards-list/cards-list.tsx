@@ -5,18 +5,18 @@ import {Offers} from '../../types/offer';
 import {useState} from 'react';
 
 type CardsListProps = {
-  offers: Offers;
+  cards: Offers;
 };
 
 
-function CardsList ({offers} : CardsListProps): JSX.Element {
+function CardsList ({cards} : CardsListProps): JSX.Element {
   const [activeItem, setActiveItem] = useState<number>(0);
 
   return (
     <div className="cities__places-list places__list tabs__content">
-      { offers.map((offer) => (
-        <Card offer={offer}
-          key={offer.id + offer.type}
+      { cards.map((card) => (
+        <Card card={card}
+          key={card.id + card.type}
           onMouse={(id) => setActiveItem(id)}
         />
       ))}

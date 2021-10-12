@@ -1,6 +1,6 @@
 import {Offers} from '../../types/offer';
 import Icons from '../icons/icons';
-import FavoritesList from '../favorites-list/favorites-list';
+import FavoritesCardsList from '../favorites-cards-list/favorites-cards-list';
 
 type FavoriteScreenProps = {
   offers: Offers;
@@ -43,7 +43,7 @@ function FavoritesScreen({offers}: FavoriteScreenProps): JSX.Element {
           <div className="page__favorites-container container">
             <section className="favorites">
               <h1 className="favorites__title">Saved listing</h1>
-              <FavoritesList offers={offers}/>
+              <FavoritesCardsList cards={offers}/>
             </section>
           </div>
         </main>
