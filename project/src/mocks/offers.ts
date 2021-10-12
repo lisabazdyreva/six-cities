@@ -25,7 +25,7 @@ export const offers: Offers = [
     },
     // 'id': new Date().getTime(),
     'id': 1,
-    'images': ['img/1.png', 'img/2.png'],
+    'images': ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/studio-01.jpg', 'img/apartment-01.jpg'],
     'isFavorite': true,
     'isPremium': true,
     'location': {

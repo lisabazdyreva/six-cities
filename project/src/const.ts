@@ -2,7 +2,8 @@ enum AppRoute {
   Main = '/',
   Login = '/login',
   Favorites = '/favorites',
-  Room = '/offer/:id',
+  Room = '/offer',
+  RoomID = '/offer/:id', // пока так оставила
 }
 
 enum AuthorizationStatus {

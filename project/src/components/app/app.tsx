@@ -39,8 +39,10 @@ function App({rentOffersValue, offers}: AppScreenProps): JSX.Element {
           authorizationStatus={AuthorizationStatus.Auth}
         >
         </PrivateRoute>
-        <Route path={AppRoute.Room} exact>
-          <OfferScreen />
+        <Route path={AppRoute.RoomID} exact>
+          <OfferScreen
+            offers={offers}
+          />
         </Route>
         <Route>
           <NotFoundScreen />
