@@ -2,9 +2,14 @@ import {ChangeEvent, useState} from 'react';
 
 function CommentForm(): JSX.Element {
   const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState('');
 
   const handleRatingChange = (evt:ChangeEvent<HTMLInputElement>): void => {
     setRating(Number(evt.target.value));
+  };
+
+  const handleCommentChange = (evt:ChangeEvent<HTMLTextAreaElement>):void => {
+    setComment(evt.target.value);
   };
 
   return (
@@ -87,6 +92,8 @@ function CommentForm(): JSX.Element {
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
+        onChange={handleCommentChange}
+        value={comment}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -95,7 +102,7 @@ function CommentForm(): JSX.Element {
         </p>
         <button className="reviews__submit form__submit button" type="submit" disabled>Submit</button>
       </div>
-      {rating}
+      {rating} {/*пока оставила, чтобы не ругался*/}
     </form>
   );
 }
