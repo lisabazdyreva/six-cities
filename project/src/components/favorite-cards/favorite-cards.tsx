@@ -1,6 +1,9 @@
 import {formatType, getRatingPercentValue} from '../../utils';
 import {Offers, Offer} from '../../types/offer';
 
+import {Link} from 'react-router-dom';
+import {AppRoute} from '../../const';
+
 type FavoriteCardsProps = {
   cardsByCity: Offers;
 };
@@ -17,9 +20,9 @@ function FavoriteCards({cardsByCity}: FavoriteCardsProps): JSX.Element {
         return (
           <article className="favorites__card place-card" key={id}>
             <div className="favorites__image-wrapper place-card__image-wrapper">
-              <a href="#">
-                <img className="place-card__image" src={previewImage} width="150" height="110" alt="Place image"/>
-              </a>
+              <Link to={AppRoute.Main}>
+                <img className="place-card__image" src={previewImage} width="150" height="110" alt={title} />
+              </Link>
             </div>
             <div className="favorites__card-info place-card__info">
               <div className="place-card__price-wrapper">
@@ -41,7 +44,7 @@ function FavoriteCards({cardsByCity}: FavoriteCardsProps): JSX.Element {
                 </div>
               </div>
               <h2 className="place-card__name">
-                <a href="#">{title}</a>
+                <Link to={`${AppRoute.Room}/${ id }`}>{title}</Link>
               </h2>
               <p className="place-card__type">{typeText}</p>
             </div>
