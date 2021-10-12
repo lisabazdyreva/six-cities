@@ -1,4 +1,4 @@
-import {Offers} from '../../types/offer';
+import {Offers, Offer} from '../../types/offer';
 
 import FavoriteCards from '../favorite-cards/favorite-cards';
 
@@ -7,10 +7,10 @@ type FavoritesCardsListProps = {
 };
 
 type FavoriteCardsByCities = {
-
+  [propertyName: string] : Offer[],
 }[];
 
-function getFavoriteCardsByCities(cards: Offers) {
+function getFavoriteCardsByCities(cards: Offers): FavoriteCardsByCities {
   const favoriteCards = cards.filter((card) => card.isFavorite);
   const favoriteCities = Array.from(new Set(favoriteCards.reduce((prev, current) => `${prev} ${current.city.name}`, '').trim().split(' ')));
 
@@ -18,10 +18,7 @@ function getFavoriteCardsByCities(cards: Offers) {
 }
 
 function FavoritesCardsList({cards}: FavoritesCardsListProps): JSX.Element {
-
   const favoriteCardsByCities = getFavoriteCardsByCities(cards.slice());
-  // eslint-disable-next-line
-  console.log(favoriteCardsByCities);
 
   return (
     <ul className="favorites__list">
