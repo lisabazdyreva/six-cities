@@ -47,7 +47,6 @@ function Card (props: CardProps): JSX.Element {
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
             <span style={{width: ratingPercentValue}}/>
-
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
