@@ -3,7 +3,8 @@ function formatType(typeText: string): string {
 }
 
 function getRatingPercentValue (rating: number): string {
-  return `${(rating * 100 / 5)}%`;
+  const roundingRating = Math.round(rating);
+  return `${(roundingRating * 100 / 5)}%`;
 }
 
 export {formatType, getRatingPercentValue};
