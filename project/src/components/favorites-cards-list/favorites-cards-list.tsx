@@ -6,10 +6,22 @@ type FavoritesCardsListProps = {
   cards: Offers;
 };
 
-function FavoritesCardsList({cards}: FavoritesCardsListProps): JSX.Element {
-  const favoriteCards = cards.slice().filter((card) => card.isFavorite);
+type FavoriteCardsByCities = {
+
+}[];
+
+function getFavoriteCardsByCities(cards: Offers) {
+  const favoriteCards = cards.filter((card) => card.isFavorite);
   const favoriteCities = Array.from(new Set(favoriteCards.reduce((prev, current) => `${prev} ${current.city.name}`, '').trim().split(' ')));
-  const favoriteCardsByCities = favoriteCities.map((city) => Object.assign({}, {[city]: favoriteCards.filter((card) => card.city.name === city)}));
+
+  return favoriteCities.map((city) => Object.assign({}, {[city]: favoriteCards.filter((card) => card.city.name === city)}));
+}
+
+function FavoritesCardsList({cards}: FavoritesCardsListProps): JSX.Element {
+
+  const favoriteCardsByCities = getFavoriteCardsByCities(cards.slice());
+  // eslint-disable-next-line
+  console.log(favoriteCardsByCities);
 
   return (
     <ul className="favorites__list">
