@@ -4,11 +4,10 @@ import Header from '../header/header';
 import type {Offers} from '../../types/offer';
 import type {Reviews} from '../../types/review';
 
-import {useParams} from 'react-router-dom';
+import {useParams, Link} from 'react-router-dom';
 
 import OfferCard from '../offer-card/offer-card';
 
-import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 
 type OfferScreenType = {
@@ -40,7 +39,7 @@ function OfferScreen({offers, reviews}: OfferScreenType): JSX.Element {
                 <article className="near-places__card place-card">
                   <div className="near-places__image-wrapper place-card__image-wrapper">
                     <Link to={AppRoute.Main}>
-                      <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place image"/>
+                      <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place photos"/>
                     </Link>
                   </div>
                   <div className="place-card__info">
@@ -63,7 +62,7 @@ function OfferScreen({offers, reviews}: OfferScreenType): JSX.Element {
                       </div>
                     </div>
                     <h2 className="place-card__name">
-                      <a href="#">Wood and stone place</a>
+                      <Link to={AppRoute.RoomID}>Wood and stone place</Link>
                     </h2>
                     <p className="place-card__type">Private room</p>
                   </div>
@@ -71,9 +70,9 @@ function OfferScreen({offers, reviews}: OfferScreenType): JSX.Element {
 
                 <article className="near-places__card place-card">
                   <div className="near-places__image-wrapper place-card__image-wrapper">
-                    <a href="#">
-                      <img className="place-card__image" src="img/apartment-02.jpg" width="260" height="200" alt="Place image"/>
-                    </a>
+                    <Link to={AppRoute.RoomID}>
+                      <img className="place-card__image" src="img/apartment-02.jpg" width="260" height="200" alt="Place photos"/>
+                    </Link>
                   </div>
                   <div className="place-card__info">
                     <div className="place-card__price-wrapper">
@@ -95,7 +94,7 @@ function OfferScreen({offers, reviews}: OfferScreenType): JSX.Element {
                       </div>
                     </div>
                     <h2 className="place-card__name">
-                      <a href="#">Canal View Prinsengracht</a>
+                      <Link to={AppRoute.RoomID}>Canal View Prinsengracht</Link>
                     </h2>
                     <p className="place-card__type">Apartment</p>
                   </div>
@@ -103,9 +102,9 @@ function OfferScreen({offers, reviews}: OfferScreenType): JSX.Element {
 
                 <article className="near-places__card place-card">
                   <div className="near-places__image-wrapper place-card__image-wrapper">
-                    <a href="#">
-                      <img className="place-card__image" src="img/apartment-03.jpg" width="260" height="200" alt="Place image"/>
-                    </a>
+                    <Link to={AppRoute.RoomID}>
+                      <img className="place-card__image" src="img/apartment-03.jpg" width="260" height="200" alt="Place photos"/>
+                    </Link>
                   </div>
                   <div className="place-card__info">
                     <div className="place-card__price-wrapper">
@@ -127,7 +126,7 @@ function OfferScreen({offers, reviews}: OfferScreenType): JSX.Element {
                       </div>
                     </div>
                     <h2 className="place-card__name">
-                      <a href="#">Nice, cozy, warm big bed apartment</a>
+                      <Link to={AppRoute.RoomID}>Nice, cozy, warm big bed apartment</Link>
                     </h2>
                     <p className="place-card__type">Apartment</p>
                   </div>

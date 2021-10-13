@@ -20,7 +20,7 @@ function FavoriteCards({cardsByCity}: FavoriteCardsProps): JSX.Element {
         return (
           <article className="favorites__card place-card" key={id}>
             <div className="favorites__image-wrapper place-card__image-wrapper">
-              <Link to={AppRoute.Main}>
+              <Link to={`${AppRoute.Room}/${ id }`}>
                 <img className="place-card__image" src={previewImage} width="150" height="110" alt={title} />
               </Link>
             </div>
