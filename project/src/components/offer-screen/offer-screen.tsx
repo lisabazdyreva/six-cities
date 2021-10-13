@@ -1,7 +1,9 @@
 import Icons from '../icons/icons';
 import Header from '../header/header';
 
-import {Offers} from '../../types/offer';
+import type {Offers} from '../../types/offer';
+import type {Reviews} from '../../types/review';
+
 import {useParams} from 'react-router-dom';
 
 import OfferCard from '../offer-card/offer-card';
@@ -11,9 +13,10 @@ import {AppRoute} from '../../const';
 
 type OfferScreenType = {
   offers: Offers;
-}
+  reviews: Reviews;
+};
 
-function OfferScreen({offers}: OfferScreenType): JSX.Element {
+function OfferScreen({offers, reviews}: OfferScreenType): JSX.Element {
   const params: {id: string} = useParams();
   const { id } = params;
   const [card] = offers.filter((offer) => offer.id === +id);
@@ -26,6 +29,7 @@ function OfferScreen({offers}: OfferScreenType): JSX.Element {
         <main className="page__main page__main--property">
           <section className="property">
             <OfferCard
+              reviews={reviews}
               card={card}
             />
           </section>

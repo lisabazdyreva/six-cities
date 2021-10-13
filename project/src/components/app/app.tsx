@@ -9,7 +9,9 @@ import OfferScreen from '../offer-screen/offer-screen';
 import PrivateRoute from '../private-route/private-route';
 
 import {AppRoute, AuthorizationStatus} from '../../const';
-import {Offers} from '../../types/offer';
+
+import type {Offers} from '../../types/offer';
+import type {Reviews} from '../../types/review';
 
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
@@ -17,9 +19,10 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 type AppScreenProps = {
   rentOffersValue: number;
   offers: Offers;
+  reviews: Reviews;
 };
 
-function App({rentOffersValue, offers}: AppScreenProps): JSX.Element {
+function App({rentOffersValue, offers, reviews}: AppScreenProps): JSX.Element {
   return (
     <BrowserRouter>
       <Switch>
@@ -42,6 +45,7 @@ function App({rentOffersValue, offers}: AppScreenProps): JSX.Element {
         <Route path={AppRoute.RoomID} exact>
           <OfferScreen
             offers={offers}
+            reviews={reviews}
           />
         </Route>
         <Route>

@@ -1,13 +1,17 @@
 import CommentForm from '../comment-form/comment-form';
 import CommentsList from '../comments-list/comments-list';
-import {Offer} from '../../types/offer';
+
 import {getRatingPercentValue, formatType} from '../../utils';
+
+import type {Offer} from '../../types/offer';
+import type {Reviews} from '../../types/review';
 
 type OfferCardProps = {
   card: Offer;
+  reviews: Reviews;
 };
 
-function OfferCard({card}: OfferCardProps): JSX.Element {
+function OfferCard({card, reviews}: OfferCardProps): JSX.Element {
   const {
     title,
     rating,
@@ -102,7 +106,9 @@ function OfferCard({card}: OfferCardProps): JSX.Element {
           </div>
           <section className="property__reviews reviews">
             <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
-            <CommentsList />
+            <CommentsList
+              reviews={reviews}
+            />
             <CommentForm />
           </section>
         </div>
