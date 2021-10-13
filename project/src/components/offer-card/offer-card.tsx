@@ -8,17 +8,35 @@ type OfferCardProps = {
 };
 
 function OfferCard({card}: OfferCardProps): JSX.Element {
-  const {title, rating, type, bedrooms, maxAdults, price, goods, host, description, isPremium, isFavorite, images} = card;
+  const {
+    title,
+    rating,
+    type,
+    bedrooms,
+    maxAdults,
+    price,
+    goods,
+    host,
+    description,
+    isPremium,
+    isFavorite,
+    images,
+  } = card;
 
   const ratingPercentValue = getRatingPercentValue(rating);
   const typeText = formatType(type);
 
+  const checkedImagesOverflow = (images.length > 5) ? images.slice(0, 6) : images;
 
   return(
     <>
       <div className="property__gallery-container container">
         <div className="property__gallery">
-          {images.map((image) => <div key={image} className="property__image-wrapper"><img className="property__image" src={image} alt={title}/></div>)}
+          {
+            (checkedImagesOverflow.length)
+              ? checkedImagesOverflow.map((image) => <div key={image + new Date().getTime()} className="property__image-wrapper"><img className="property__image" src={image} alt={title}/></div>)
+              : ''
+          }
         </div>
       </div>
       <div className="property__container container">
@@ -58,7 +76,11 @@ function OfferCard({card}: OfferCardProps): JSX.Element {
           <div className="property__inside">
             <h2 className="property__inside-title">What&apos;s inside</h2>
             <ul className="property__inside-list">
-              {goods.map((good) => <li className="property__inside-item" key={`${good}`}>{good}</li>)}
+              {
+                (goods.length)
+                  ? goods.map((good) => <li className="property__inside-item" key={good + new Date().getTime()}>{good}</li>)
+                  : ''
+              }
             </ul>
           </div>
           <div className="property__host">
