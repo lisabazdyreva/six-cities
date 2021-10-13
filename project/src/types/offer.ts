@@ -1,14 +1,9 @@
+import type {User} from './user';
+
 type Location = {
   latitude: number,
   longitude: number,
   zoom: number,
-};
-
-type Host = {
-  avatarUrl: string,
-  id: number,
-  isPro: boolean,
-  name: string,
 };
 
 type City = {
@@ -21,7 +16,7 @@ export type Offer = {
   city: City,
   description: string,
   goods: string[],
-  host: Host,
+  host: User,
   id: number,
   images: string[],
   isFavorite: boolean,

@@ -1,43 +1,19 @@
-type user = {
-  avatarUrl: string,
-  id: number,
-  isPro: boolean,
-  name: string,
-}
+import {Users} from '../const';
+import type {Reviews} from '../types/review';
 
-type review = {
-  comment: string,
-  date: string,
-  id: number,
-  rating: number,
-  user: user,
-}
-
-export type reviews = review[];
-
-export const reviews: reviews= [
+export const reviews: Reviews= [
   {
     'comment': 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     'date': '2019-05-08T14:13:56.569Z',
     'id': 1,
     'rating': 4,
-    'user': {
-      'avatarUrl': 'img/1.png',
-      'id': 4,
-      'isPro': false,
-      'name': 'Max',
-    },
+    'user': Users.MAX,
   },
   {
     'comment': 'A dsidisodisopdipsdis.',
     'date': '2021-05-08T14:13:56.569Z',
     'id': 1,
     'rating': 3,
-    'user': {
-      'avatarUrl': 'img/1.png',
-      'id': 3,
-      'isPro': true,
-      'name': 'Alla',
-    },
+    'user': Users.DEFAULT
   },
 ];
