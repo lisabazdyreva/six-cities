@@ -1,3 +1,5 @@
+import {PointExpression} from 'leaflet';
+
 enum AppRoute {
   Main = '/',
   Login = '/login',
@@ -72,4 +74,18 @@ const Locations = {
   },
 } as const;
 
-export {AppRoute, AuthorizationStatus, Locations, Users, Months};
+
+const enum IconsURL {
+  Default = 'img/pin.svg',
+  Current = 'img/pin-active.svg',
+}
+
+const IconsParams: {
+  ICON_SIZE: PointExpression,
+  ICON_ANCHOR: PointExpression,
+} = {
+  ICON_SIZE: [27, 39],
+  ICON_ANCHOR: [14, 39],
+}; // посмотреть в критериях как грамотно записать
+
+export {AppRoute, AuthorizationStatus, Locations, Users, Months, IconsParams, IconsURL};

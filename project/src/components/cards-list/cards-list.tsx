@@ -14,7 +14,7 @@ function CardsList ({cards} : CardsListProps): JSX.Element {
 
   return (
     <div className="cities__places-list places__list tabs__content">
-      { cards.map((card) => (
+      {cards.map((card) => (
         <Card
           card={card}
           key={card.id + card.type}
