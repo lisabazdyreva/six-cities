@@ -5,21 +5,21 @@ import {Icon, Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 import {offers} from '../../mocks/offers';
-import {Icons, IconsParams} from '../../const';
+import {IconsURL, IconsParams} from '../../const';
 import {Offers} from '../../types/offer';
 
 
 const defaultCustomIcon = new Icon({
-  iconUrl: Icons.URL_DEFAULT_ICON,
+  iconUrl: IconsURL.Default,
   iconSize: IconsParams.ICON_SIZE,
   iconAnchor: IconsParams.ICON_ANCHOR,
 });
 
-// const currentCustomIcon = new Icon({
-//   iconUrl: Icons.URL_CURRENT_ICON,
-//   iconSize: IconsParams.ICON_SIZE,
-//   iconAnchor: IconsParams.ICON_ANCHOR,
-// });
+const currentCustomIcon = new Icon({
+  iconUrl: IconsURL.Current,
+  iconSize: IconsParams.ICON_SIZE,
+  iconAnchor: IconsParams.ICON_ANCHOR,
+});
 
 type MapProps = {
   cards: Offers,
@@ -31,7 +31,6 @@ function Map({cards}: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, offers[0]);
 
-
   useEffect(() => {
     if (map) {
       cards.forEach((card) => {
@@ -40,7 +39,12 @@ function Map({cards}: MapProps): JSX.Element {
           lng: card.location.longitude,
         });
 
-        marker.setIcon(defaultCustomIcon).addTo(map);
+        if (card.title === 'Beautiful & luxurious apartment at great location') {
+          marker.setIcon(currentCustomIcon).addTo(map);
+        } else {
+          marker.setIcon(defaultCustomIcon).addTo(map);
+        } // временно, чтобы не ругался за неиспользование currentCustomIcon
+
 
       });
     }

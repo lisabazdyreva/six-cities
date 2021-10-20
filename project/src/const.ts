@@ -75,10 +75,10 @@ const Locations = {
 } as const;
 
 
-const Icons = {
-  URL_DEFAULT_ICON: 'img/pin.svg',
-  URL_CURRENT_ICON: 'img/pin-active.svg',
-} as const; // посмотреть в критериях как грамотно записать
+const enum IconsURL {
+  Default = 'img/pin.svg',
+  Current = 'img/pin-active.svg',
+}
 
 const IconsParams: {
   ICON_SIZE: PointExpression,
@@ -88,4 +88,4 @@ const IconsParams: {
   ICON_ANCHOR: [14, 39],
 }; // посмотреть в критериях как грамотно записать
 
-export {AppRoute, AuthorizationStatus, Locations, Users, Months, IconsParams, Icons};
+export {AppRoute, AuthorizationStatus, Locations, Users, Months, IconsParams, IconsURL};
