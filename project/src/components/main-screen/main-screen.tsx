@@ -7,6 +7,8 @@ import {Offers} from '../../types/offer';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 
+import Map from '../map/map';
+
 
 type MainScreenProps = {
   rentOffersValue: number;
@@ -83,7 +85,9 @@ function MainScreen({rentOffersValue, offers}: MainScreenProps): JSX.Element {
                   />
                 </section>
                 <div className="cities__right-section">
-                  <section className="cities__map map"/>
+                  <Map
+                    cards={offers}
+                  />
                 </div>
               </div>
             </div> :
