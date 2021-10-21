@@ -1,23 +1,22 @@
-import {formatType, getRatingPercentValue} from '../../utils';
-import {Link} from 'react-router-dom';
 import {Offer} from '../../types/offer';
-
+import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
+import {formatType, getRatingPercentValue} from '../../utils';
 
-type MainCardProps = {
+type CardProps = {
   card: Offer;
-  onMouse: (id: number) => void;
-};
+  typeCard: string;
+  //  onMouse: (id: number) => void;
+}
 
-
-function MainCard (props: MainCardProps): JSX.Element {
-  const {card, onMouse} = props;
+function Card({card, typeCard}: CardProps): JSX.Element {
+  // const {card, onMouse} = props;
   const {
     price,
-    type,
     title,
     isPremium,
     rating,
+    type,
     previewImage,
     isFavorite,
     id,
@@ -27,12 +26,17 @@ function MainCard (props: MainCardProps): JSX.Element {
   const ratingPercentValue = getRatingPercentValue(rating);
 
   return (
-    <article className="cities__place-card place-card" onMouseEnter={() => onMouse(id)} onMouseLeave={() => onMouse(0)}>
-      {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+    // <article className="cities__place-card place-card" onMouseEnter={() => onMouse(id)} onMouseLeave={() => onMouse(0)}/>
+    <article className={`place-card ${typeCard === 'main' ? 'cities__place-card' : 'near-places__card'}`}>
+
+      {isPremium && typeCard === 'main' ? <div className="place-card__mark"><span>Premium</span></div> : ''}
+
+      <div className={`place-card__image-wrapper ${typeCard === 'main' ? 'cities__image-wrapper' :  'near-places__image-wrapper'}`}>
+
         <Link to={`${AppRoute.Room}/${ id }`}>
-          <img className="place-card__image" src={previewImage} width="260" height="200" alt={title} />
+          <img className="place-card__image" src={previewImage} width="260" height="200" alt={title}/>
         </Link>
+
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -44,7 +48,7 @@ function MainCard (props: MainCardProps): JSX.Element {
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"/>
             </svg>
-            <span className="visually-hidden">To bookmarks</span>
+            <span className="visually-hidden">In bookmarks</span>
           </button>
         </div>
         <div className="place-card__rating rating">
@@ -62,4 +66,5 @@ function MainCard (props: MainCardProps): JSX.Element {
   );
 }
 
-export default MainCard;
+
+export default Card;

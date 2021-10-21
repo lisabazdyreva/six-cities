@@ -1,16 +1,14 @@
 import {Offers} from '../../types/offer';
-import NearbyCard from '../nearby-card/nearby-card';
+import React from 'react';
+import CardsList from '../cards-list/cards-list';
 
 type NearbyCardsListProps = {
   cards: Offers;
 };
 
 function NearbyCardsList({cards}: NearbyCardsListProps): JSX.Element {
-
   return (
-    <div className="near-places__list places__list">
-      {cards.map((card) => <NearbyCard card={card} key={card.id}/>)}
-    </div>
+    <CardsList cards={cards} type={'nearby'} />
   );
 }
 
