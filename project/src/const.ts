@@ -80,12 +80,14 @@ const enum IconsURL {
   Current = 'img/pin-active.svg',
 }
 
-const IconsParams: {
-  ICON_SIZE: PointExpression,
-  ICON_ANCHOR: PointExpression,
-} = {
-  ICON_SIZE: [27, 39],
-  ICON_ANCHOR: [14, 39],
-}; // посмотреть в критериях как грамотно записать
+interface IconParams {
+  IconSize: PointExpression,
+  IconAnchor: PointExpression,
+}
+
+const IconsParams: IconParams = {
+  IconSize: [27, 39],
+  IconAnchor: [14, 39],
+};
 
 export {AppRoute, AuthorizationStatus, Locations, Users, Months, IconsParams, IconsURL};
