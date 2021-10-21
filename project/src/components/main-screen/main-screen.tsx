@@ -9,11 +9,14 @@ import {AppRoute} from '../../const';
 
 import Map from '../map/map';
 
+import {MapStylesProperties} from '../../const';
+
 
 type MainScreenProps = {
   rentOffersValue: number;
   offers: Offers;
 };
+
 
 function MainScreen({rentOffersValue, offers}: MainScreenProps): JSX.Element {
   return (
@@ -85,9 +88,12 @@ function MainScreen({rentOffersValue, offers}: MainScreenProps): JSX.Element {
                   />
                 </section>
                 <div className="cities__right-section">
-                  <Map
-                    cards={offers}
-                  />
+                  <section className="cities__map map">
+                    <Map
+                      cards={offers}
+                      styles={MapStylesProperties.MainPage}
+                    />
+                  </section>
                 </div>
               </div>
             </div> :

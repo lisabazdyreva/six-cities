@@ -5,7 +5,7 @@ const Ids = {
   AMSTERDAM_APARTMENT: 111,
   AMSTERDAM_ROOM: 222,
   AMSTERDAM_HOUSE: 333,
-  AMSTERDAM_HOTEL: 444
+  AMSTERDAM_HOTEL: 444,
 } as const;
 
 export const offers: Offers = [

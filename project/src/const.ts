@@ -1,4 +1,5 @@
 import {PointExpression} from 'leaflet';
+import {CSSProperties} from 'react';
 
 enum AppRoute {
   Main = '/',
@@ -90,4 +91,15 @@ const IconsParams: IconParams = {
   IconAnchor: [14, 39],
 };
 
-export {AppRoute, AuthorizationStatus, Locations, Users, Months, IconsParams, IconsURL};
+interface MapStylesProperties {
+  MainPage: CSSProperties,
+  OfferPage: CSSProperties,
+}
+
+const MapStylesProperties: MapStylesProperties = {
+  MainPage: {height: '100%'},
+  OfferPage: {width: '1144px', height: '100%', margin: '0 auto'},
+};
+
+
+export {AppRoute, AuthorizationStatus, Locations, Users, Months, IconsParams, IconsURL, MapStylesProperties};

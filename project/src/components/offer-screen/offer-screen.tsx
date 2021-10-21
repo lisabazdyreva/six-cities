@@ -8,7 +8,9 @@ import {useParams, Link} from 'react-router-dom';
 
 import OfferCard from '../offer-card/offer-card';
 
-import {AppRoute} from '../../const';
+import {AppRoute, MapStylesProperties} from '../../const';
+
+import Map from '../map/map';
 
 type OfferScreenType = {
   offers: Offers;
@@ -31,6 +33,9 @@ function OfferScreen({offers, reviews}: OfferScreenType): JSX.Element {
               reviews={reviews}
               card={card}
             />
+            <section className="property__map map">
+              <Map cards={offers} styles={MapStylesProperties.OfferPage}/>
+            </section>
           </section>
           <div className="container">
             <section className="near-places places">
