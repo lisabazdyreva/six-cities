@@ -81,22 +81,22 @@ const enum IconsURL {
   Current = 'img/pin-active.svg',
 }
 
-interface IconParams {
+interface IconParamsTypes {
   IconSize: PointExpression,
   IconAnchor: PointExpression,
 }
 
-const IconsParams: IconParams = {
+const IconsParams: IconParamsTypes = {
   IconSize: [27, 39],
   IconAnchor: [14, 39],
 };
 
-interface MapStylesProperties {
+interface MapStylesPropertiesTypes {
   MainPage: CSSProperties,
   OfferPage: CSSProperties,
 }
 
-const MapStylesProperties: MapStylesProperties = {
+const MapStylesProperties: MapStylesPropertiesTypes = {
   MainPage: {height: '100%'},
   OfferPage: {width: '1144px', height: '100%', margin: '0 auto'},
 };
