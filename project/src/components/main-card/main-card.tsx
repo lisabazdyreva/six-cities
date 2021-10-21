@@ -4,13 +4,13 @@ import {Offer} from '../../types/offer';
 
 import {AppRoute} from '../../const';
 
-type CardProps = {
+type MainCardProps = {
   card: Offer;
   onMouse: (id: number) => void;
 };
 
 
-function Card (props: CardProps): JSX.Element {
+function MainCard (props: MainCardProps): JSX.Element {
   const {card, onMouse} = props;
   const {
     price,
@@ -62,4 +62,4 @@ function Card (props: CardProps): JSX.Element {
   );
 }
 
-export default Card;
+export default MainCard;

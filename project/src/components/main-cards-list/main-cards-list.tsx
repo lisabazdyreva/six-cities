@@ -1,21 +1,21 @@
 import React, {useState}  from 'react';
 
-import Card from '../card/card';
+import MainCard from '../main-card/main-card';
 
 import {Offers} from '../../types/offer';
 
-type CardsListProps = {
+type MainCardsListProps = {
   cards: Offers;
 };
 
 
-function CardsList ({cards} : CardsListProps): JSX.Element {
+function MainCardsList ({cards} : MainCardsListProps): JSX.Element {
   const [activeItem, setActiveItem] = useState<number>(0);
 
   return (
     <div className="cities__places-list places__list tabs__content">
       {cards.map((card) => (
-        <Card
+        <MainCard
           card={card}
           key={card.id + card.type}
           onMouse={(id) => setActiveItem(id)}
@@ -26,4 +26,4 @@ function CardsList ({cards} : CardsListProps): JSX.Element {
   );
 }
 
-export default CardsList;
+export default MainCardsList;

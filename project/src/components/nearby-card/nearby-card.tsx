@@ -2,11 +2,11 @@ import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import {Offer} from '../../types/offer';
 
-type NearbyOfferProps = {
+type NearbyCardProps = {
   card: Offer;
 };
 
-function NearbyOffer({card}: NearbyOfferProps): JSX.Element {
+function NearbyCard({card}: NearbyCardProps): JSX.Element {
 
   return (
     <article className="near-places__card place-card">
@@ -43,4 +43,4 @@ function NearbyOffer({card}: NearbyOfferProps): JSX.Element {
   );
 }
 
-export default NearbyOffer;
+export default NearbyCard;

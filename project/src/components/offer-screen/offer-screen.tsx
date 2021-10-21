@@ -11,7 +11,7 @@ import OfferCard from '../offer-card/offer-card';
 import {MapStylesProperties} from '../../const';
 
 import Map from '../map/map';
-import NearbyOffersList from '../nearby-offers-list/nearby-offers-list';
+import NearbyCardsList from '../nearby-cards-list/nearby-cards-list';
 
 type OfferScreenType = {
   offers: Offers;
@@ -45,7 +45,7 @@ function OfferScreen({offers, reviews}: OfferScreenType): JSX.Element {
           <div className="container">
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
-              <NearbyOffersList
+              <NearbyCardsList
                 cards={nearbyOffers}
               />
             </section>

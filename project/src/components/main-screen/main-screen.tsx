@@ -1,5 +1,5 @@
 import Icons from '../icons/icons';
-import CardsList from '../cards-list/cards-list';
+import MainCardsList from '../main-cards-list/main-cards-list';
 import Header from '../header/header';
 
 import {Offers} from '../../types/offer';
@@ -83,7 +83,7 @@ function MainScreen({rentOffersValue, offers}: MainScreenProps): JSX.Element {
                       <li className="places__option" tabIndex={0}>Top rated first</li>
                     </ul>
                   </form>
-                  <CardsList
+                  <MainCardsList
                     cards={offers}
                   />
                 </section>
