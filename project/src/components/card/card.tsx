@@ -9,10 +9,10 @@ import {formatType, getRatingPercentValue} from '../../utils';
 type CardProps = {
   card: Offer;
   typeCard: string;
-  onMouse?: (id: number) => void;
+  onCardHover?: (id: number) => void;
 }
 
-function Card({card, typeCard, onMouse}: CardProps): JSX.Element {
+function Card({card, typeCard, onCardHover}: CardProps): JSX.Element {
 
   const {
     price,
@@ -30,14 +30,14 @@ function Card({card, typeCard, onMouse}: CardProps): JSX.Element {
 
 
   const handleCardEnter = () => {
-    if (onMouse) {
-      onMouse(id);
+    if (onCardHover) {
+      onCardHover(id);
     }
   };
 
   const handleCardLeave = () => {
-    if (onMouse) {
-      onMouse(0);
+    if (onCardHover) {
+      onCardHover(0);
     }
   };
 

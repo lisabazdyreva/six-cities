@@ -18,7 +18,7 @@ function CardsList({cards, type}: CardsListProps): JSX.Element {
   return (
     <div className={`places__list ${type === 'main' ? 'cities__places-list tabs__content' : 'near-places__list'}`}>
       {type === CardTypes.Main
-        ? cards.map((card) => <Card card={card} key={card.id} typeCard={type} onMouse={(id) => setActiveItem(id)}/>)
+        ? cards.map((card) => <Card card={card} key={card.id} typeCard={type} onCardHover={(id) => setActiveItem(id)}/>)
         : cards.map((card) => <Card card={card} key={card.id} typeCard={type}/>)}
       {activeItem} {/* временно, чтобы eslint не ругался*/}
     </div>
