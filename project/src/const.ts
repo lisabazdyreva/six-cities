@@ -1,4 +1,5 @@
 import {PointExpression} from 'leaflet';
+import {CSSProperties} from 'react';
 
 enum AppRoute {
   Main = '/',
@@ -80,12 +81,37 @@ const enum IconsURL {
   Current = 'img/pin-active.svg',
 }
 
-const IconsParams: {
-  ICON_SIZE: PointExpression,
-  ICON_ANCHOR: PointExpression,
-} = {
-  ICON_SIZE: [27, 39],
-  ICON_ANCHOR: [14, 39],
-}; // посмотреть в критериях как грамотно записать
+interface IconParamsTypes {
+  IconSize: PointExpression,
+  IconAnchor: PointExpression,
+}
 
-export {AppRoute, AuthorizationStatus, Locations, Users, Months, IconsParams, IconsURL};
+const IconsParams: IconParamsTypes = {
+  IconSize: [27, 39],
+  IconAnchor: [14, 39],
+};
+
+interface MapStylesPropertiesTypes {
+  MainPage: CSSProperties,
+  OfferPage: CSSProperties,
+}
+
+const MapStylesProperties: MapStylesPropertiesTypes = {
+  MainPage: {height: '100%'},
+  OfferPage: {width: '1144px', height: '100%', margin: '0 auto'},
+};
+
+const enum CardTypes {
+  Main = 'Main',
+  Offer = 'Offer',
+}
+
+const enum CardStyles {
+  ArticleMain = 'cities__place-card',
+  ArticleOffer = 'near-places__card',
+  WrapperMain = 'cities__image-wrapper',
+  WrapperOffer = 'near-places__image-wrapper',
+}
+
+
+export {AppRoute, AuthorizationStatus, Locations, Users, Months, IconsParams, IconsURL, MapStylesProperties, CardTypes, CardStyles};

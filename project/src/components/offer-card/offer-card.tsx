@@ -5,7 +5,6 @@ import {getRatingPercentValue, formatType} from '../../utils';
 
 import type {Offer} from '../../types/offer';
 import type {Reviews} from '../../types/review';
-
 type OfferCardProps = {
   card: Offer;
   reviews: Reviews;
@@ -113,7 +112,6 @@ function OfferCard({card, reviews}: OfferCardProps): JSX.Element {
           </section>
         </div>
       </div>
-      <section className="property__map map"/>
     </>
   );
 }

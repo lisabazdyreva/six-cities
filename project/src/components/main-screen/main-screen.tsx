@@ -1,5 +1,5 @@
 import Icons from '../icons/icons';
-import CardsList from '../cards-list/cards-list';
+import MainCardsList from '../main-cards-list/main-cards-list';
 import Header from '../header/header';
 
 import {Offers} from '../../types/offer';
@@ -9,11 +9,14 @@ import {AppRoute} from '../../const';
 
 import Map from '../map/map';
 
+import {MapStylesProperties} from '../../const';
+
 
 type MainScreenProps = {
   rentOffersValue: number;
   offers: Offers;
 };
+
 
 function MainScreen({rentOffersValue, offers}: MainScreenProps): JSX.Element {
   return (
@@ -80,14 +83,17 @@ function MainScreen({rentOffersValue, offers}: MainScreenProps): JSX.Element {
                       <li className="places__option" tabIndex={0}>Top rated first</li>
                     </ul>
                   </form>
-                  <CardsList
+                  <MainCardsList
                     cards={offers}
                   />
                 </section>
                 <div className="cities__right-section">
-                  <Map
-                    cards={offers}
-                  />
+                  <section className="cities__map map">
+                    <Map
+                      cards={offers}
+                      styles={MapStylesProperties.MainPage}
+                    />
+                  </section>
                 </div>
               </div>
             </div> :

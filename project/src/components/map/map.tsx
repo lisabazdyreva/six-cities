@@ -1,4 +1,4 @@
-import {useRef, useEffect} from 'react';
+import {useRef, useEffect, CSSProperties} from 'react';
 import useMap from '../../hooks/useMap';
 
 import {Icon, Marker} from 'leaflet';
@@ -11,22 +11,23 @@ import {Offers} from '../../types/offer';
 
 const defaultCustomIcon = new Icon({
   iconUrl: IconsURL.Default,
-  iconSize: IconsParams.ICON_SIZE,
-  iconAnchor: IconsParams.ICON_ANCHOR,
+  iconSize: IconsParams.IconSize,
+  iconAnchor: IconsParams.IconAnchor,
 });
 
 const currentCustomIcon = new Icon({
   iconUrl: IconsURL.Current,
-  iconSize: IconsParams.ICON_SIZE,
-  iconAnchor: IconsParams.ICON_ANCHOR,
+  iconSize: IconsParams.IconSize,
+  iconAnchor: IconsParams.IconAnchor,
 });
 
 type MapProps = {
   cards: Offers,
+  styles?: CSSProperties,
 };
 
 
-function Map({cards}: MapProps): JSX.Element {
+function Map({cards, styles}: MapProps): JSX.Element {
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, offers[0]);
@@ -52,9 +53,9 @@ function Map({cards}: MapProps): JSX.Element {
 
 
   return (
-    <section
-      className="cities__map map"
+    <div
       ref={mapRef}
+      style={styles}
     />
   );
 }
