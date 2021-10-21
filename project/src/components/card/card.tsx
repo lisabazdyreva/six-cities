@@ -6,11 +6,11 @@ import {formatType, getRatingPercentValue} from '../../utils';
 type CardProps = {
   card: Offer;
   typeCard: string;
-  //  onMouse: (id: number) => void;
+  onMouse?: (id: number) => void;
 }
 
-function Card({card, typeCard}: CardProps): JSX.Element {
-  // const {card, onMouse} = props;
+function Card({card, typeCard, onMouse}: CardProps): JSX.Element {
+
   const {
     price,
     title,
@@ -25,9 +25,22 @@ function Card({card, typeCard}: CardProps): JSX.Element {
   const typeText = formatType(type);
   const ratingPercentValue = getRatingPercentValue(rating);
 
+
+  const handleCardEnter = () => {
+    if (onMouse) {
+      onMouse(id);
+    }
+  };
+
+  const handleCardLeave = () => {
+    if (onMouse) {
+      onMouse(0);
+    }
+  };
+
+
   return (
-    // <article className="cities__place-card place-card" onMouseEnter={() => onMouse(id)} onMouseLeave={() => onMouse(0)}/>
-    <article className={`place-card ${typeCard === 'main' ? 'cities__place-card' : 'near-places__card'}`}>
+    <article className={`place-card ${typeCard === 'main' ? 'cities__place-card' : 'near-places__card'}`} onMouseEnter={handleCardEnter} onMouseLeave={handleCardLeave}>
 
       {isPremium && typeCard === 'main' ? <div className="place-card__mark"><span>Premium</span></div> : ''}
 

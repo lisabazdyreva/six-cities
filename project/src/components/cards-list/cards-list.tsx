@@ -1,5 +1,5 @@
 import {Offers} from '../../types/offer';
-import React from 'react';
+import React, {useState}  from 'react';
 import Card from '../card/card';
 
 type CardsListProps = {
@@ -8,9 +8,15 @@ type CardsListProps = {
 }
 
 function CardsList({cards, type}: CardsListProps): JSX.Element {
+
+  const [activeItem, setActiveItem] = useState<number>(0);
+
   return (
     <div className={`places__list ${type === 'main' ? 'cities__places-list tabs__content' : 'near-places__list'}`}>
-      {cards.map((card) => <Card card={card} key={card.id} typeCard={type}/>)}
+      {type === 'main'
+        ? cards.map((card) => <Card card={card} key={card.id} typeCard={type} onMouse={(id) => setActiveItem(id)}/>)
+        : cards.map((card) => <Card card={card} key={card.id} typeCard={type}/>)}
+      {activeItem} {/* временно, чтобы eslint не ругался*/}
     </div>
 
   );

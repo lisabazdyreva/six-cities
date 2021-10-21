@@ -8,7 +8,7 @@ type NearbyCardsListProps = {
 
 function NearbyCardsList({cards}: NearbyCardsListProps): JSX.Element {
   return (
-    <CardsList cards={cards} type={'nearby'} />
+    <CardsList cards={cards} type='nearby' />
   );
 }
 
