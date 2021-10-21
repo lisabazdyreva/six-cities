@@ -101,5 +101,17 @@ const MapStylesProperties: MapStylesPropertiesTypes = {
   OfferPage: {width: '1144px', height: '100%', margin: '0 auto'},
 };
 
+const enum CardTypes {
+  Main = 'Main',
+  Offer = 'Offer',
+}
 
-export {AppRoute, AuthorizationStatus, Locations, Users, Months, IconsParams, IconsURL, MapStylesProperties};
+const enum CardStyles {
+  ArticleMain = 'cities__place-card',
+  ArticleOffer = 'near-places__card',
+  WrapperMain = 'cities__image-wrapper',
+  WrapperOffer = 'near-places__image-wrapper',
+}
+
+
+export {AppRoute, AuthorizationStatus, Locations, Users, Months, IconsParams, IconsURL, MapStylesProperties, CardTypes, CardStyles};

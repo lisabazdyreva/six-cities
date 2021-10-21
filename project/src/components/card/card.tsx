@@ -1,6 +1,9 @@
-import {Offer} from '../../types/offer';
+import React from 'react';
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const';
+
+import {Offer} from '../../types/offer';
+import {AppRoute, CardStyles, CardTypes} from '../../const';
+
 import {formatType, getRatingPercentValue} from '../../utils';
 
 type CardProps = {
@@ -40,11 +43,11 @@ function Card({card, typeCard, onMouse}: CardProps): JSX.Element {
 
 
   return (
-    <article className={`place-card ${typeCard === 'main' ? 'cities__place-card' : 'near-places__card'}`} onMouseEnter={handleCardEnter} onMouseLeave={handleCardLeave}>
+    <article className={`place-card ${typeCard === CardTypes.Main ? CardStyles.ArticleMain : CardStyles.ArticleOffer}`} onMouseEnter={handleCardEnter} onMouseLeave={handleCardLeave}>
 
-      {isPremium && typeCard === 'main' ? <div className="place-card__mark"><span>Premium</span></div> : ''}
+      {isPremium && (typeCard === CardTypes.Main) ? <div className="place-card__mark"><span>Premium</span></div> : ''}
 
-      <div className={`place-card__image-wrapper ${typeCard === 'main' ? 'cities__image-wrapper' :  'near-places__image-wrapper'}`}>
+      <div className={`place-card__image-wrapper ${typeCard === CardTypes.Main ? CardStyles.WrapperMain : CardStyles.WrapperOffer}`}>
 
         <Link to={`${AppRoute.Room}/${ id }`}>
           <img className="place-card__image" src={previewImage} width="260" height="200" alt={title}/>
