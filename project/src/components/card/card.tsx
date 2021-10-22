@@ -1,15 +1,17 @@
 import React from 'react';
+import classNames from 'classnames';
 import {Link} from 'react-router-dom';
 
 import {Offer} from '../../types/offer';
-import {AppRoute, CardStyles, CardTypes} from '../../const';
+import {AppRoute} from '../../const';
+import {isMainPage} from '../../utils';
 
 import {formatType, getRatingPercentValue} from '../../utils';
 
 type CardProps = {
   card: Offer;
   typeCard: string;
-  onCardHover?: (id: number) => void;
+  onCardHover: ((id: number) => void) | null;
 }
 
 function Card({card, typeCard, onCardHover}: CardProps): JSX.Element {
@@ -43,11 +45,25 @@ function Card({card, typeCard, onCardHover}: CardProps): JSX.Element {
 
 
   return (
-    <article className={`place-card ${typeCard === CardTypes.Main ? CardStyles.ArticleMain : CardStyles.ArticleOffer}`} onMouseEnter={handleCardEnter} onMouseLeave={handleCardLeave}>
+    <article
+      className={classNames(
+        'place-card',
+        {'cities__place-card': isMainPage(typeCard)},
+        {'near-places__card': !isMainPage(typeCard)},
+      )}
+      onMouseEnter={handleCardEnter}
+      onMouseLeave={handleCardLeave}
+    >
 
-      {isPremium && (typeCard === CardTypes.Main) ? <div className="place-card__mark"><span>Premium</span></div> : ''}
+      {isPremium && isMainPage(typeCard) ? <div className="place-card__mark"><span>Premium</span></div> : ''}
 
-      <div className={`place-card__image-wrapper ${typeCard === CardTypes.Main ? CardStyles.WrapperMain : CardStyles.WrapperOffer}`}>
+      <div
+        className={classNames(
+          'place-card__image-wrapper',
+          {'cities__image-wrapper': isMainPage(typeCard)},
+          {'near-places__image-wrapper': !isMainPage(typeCard)},
+        )}
+      >
 
         <Link to={`${AppRoute.Room}/${ id }`}>
           <img className="place-card__image" src={previewImage} width="260" height="200" alt={title}/>

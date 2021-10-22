@@ -106,12 +106,5 @@ const enum CardTypes {
   Offer = 'Offer',
 }
 
-const enum CardStyles {
-  ArticleMain = 'cities__place-card',
-  ArticleOffer = 'near-places__card',
-  WrapperMain = 'cities__image-wrapper',
-  WrapperOffer = 'near-places__image-wrapper',
-}
 
-
-export {AppRoute, AuthorizationStatus, Locations, Users, Months, IconsParams, IconsURL, MapStylesProperties, CardTypes, CardStyles};
+export {AppRoute, AuthorizationStatus, Locations, Users, Months, IconsParams, IconsURL, MapStylesProperties, CardTypes};
