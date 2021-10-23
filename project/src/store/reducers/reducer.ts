@@ -4,10 +4,11 @@ import {Actions, ActionType} from '../../types/action';
 import {offers} from '../../mocks/offers';
 
 //пока здесь полежит
-const INITIAL_CITY = 'Amsterdam'; // здесь должен быть в итоге Париж
+const INITIAL_CITY = 'Paris'; // здесь должен быть в итоге Париж
 const OFFERS = offers.filter((offer) => offer.city.name === INITIAL_CITY);
 
-
+//eslint-disable-next-line
+console.log(OFFERS);
 const initialState = {
   selectedCity: INITIAL_CITY,
   offers: OFFERS,

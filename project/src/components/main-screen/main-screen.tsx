@@ -51,9 +51,7 @@ function MainScreen({rentOffersValue, offers, cities}: MainScreenProps): JSX.Ele
                       <li className="places__option" tabIndex={0}>Top rated first</li>
                     </ul>
                   </form>
-                  <MainCardsList
-                    cards={offers}
-                  />
+                  <MainCardsList/>
                 </section>
                 <div className="cities__right-section">
                   <section className="cities__map map">

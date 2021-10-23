@@ -24,7 +24,7 @@ function CardsList({cards, type}: CardsListProps): JSX.Element {
         {'near-places__list': !isMainPage(type)})}
     >
       {
-        cards.map((card) => (
+        cards.length ? cards.map((card) => (
           <Card
             card={card}
             key={card.id}
@@ -33,7 +33,7 @@ function CardsList({cards, type}: CardsListProps): JSX.Element {
               ? (id) => setActiveItem(id)
               : null}
           />
-        ))
+        )) : ''
       }
       {activeItem} {/* временно, чтобы eslint не ругался*/}
     </div>
