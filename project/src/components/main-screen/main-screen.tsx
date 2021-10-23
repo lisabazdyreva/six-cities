@@ -1,3 +1,4 @@
+import React from 'react';
 import {connect, ConnectedProps} from 'react-redux';
 
 import {State} from '../../types/state';
@@ -7,6 +8,7 @@ import MainCardsList from '../main-cards-list/main-cards-list';
 import Header from '../header/header';
 import Map from '../map/map';
 import LocationsList from '../locations-list/locations-list';
+import NoOffers from '../no-offers/no-offers';
 
 import {MapStylesProperties} from '../../const';
 
@@ -77,20 +79,7 @@ function MainScreen({cards, selectedCity, cities}: ConnectedComponentProps): JSX
                 </div>
               </div>
             </div> :
-            <div className="cities">
-              <div className="cities__places-container cities__places-container--empty container">
-                <section className="cities__no-places">
-                  <div className="cities__status-wrapper tabs__content">
-                    <b className="cities__status">No places to stay available</b>
-                    <p className="cities__status-description">
-                      We could not find any property available at the moment in {selectedCity}
-                    </p>
-                  </div>
-                </section>
-                <div className="cities__right-section"/>
-              </div>
-            </div>}
-
+            <NoOffers city={selectedCity}/>}
         </main>
       </div>
     </>
