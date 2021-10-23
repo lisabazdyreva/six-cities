@@ -1,12 +1,14 @@
 import {useRef, useEffect, CSSProperties} from 'react';
-import useMap from '../../hooks/useMap';
-
 import {Icon, Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-import {offers} from '../../mocks/offers';
+
+import useMap from '../../hooks/useMap';
+
 import {IconsURL, IconsParams} from '../../const';
 import {Offers} from '../../types/offer';
+
+import {offers} from '../../mocks/offers';
 
 
 const defaultCustomIcon = new Icon({

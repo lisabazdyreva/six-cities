@@ -1,6 +1,6 @@
 import {Offers} from './offer';
 
 export type State = {
-  city: string,
+  selectedCity: string,
   offers: Offers,
 };

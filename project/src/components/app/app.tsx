@@ -1,4 +1,5 @@
 import React from 'react';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
 import MainScreen from '../main-screen/main-screen';
 import LoginScreen from '../login-screen/login-screen';
@@ -13,16 +14,17 @@ import {AppRoute, AuthorizationStatus} from '../../const';
 import type {Offers} from '../../types/offer';
 import type {Reviews} from '../../types/review';
 
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
-
 
 type AppScreenProps = {
   rentOffersValue: number;
   offers: Offers;
   reviews: Reviews;
+  cities: string[];
 };
 
-function App({rentOffersValue, offers, reviews}: AppScreenProps): JSX.Element {
+function App(props: AppScreenProps): JSX.Element {
+  const {rentOffersValue, offers, reviews, cities} = props;
+
   return (
     <BrowserRouter>
       <Switch>
@@ -30,6 +32,7 @@ function App({rentOffersValue, offers, reviews}: AppScreenProps): JSX.Element {
           <MainScreen
             rentOffersValue={rentOffersValue}
             offers={offers}
+            cities={cities}
           />
         </Route>
         <Route path={AppRoute.Login} exact >

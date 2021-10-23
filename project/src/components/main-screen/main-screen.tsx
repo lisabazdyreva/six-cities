@@ -1,24 +1,21 @@
 import Icons from '../icons/icons';
 import MainCardsList from '../main-cards-list/main-cards-list';
 import Header from '../header/header';
+import Map from '../map/map';
+import LocationsList from '../locations-list/locations-list';
 
 import {Offers} from '../../types/offer';
 
-import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const';
-
-import Map from '../map/map';
-
 import {MapStylesProperties} from '../../const';
-
 
 type MainScreenProps = {
   rentOffersValue: number;
   offers: Offers;
+  cities: string[];
 };
 
 
-function MainScreen({rentOffersValue, offers}: MainScreenProps): JSX.Element {
+function MainScreen({rentOffersValue, offers, cities}: MainScreenProps): JSX.Element {
   return (
     <>
       <Icons />
@@ -28,38 +25,9 @@ function MainScreen({rentOffersValue, offers}: MainScreenProps): JSX.Element {
           <h1 className="visually-hidden">Cities</h1>
           <div className="tabs">
             <section className="locations container">
-              <ul className="locations__list tabs__list">
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item" to={AppRoute.Main}>
-                    <span>Paris</span>
-                  </Link>
-                </li>
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item" to={AppRoute.Main}>
-                    <span>Cologne</span>
-                  </Link>
-                </li>
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item" to={AppRoute.Main}>
-                    <span>Brussels</span>
-                  </Link>
-                </li>
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item tabs__item--active" to={AppRoute.Main}>
-                    <span>Amsterdam</span>
-                  </Link>
-                </li>
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item" to={AppRoute.Main}>
-                    <span>Hamburg</span>
-                  </Link>
-                </li>
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item" to={AppRoute.Main}>
-                    <span>Dusseldorf</span>
-                  </Link>
-                </li>
-              </ul>
+              <LocationsList
+                cities={cities}
+              />
             </section>
           </div>
           {offers.length ?

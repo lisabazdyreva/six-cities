@@ -1,10 +1,10 @@
-import {ActionType, ChangeCityAction} from '../../types/action';
+import {ActionType, SelectActiveCityAction} from '../../types/action';
 import {Offers} from '../../types/offer';
 
-function changeCity (value: string): ChangeCityAction {
+function selectActiveCity(city: string): SelectActiveCityAction {
   return ({
-    type: ActionType.ChangeCity,
-    payload: value,
+    type: ActionType.SelectActiveCity,
+    payload: city,
   });
 }
 
@@ -15,4 +15,4 @@ function fillOffersList (offers: Offers) {
   });
 }
 
-export {changeCity, fillOffersList};
+export {selectActiveCity, fillOffersList};

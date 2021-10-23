@@ -1,7 +1,8 @@
+import {Link} from 'react-router-dom';
+
 import Icons from '../icons/icons';
 import Logo from '../logo/logo';
 
-import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 
 function LoginScreen(): JSX.Element {
