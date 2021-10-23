@@ -6,6 +6,7 @@ const Ids = {
   AMSTERDAM_ROOM: 222,
   AMSTERDAM_HOUSE: 333,
   AMSTERDAM_HOTEL: 444,
+  PARIS_APART: 555,
 } as const;
 
 export const offers: Offers = [
@@ -94,6 +95,31 @@ export const offers: Offers = [
     goods: ['Coffee machine', 'Heating', 'Breakfast', 'Dinner', 'Lunch', 'WiFi', 'Bar', 'Parking'],
     host: Users.Default,
     id: Ids.AMSTERDAM_HOTEL,
+    images: ['img/room.jpg'],
+    isFavorite: false,
+    isPremium: true,
+    location: {
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
+      zoom: 8,
+    },
+    maxAdults: 2,
+    previewImage: 'img/apartment-01.jpg',
+    price: 10000,
+    rating: 3.6,
+    title: 'Beautiful hotel at great location',
+    type: 'hotel',
+  },
+  {
+    bedrooms: 2,
+    city: {
+      location: Locations.Paris,
+      name: 'Paris',
+    },
+    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Brussels.',
+    goods: ['Coffee machine', 'Heating', 'Breakfast', 'Dinner', 'Lunch', 'WiFi', 'Bar', 'Parking'],
+    host: Users.Default,
+    id: Ids.PARIS_APART,
     images: ['img/room.jpg'],
     isFavorite: false,
     isPremium: true,

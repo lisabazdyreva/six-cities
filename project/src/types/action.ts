@@ -10,9 +10,9 @@ export type SelectActiveCityAction = {
   payload: string,
 };
 
-export type FillOffersList = {
+export type FillOffersListAction = {
   type: ActionType.FillOffersList,
   payload: Offers,
 }
 
-export type Actions = SelectActiveCityAction | FillOffersList;
+export type Actions = SelectActiveCityAction | FillOffersListAction;

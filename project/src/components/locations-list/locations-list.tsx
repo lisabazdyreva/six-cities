@@ -22,8 +22,10 @@ function mapDispatchToProps (dispatch: Dispatch) {
   return ({
     onCitySelect(evt: SyntheticEvent) { // точно ли выбран нормальный тип для события, т.к. без след. строчки ругается
       const element = evt.target as HTMLInputElement;
-      const updatedOffers = filterOffers(element.innerText);
-      dispatch(selectActiveCity(element.innerText));
+      const activeCity = element.innerText;
+      const updatedOffers = filterOffers(activeCity);
+
+      dispatch(selectActiveCity(activeCity));
       dispatch(fillOffersList(updatedOffers));
     },
   });
