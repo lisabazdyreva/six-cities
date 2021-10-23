@@ -16,22 +16,19 @@ import type {Reviews} from '../../types/review';
 
 
 type AppScreenProps = {
-  rentOffersValue: number;
   offers: Offers;
   reviews: Reviews;
   cities: string[];
 };
 
 function App(props: AppScreenProps): JSX.Element {
-  const {rentOffersValue, offers, reviews, cities} = props;
+  const {offers, reviews, cities} = props;
 
   return (
     <BrowserRouter>
       <Switch>
         <Route path={AppRoute.Main} exact>
           <MainScreen
-            rentOffersValue={rentOffersValue}
-            offers={offers}
             cities={cities}
           />
         </Route>

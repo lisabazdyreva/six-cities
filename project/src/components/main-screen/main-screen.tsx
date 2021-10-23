@@ -1,21 +1,35 @@
+import {connect, ConnectedProps} from 'react-redux';
+
+import {State} from '../../types/state';
+
 import Icons from '../icons/icons';
 import MainCardsList from '../main-cards-list/main-cards-list';
 import Header from '../header/header';
 import Map from '../map/map';
 import LocationsList from '../locations-list/locations-list';
 
-import {Offers} from '../../types/offer';
-
 import {MapStylesProperties} from '../../const';
 
+
+function mapStateToProps({offers, selectedCity}: State) {
+  return ({
+    cards: offers,
+    selectedCity,
+  });
+}
+
+const connector = connect(mapStateToProps);
+
 type MainScreenProps = {
-  rentOffersValue: number;
-  offers: Offers;
   cities: string[];
 };
 
+type PropsFromRedux = ConnectedProps<typeof connector>;
 
-function MainScreen({rentOffersValue, offers, cities}: MainScreenProps): JSX.Element {
+type ConnectedComponentProps = PropsFromRedux & MainScreenProps;
+
+
+function MainScreen({cards, selectedCity, cities}: ConnectedComponentProps): JSX.Element {
   return (
     <>
       <Icons />
@@ -30,12 +44,12 @@ function MainScreen({rentOffersValue, offers, cities}: MainScreenProps): JSX.Ele
               />
             </section>
           </div>
-          {offers.length ?
+          {cards.length ?
             <div className="cities">
               <div className="cities__places-container container">
                 <section className="cities__places places">
                   <h2 className="visually-hidden">Places</h2>
-                  <b className="places__found">{rentOffersValue} places to stay in Amsterdam</b>
+                  <b className="places__found">{cards.length} places to stay in {selectedCity}</b>
                   <form className="places__sorting" action="#" method="get">
                     <span className="places__sorting-caption">Sort by</span>
                     <span className="places__sorting-type" tabIndex={0}>
@@ -51,12 +65,12 @@ function MainScreen({rentOffersValue, offers, cities}: MainScreenProps): JSX.Ele
                       <li className="places__option" tabIndex={0}>Top rated first</li>
                     </ul>
                   </form>
-                  <MainCardsList/>
+                  <MainCardsList cards={cards}/>
                 </section>
                 <div className="cities__right-section">
                   <section className="cities__map map">
                     <Map
-                      cards={offers}
+                      cards={cards}
                       styles={MapStylesProperties.MainPage}
                     />
                   </section>
@@ -69,7 +83,7 @@ function MainScreen({rentOffersValue, offers, cities}: MainScreenProps): JSX.Ele
                   <div className="cities__status-wrapper tabs__content">
                     <b className="cities__status">No places to stay available</b>
                     <p className="cities__status-description">
-                      We could not find any property available at the moment in Dusseldorf
+                      We could not find any property available at the moment in {selectedCity}
                     </p>
                   </div>
                 </section>
@@ -83,4 +97,5 @@ function MainScreen({rentOffersValue, offers, cities}: MainScreenProps): JSX.Ele
   );
 }
 
-export default MainScreen;
+export {MainScreen};
+export default connector(MainScreen);

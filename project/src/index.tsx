@@ -14,9 +14,6 @@ import {CITIES} from './const';
 import {offers} from './mocks/offers';
 import {reviews} from './mocks/reviews';
 
-const Setting = {
-  RENT_OFFERS_VALUE: 312,
-};
 
 const store = createStore(
   reducer,
@@ -27,7 +24,6 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <App
-        rentOffersValue = {Setting.RENT_OFFERS_VALUE}
         offers={offers}
         reviews={reviews}
         cities={CITIES}
