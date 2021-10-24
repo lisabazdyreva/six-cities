@@ -7,8 +7,7 @@ import {offers} from '../../mocks/offers';
 const INITIAL_CITY = 'Paris'; // здесь должен быть в итоге Париж
 const OFFERS = offers.filter((offer) => offer.city.name === INITIAL_CITY);
 
-//eslint-disable-next-line
-console.log(OFFERS);
+
 const initialState = {
   selectedCity: INITIAL_CITY,
   offers: OFFERS,

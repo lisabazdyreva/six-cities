@@ -124,8 +124,8 @@ export const offers: Offers = [
     isFavorite: false,
     isPremium: true,
     location: {
-      latitude: 52.3809553943508,
-      longitude: 4.939309666406198,
+      latitude: 48.864716,
+      longitude: 2.349014,
       zoom: 8,
     },
     maxAdults: 2,

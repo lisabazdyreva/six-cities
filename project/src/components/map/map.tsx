@@ -1,14 +1,11 @@
-import {useRef, useEffect, CSSProperties} from 'react';
-import {Icon, Marker} from 'leaflet';
+import React, {useRef, useEffect, CSSProperties} from 'react';
+import {Icon, LayerGroup, Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-
 
 import useMap from '../../hooks/useMap';
 
 import {IconsURL, IconsParams} from '../../const';
 import {Offers} from '../../types/offer';
-
-import {offers} from '../../mocks/offers';
 
 
 const defaultCustomIcon = new Icon({
@@ -17,11 +14,11 @@ const defaultCustomIcon = new Icon({
   iconAnchor: IconsParams.IconAnchor,
 });
 
-const currentCustomIcon = new Icon({
-  iconUrl: IconsURL.Current,
-  iconSize: IconsParams.IconSize,
-  iconAnchor: IconsParams.IconAnchor,
-});
+// const currentCustomIcon = new Icon({
+//   iconUrl: IconsURL.Current,
+//   iconSize: IconsParams.IconSize,
+//   iconAnchor: IconsParams.IconAnchor,
+// });
 
 type MapProps = {
   cards: Offers,
@@ -30,9 +27,17 @@ type MapProps = {
 
 
 function Map({cards, styles}: MapProps): JSX.Element {
+  const layerIconsGroup = new LayerGroup();
+
+  const [locationCard] = cards;
+  const location = locationCard.location;
 
   const mapRef = useRef(null);
-  const map = useMap(mapRef, offers[0]);
+  const map = useMap(mapRef, location);
+
+  function clearMap(): void {
+    layerIconsGroup.clearLayers();
+  }
 
   useEffect(() => {
     if (map) {
@@ -42,17 +47,13 @@ function Map({cards, styles}: MapProps): JSX.Element {
           lng: card.location.longitude,
         });
 
-        if (card.title === 'Beautiful & luxurious apartment at great location') {
-          marker.setIcon(currentCustomIcon).addTo(map);
-        } else {
-          marker.setIcon(defaultCustomIcon).addTo(map);
-        } // временно, чтобы не ругался за неиспользование currentCustomIcon
-
-
+        marker.setIcon(defaultCustomIcon);
+        marker.addTo(layerIconsGroup);
       });
+      layerIconsGroup.addTo(map);
     }
+    return () => clearMap();
   }, [map, cards]);
-
 
   return (
     <div
