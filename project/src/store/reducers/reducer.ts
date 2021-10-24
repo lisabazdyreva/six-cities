@@ -4,7 +4,7 @@ import {Actions, ActionType} from '../../types/action';
 import {offers} from '../../mocks/offers';
 
 //пока здесь полежит
-const INITIAL_CITY = 'Paris'; // здесь должен быть в итоге Париж
+const INITIAL_CITY = 'Paris';
 const OFFERS = offers.filter((offer) => offer.city.name === INITIAL_CITY);
 
 

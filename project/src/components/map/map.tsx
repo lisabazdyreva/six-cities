@@ -18,7 +18,7 @@ const defaultCustomIcon = new Icon({
 //   iconUrl: IconsURL.Current,
 //   iconSize: IconsParams.IconSize,
 //   iconAnchor: IconsParams.IconAnchor,
-// });
+// }); пока так оставила
 
 type MapProps = {
   cards: Offers,
