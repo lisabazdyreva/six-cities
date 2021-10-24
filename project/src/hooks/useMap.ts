@@ -4,7 +4,6 @@ import type {Location} from '../types/offer';
 
 import {Map, TileLayer} from 'leaflet';
 
-
 function useMap(mapRef: MutableRefObject<HTMLElement | null>, location: Location): Map | null {
   const [map, setMap] = useState<Map | null>(null);
 
@@ -30,7 +29,6 @@ function useMap(mapRef: MutableRefObject<HTMLElement | null>, location: Location
       setMap(instance);
     }
   }, [mapRef, map, location]);
-
   return map;
 }
 

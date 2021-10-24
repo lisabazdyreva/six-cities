@@ -23,10 +23,12 @@ const defaultCustomIcon = new Icon({
 type MapProps = {
   cards: Offers,
   styles?: CSSProperties,
+  activeCity? : string,
 };
 
+let prevActiveCity: any;
 
-function Map({cards, styles}: MapProps): JSX.Element {
+function Map({cards, activeCity, styles}: MapProps): JSX.Element {
   const layerIconsGroup = new LayerGroup();
 
   const [locationCard] = cards;
@@ -51,6 +53,15 @@ function Map({cards, styles}: MapProps): JSX.Element {
         marker.addTo(layerIconsGroup);
       });
       layerIconsGroup.addTo(map);
+
+      if (prevActiveCity !== activeCity) {
+        map.flyTo({
+          lat: location.latitude,
+          lng: location.longitude,
+        }, location.zoom);
+        prevActiveCity = activeCity;
+      }
+
     }
     return () => clearMap();
   }, [map, cards]);

@@ -32,6 +32,8 @@ type ConnectedComponentProps = PropsFromRedux & MainScreenProps;
 
 
 function MainScreen({cards, selectedCity, cities}: ConnectedComponentProps): JSX.Element {
+  const cardsLength = cards.length;
+
   return (
     <>
       <Icons />
@@ -51,7 +53,7 @@ function MainScreen({cards, selectedCity, cities}: ConnectedComponentProps): JSX
               <div className="cities__places-container container">
                 <section className="cities__places places">
                   <h2 className="visually-hidden">Places</h2>
-                  <b className="places__found">{cards.length} places to stay in {selectedCity}</b>
+                  <b className="places__found">{cardsLength} {cardsLength === 1 ? 'place' : 'places'} to stay in {selectedCity}</b>
                   <form className="places__sorting" action="#" method="get">
                     <span className="places__sorting-caption">Sort by</span>
                     <span className="places__sorting-type" tabIndex={0}>
@@ -74,6 +76,7 @@ function MainScreen({cards, selectedCity, cities}: ConnectedComponentProps): JSX
                     <Map
                       cards={cards}
                       styles={MapStylesProperties.MainPage}
+                      activeCity={selectedCity}
                     />
                   </section>
                 </div>
