@@ -26,22 +26,17 @@ type MapProps = {
   activeCity? : string,
 };
 
-let prevActiveCity: any;
+let prevActiveCity: string | undefined;
 
 function Map({cards, activeCity, styles}: MapProps): JSX.Element {
-  const layerIconsGroup = new LayerGroup();
-
   const [locationCard] = cards;
   const location = locationCard.location;
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, location);
 
-  function clearMap(): void {
-    layerIconsGroup.clearLayers();
-  }
-
   useEffect(() => {
+    const layerIconsGroup = new LayerGroup();
     if (map) {
       cards.forEach((card) => {
         const marker = new Marker({
@@ -63,8 +58,8 @@ function Map({cards, activeCity, styles}: MapProps): JSX.Element {
       }
 
     }
-    return () => clearMap();
-  }, [map, cards]);
+    return () => {layerIconsGroup.clearLayers();};
+  }, [map, cards,  activeCity, location]);
 
   return (
     <div
