@@ -1,10 +1,9 @@
-import {useRef, useEffect, CSSProperties} from 'react';
-import useMap from '../../hooks/useMap';
-
-import {Icon, Marker} from 'leaflet';
+import React, {useRef, useEffect, CSSProperties} from 'react';
+import {Icon, LayerGroup, Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-import {offers} from '../../mocks/offers';
+import useMap from '../../hooks/useMap';
+
 import {IconsURL, IconsParams} from '../../const';
 import {Offers} from '../../types/offer';
 
@@ -15,24 +14,29 @@ const defaultCustomIcon = new Icon({
   iconAnchor: IconsParams.IconAnchor,
 });
 
-const currentCustomIcon = new Icon({
-  iconUrl: IconsURL.Current,
-  iconSize: IconsParams.IconSize,
-  iconAnchor: IconsParams.IconAnchor,
-});
+// const currentCustomIcon = new Icon({
+//   iconUrl: IconsURL.Current,
+//   iconSize: IconsParams.IconSize,
+//   iconAnchor: IconsParams.IconAnchor,
+// }); пока так оставила
 
 type MapProps = {
   cards: Offers,
   styles?: CSSProperties,
+  activeCity? : string,
 };
 
+let prevActiveCity: string | undefined;
 
-function Map({cards, styles}: MapProps): JSX.Element {
+function Map({cards, activeCity, styles}: MapProps): JSX.Element {
+  const [locationCard] = cards;
+  const location = locationCard.location;
 
   const mapRef = useRef(null);
-  const map = useMap(mapRef, offers[0]);
+  const map = useMap(mapRef, location);
 
   useEffect(() => {
+    const layerIconsGroup = new LayerGroup();
     if (map) {
       cards.forEach((card) => {
         const marker = new Marker({
@@ -40,17 +44,22 @@ function Map({cards, styles}: MapProps): JSX.Element {
           lng: card.location.longitude,
         });
 
-        if (card.title === 'Beautiful & luxurious apartment at great location') {
-          marker.setIcon(currentCustomIcon).addTo(map);
-        } else {
-          marker.setIcon(defaultCustomIcon).addTo(map);
-        } // временно, чтобы не ругался за неиспользование currentCustomIcon
-
-
+        marker.setIcon(defaultCustomIcon);
+        marker.addTo(layerIconsGroup);
       });
-    }
-  }, [map, cards]);
+      layerIconsGroup.addTo(map);
 
+      if (prevActiveCity !== activeCity) {
+        map.flyTo({
+          lat: location.latitude,
+          lng: location.longitude,
+        }, location.zoom);
+        prevActiveCity = activeCity;
+      }
+
+    }
+    return () => {layerIconsGroup.clearLayers();};
+  }, [map, cards,  activeCity, location]);
 
   return (
     <div

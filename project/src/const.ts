@@ -15,8 +15,19 @@ enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-const Months = ['January', 'February', 'March', 'April', 'May', 'June',
-  'July', 'August', 'September', 'October', 'November', 'December',
+const Months = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
 ] as const;
 
 // для моков, потом удалить
@@ -43,9 +54,9 @@ const Users = {
 
 
 const Locations = {
-  Amsterdam: {
-    latitude: 52.370216,
-    longitude: 4.895168,
+  Paris: {
+    latitude: 48.864716,
+    longitude: 2.349014,
     zoom: 10,
   },
   Cologne: {
@@ -53,14 +64,14 @@ const Locations = {
     longitude: 6.953101,
     zoom: 10,
   },
-  Paris: {
-    latitude: 48.864716,
-    longitude: 2.349014,
-    zoom: 10,
-  },
   Brussels: {
     latitude: 50.8503396,
     longitude: 4.3517103,
+    zoom: 10,
+  },
+  Amsterdam: {
+    latitude: 52.370216,
+    longitude: 4.895168,
     zoom: 10,
   },
   Hamburg: {
@@ -75,6 +86,7 @@ const Locations = {
   },
 } as const;
 
+const CITIES = Object.keys(Locations);
 
 const enum IconsURL {
   Default = 'img/pin.svg',
@@ -106,12 +118,5 @@ const enum CardTypes {
   Offer = 'Offer',
 }
 
-const enum CardStyles {
-  ArticleMain = 'cities__place-card',
-  ArticleOffer = 'near-places__card',
-  WrapperMain = 'cities__image-wrapper',
-  WrapperOffer = 'near-places__image-wrapper',
-}
 
-
-export {AppRoute, AuthorizationStatus, Locations, Users, Months, IconsParams, IconsURL, MapStylesProperties, CardTypes, CardStyles};
+export {AppRoute, AuthorizationStatus, Locations, Users, Months, IconsParams, IconsURL, MapStylesProperties, CardTypes, CITIES};

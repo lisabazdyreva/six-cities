@@ -1,7 +1,8 @@
+import {Link} from 'react-router-dom';
+
 import {formatType, getRatingPercentValue} from '../../utils';
 import {Offers, Offer} from '../../types/offer';
 
-import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 
 type FavoriteCardsProps = {

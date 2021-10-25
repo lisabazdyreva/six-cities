@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
+import classNames from 'classnames';
 
-import {CardTypes} from '../../const';
+import {isMainPage} from '../../utils';
 import {Offers} from '../../types/offer';
 
 import Card from '../card/card';
@@ -16,10 +17,24 @@ function CardsList({cards, type}: CardsListProps): JSX.Element {
   const [activeItem, setActiveItem] = useState<number>(0);
 
   return (
-    <div className={`places__list ${type === 'main' ? 'cities__places-list tabs__content' : 'near-places__list'}`}>
-      {type === CardTypes.Main
-        ? cards.map((card) => <Card card={card} key={card.id} typeCard={type} onCardHover={(id) => setActiveItem(id)}/>)
-        : cards.map((card) => <Card card={card} key={card.id} typeCard={type}/>)}
+    <div
+      className={classNames(
+        'places__list',
+        {'cities__places-list tabs__content': isMainPage(type)},
+        {'near-places__list': !isMainPage(type)})}
+    >
+      {
+        cards.map((card) => (
+          <Card
+            card={card}
+            key={card.id}
+            typeCard={type}
+            onCardHover={ isMainPage(type)
+              ? (id) => setActiveItem(id)
+              : null}
+          />
+        ))
+      }
       {activeItem} {/* временно, чтобы eslint не ругался*/}
     </div>
 

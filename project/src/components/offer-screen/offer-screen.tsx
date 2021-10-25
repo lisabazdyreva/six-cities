@@ -1,17 +1,16 @@
+import {useParams} from 'react-router-dom';
+
 import Icons from '../icons/icons';
 import Header from '../header/header';
+import OfferCard from '../offer-card/offer-card';
+import Map from '../map/map';
+import NearbyCardsList from '../nearby-cards-list/nearby-cards-list';
 
 import type {Offers} from '../../types/offer';
 import type {Reviews} from '../../types/review';
 
-import {useParams} from 'react-router-dom';
-
-import OfferCard from '../offer-card/offer-card';
-
 import {MapStylesProperties} from '../../const';
 
-import Map from '../map/map';
-import NearbyCardsList from '../nearby-cards-list/nearby-cards-list';
 
 type OfferScreenType = {
   offers: Offers;

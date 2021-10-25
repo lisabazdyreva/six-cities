@@ -1,7 +1,7 @@
+import {Link} from 'react-router-dom';
+
 import {Offers} from '../../types/offer';
 import {AppRoute} from '../../const';
-
-import {Link} from 'react-router-dom';
 
 import FavoriteCards from '../favorite-cards/favorite-cards';
 

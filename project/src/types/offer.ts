@@ -1,6 +1,6 @@
 import type {User} from './user';
 
-type Location = {
+export type Location = {
   latitude: number,
   longitude: number,
   zoom: number,

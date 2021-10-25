@@ -1,19 +1,21 @@
 import React from 'react';
 
-import {CardTypes} from '../../const';
-import {Offers} from '../../types/offer';
-
 import CardsList from '../cards-list/cards-list';
+
+import {Offers} from '../../types/offer';
+import {CardTypes} from '../../const';
 
 
 type MainCardsListProps = {
-  cards: Offers;
+  cards: Offers
 };
 
-function MainCardsList ({cards} : MainCardsListProps): JSX.Element {
+function MainCardsList (props: MainCardsListProps): JSX.Element {
+  const {cards} = props;
   return (
     <CardsList cards={cards} type={CardTypes.Main} />
   );
 }
 
 export default MainCardsList;
+

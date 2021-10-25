@@ -1,5 +1,6 @@
-import Icons from '../icons/icons';
 import {Link} from 'react-router-dom';
+
+import Icons from '../icons/icons';
 import {AppRoute} from '../../const';
 
 function NotFoundScreen(): JSX.Element {

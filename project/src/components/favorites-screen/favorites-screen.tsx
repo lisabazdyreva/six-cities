@@ -1,4 +1,5 @@
 import {Offers} from '../../types/offer';
+
 import Icons from '../icons/icons';
 import FavoritesCardsList from '../favorites-cards-list/favorites-cards-list';
 import Header from '../header/header';

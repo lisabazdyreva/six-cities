@@ -1,24 +1,39 @@
+import React from 'react';
+import {connect, ConnectedProps} from 'react-redux';
+
+import {State} from '../../types/state';
+
 import Icons from '../icons/icons';
 import MainCardsList from '../main-cards-list/main-cards-list';
 import Header from '../header/header';
-
-import {Offers} from '../../types/offer';
-
-import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const';
-
 import Map from '../map/map';
+import LocationsList from '../locations-list/locations-list';
+import NoOffers from '../no-offers/no-offers';
 
 import {MapStylesProperties} from '../../const';
 
 
+function mapStateToProps({offers, selectedCity}: State) {
+  return ({
+    cards: offers,
+    selectedCity,
+  });
+}
+
+const connector = connect(mapStateToProps);
+
 type MainScreenProps = {
-  rentOffersValue: number;
-  offers: Offers;
+  cities: string[];
 };
 
+type PropsFromRedux = ConnectedProps<typeof connector>;
 
-function MainScreen({rentOffersValue, offers}: MainScreenProps): JSX.Element {
+type ConnectedComponentProps = PropsFromRedux & MainScreenProps;
+
+
+function MainScreen({cards, selectedCity, cities}: ConnectedComponentProps): JSX.Element {
+  const cardsLength = cards.length;
+
   return (
     <>
       <Icons />
@@ -28,46 +43,17 @@ function MainScreen({rentOffersValue, offers}: MainScreenProps): JSX.Element {
           <h1 className="visually-hidden">Cities</h1>
           <div className="tabs">
             <section className="locations container">
-              <ul className="locations__list tabs__list">
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item" to={AppRoute.Main}>
-                    <span>Paris</span>
-                  </Link>
-                </li>
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item" to={AppRoute.Main}>
-                    <span>Cologne</span>
-                  </Link>
-                </li>
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item" to={AppRoute.Main}>
-                    <span>Brussels</span>
-                  </Link>
-                </li>
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item tabs__item--active" to={AppRoute.Main}>
-                    <span>Amsterdam</span>
-                  </Link>
-                </li>
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item" to={AppRoute.Main}>
-                    <span>Hamburg</span>
-                  </Link>
-                </li>
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item" to={AppRoute.Main}>
-                    <span>Dusseldorf</span>
-                  </Link>
-                </li>
-              </ul>
+              <LocationsList
+                cities={cities}
+              />
             </section>
           </div>
-          {offers.length ?
+          {cards.length ?
             <div className="cities">
               <div className="cities__places-container container">
                 <section className="cities__places places">
                   <h2 className="visually-hidden">Places</h2>
-                  <b className="places__found">{rentOffersValue} places to stay in Amsterdam</b>
+                  <b className="places__found">{cardsLength} {cardsLength === 1 ? 'place' : 'places'} to stay in {selectedCity}</b>
                   <form className="places__sorting" action="#" method="get">
                     <span className="places__sorting-caption">Sort by</span>
                     <span className="places__sorting-type" tabIndex={0}>
@@ -83,38 +69,25 @@ function MainScreen({rentOffersValue, offers}: MainScreenProps): JSX.Element {
                       <li className="places__option" tabIndex={0}>Top rated first</li>
                     </ul>
                   </form>
-                  <MainCardsList
-                    cards={offers}
-                  />
+                  <MainCardsList cards={cards}/>
                 </section>
                 <div className="cities__right-section">
                   <section className="cities__map map">
                     <Map
-                      cards={offers}
+                      cards={cards}
                       styles={MapStylesProperties.MainPage}
+                      activeCity={selectedCity}
                     />
                   </section>
                 </div>
               </div>
             </div> :
-            <div className="cities">
-              <div className="cities__places-container cities__places-container--empty container">
-                <section className="cities__no-places">
-                  <div className="cities__status-wrapper tabs__content">
-                    <b className="cities__status">No places to stay available</b>
-                    <p className="cities__status-description">
-                      We could not find any property available at the moment in Dusseldorf
-                    </p>
-                  </div>
-                </section>
-                <div className="cities__right-section"/>
-              </div>
-            </div>}
-
+            <NoOffers city={selectedCity}/>}
         </main>
       </div>
     </>
   );
 }
 
-export default MainScreen;
+export {MainScreen};
+export default connector(MainScreen);

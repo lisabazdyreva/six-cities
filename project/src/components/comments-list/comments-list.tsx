@@ -1,3 +1,4 @@
+import React from 'react';
 import type {Reviews} from '../../types/review';
 import CommentMessage from '../comment-message/comment-message';
 
