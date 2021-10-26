@@ -77,7 +77,7 @@ const Locations = {
 const citiesList = Object.keys(Locations);
 
 
-const enum IconsURL {
+export enum IconsURL {
   Default = 'img/pin.svg',
   Current = 'img/pin-active.svg',
 }
@@ -88,7 +88,7 @@ interface IconParamsTypes {
   IconAnchor: PointExpression,
 }
 
-const IconsParams: IconParamsTypes = {
+export const IconsParams: IconParamsTypes = {
   IconSize: [27, 39],
   IconAnchor: [14, 39],
 };
@@ -99,15 +99,15 @@ interface MapStylesPropertiesTypes {
   OfferPage: CSSProperties,
 }
 
-const MapStylesProperties: MapStylesPropertiesTypes = {
+export const MapStylesProperties: MapStylesPropertiesTypes = {
   MainPage: {height: '100%'},
   OfferPage: {width: '1144px', height: '100%', margin: '0 auto'},
 };
 
 
-const enum CardTypes {
+export enum CardTypes {
   Main = 'Main',
   Offer = 'Offer',
 }
 
-export {Locations, Users, IconsParams, IconsURL, MapStylesProperties, CardTypes, citiesList};
+export {Locations, Users, citiesList};
