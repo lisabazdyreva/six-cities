@@ -10,7 +10,7 @@ import LocationsList from '../locations-list/locations-list';
 import NoOffers from '../no-offers/no-offers';
 
 import {MapStylesProperties} from '../../const';
-import SortingForm from "../sorting-form/sorting-form";
+import SortingForm from '../sorting-form/sorting-form';
 
 
 function mapStateToProps({offers, selectedCity}: State) {

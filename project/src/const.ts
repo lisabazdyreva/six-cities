@@ -1,34 +1,21 @@
 import {PointExpression} from 'leaflet';
 import {CSSProperties} from 'react';
 
-enum AppRoute {
+export enum AppRoute {
   Main = '/',
   Login = '/login',
   Favorites = '/favorites',
   Room = '/offer',
-  RoomID = '/offer/:id', // пока так оставила
+  RoomID = '/offer/:id',
 }
 
-enum AuthorizationStatus {
+
+export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
 
-const Months = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-] as const;
 
 // для моков, потом удалить
 const Users = {
@@ -53,6 +40,7 @@ const Users = {
 } as const;
 
 
+// пока так
 const Locations = {
   Paris: {
     latitude: 48.864716,
@@ -85,13 +73,15 @@ const Locations = {
     zoom: 10,
   },
 } as const;
+// пока так
+const citiesList = Object.keys(Locations);
 
-const CITIES = Object.keys(Locations);
 
 const enum IconsURL {
   Default = 'img/pin.svg',
   Current = 'img/pin-active.svg',
 }
+
 
 interface IconParamsTypes {
   IconSize: PointExpression,
@@ -103,6 +93,7 @@ const IconsParams: IconParamsTypes = {
   IconAnchor: [14, 39],
 };
 
+
 interface MapStylesPropertiesTypes {
   MainPage: CSSProperties,
   OfferPage: CSSProperties,
@@ -113,10 +104,10 @@ const MapStylesProperties: MapStylesPropertiesTypes = {
   OfferPage: {width: '1144px', height: '100%', margin: '0 auto'},
 };
 
+
 const enum CardTypes {
   Main = 'Main',
   Offer = 'Offer',
 }
 
-
-export {AppRoute, AuthorizationStatus, Locations, Users, Months, IconsParams, IconsURL, MapStylesProperties, CardTypes, CITIES};
+export {Locations, Users, IconsParams, IconsURL, MapStylesProperties, CardTypes, citiesList};

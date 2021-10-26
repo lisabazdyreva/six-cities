@@ -9,7 +9,7 @@ import {reducer} from './store/reducers/reducer';
 
 import App from './components/app/app';
 
-import {CITIES} from './const';
+import {citiesList} from './const';
 
 import {offers} from './mocks/offers';
 import {reviews} from './mocks/reviews';
@@ -26,7 +26,7 @@ ReactDOM.render(
       <App
         offers={offers}
         reviews={reviews}
-        cities={CITIES}
+        cities={citiesList}
       />
     </Provider>
   </React.StrictMode>,

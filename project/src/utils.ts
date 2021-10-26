@@ -17,4 +17,10 @@ const isMainPage = (type: string): boolean => type === CardTypes.Main;
 
 const filterOffers = (activeCity: string): Offers => offers.filter((offer) => offer.city.name === activeCity);
 
-export {formatType, getRatingPercentValue, isMainPage, filterOffers};
+
+const formatDateValue = (value: string): string => new Date(value).toLocaleDateString('en-US', {year: 'numeric', month: 'long'});
+
+const formatDateAttr = (value: string): string => value.slice(0, 10);
+
+
+export {formatType, getRatingPercentValue, isMainPage, filterOffers, formatDateValue, formatDateAttr};

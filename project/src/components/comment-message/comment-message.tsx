@@ -1,8 +1,7 @@
 import type {Review} from '../../types/review';
 
-import {getRatingPercentValue} from '../../utils';
+import {getRatingPercentValue, formatDateValue, formatDateAttr} from '../../utils';
 
-import {Months} from '../../const';
 
 type CommentMessageProps = {
   review: Review;
@@ -14,9 +13,8 @@ function CommentMessage({review}: CommentMessageProps): JSX.Element {
 
   const ratingPercentValue = getRatingPercentValue(rating);
 
-  const dateObj = new Date(date);
-  const dateText = `${Months[dateObj.getMonth()]} ${dateObj.getFullYear()}`;
-  const dateAttr = date.slice(0, 10);
+  const dateValue = formatDateValue(date);
+  const dateAttr = formatDateAttr(date);
 
   return (
     <li className="reviews__item">
@@ -34,7 +32,7 @@ function CommentMessage({review}: CommentMessageProps): JSX.Element {
           </div>
         </div>
         <p className="reviews__text">{comment}</p>
-        <time className="reviews__time" dateTime={dateAttr}>{dateText}</time>
+        <time className="reviews__time" dateTime={dateAttr}>{dateValue}</time>
       </div>
     </li>
   );

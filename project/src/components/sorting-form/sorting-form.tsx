@@ -1,10 +1,10 @@
 
-const sortTypes = {
-  POPULAR: 'Popular',
-  INCREMENT_PRICE: 'Price: low to high',
-  DECREMENT_PRICE: 'Price: high to low',
-  RATING: 'Top rated first',
-};
+// const sortTypes = {
+//   POPULAR: 'Popular',
+//   INCREMENT_PRICE: 'Price: low to high',
+//   DECREMENT_PRICE: 'Price: high to low',
+//   RATING: 'Top rated first',
+// };
 
 function SortingForm(): JSX.Element {
   return (
