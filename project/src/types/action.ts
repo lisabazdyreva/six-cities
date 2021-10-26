@@ -4,6 +4,7 @@ export enum ActionType {
   SelectActiveCity = 'main/selectActiveCity',
   FillOffersList = 'main/fillOffersList',
   ChangeActiveSorting = 'main/changeActiveSorting',
+  SetActiveId = 'main/setActiveId',
 }
 
 export type SelectActiveCityAction = {
@@ -21,4 +22,10 @@ export type ChangeActiveSortingAction = {
   payload: string,
 }
 
-export type Actions = SelectActiveCityAction | FillOffersListAction | ChangeActiveSortingAction;
+export type SetActiveIdAction = {
+  type: ActionType.SetActiveId,
+  payload: number,
+}
+
+
+export type Actions = SelectActiveCityAction | FillOffersListAction | ChangeActiveSortingAction | SetActiveIdAction;
