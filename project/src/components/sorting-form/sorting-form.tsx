@@ -9,6 +9,7 @@ import {SyntheticEvent, useState} from 'react';
 import {getSortedOffers} from '../../utils';
 import classNames from 'classnames';
 
+const sortTypesList = Object.values(SortTypes);
 
 function mapStateToProps ({sortingOffers, activeSorting}: State) {
   return ({
@@ -27,6 +28,7 @@ function mapDispatchToProps(dispatch: Dispatch<Actions>) {
     },
   });
 }
+
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
@@ -70,10 +72,19 @@ function SortingForm({sortingOffers, activeSorting, onOffersSort, onSortChange}:
         {' places__options--custom': !isOpenSorting},
       )}
       >
-        <li onClick={(evt) => onSortTypeClick(evt)} className="places__option places__option--active" tabIndex={0}>{SortTypes.Popular}</li>
-        <li onClick={(evt) => onSortTypeClick(evt)} className="places__option" tabIndex={0}>{SortTypes.IncrementPrice}</li>
-        <li onClick={(evt) => onSortTypeClick(evt)} className="places__option" tabIndex={0}>{SortTypes.DecrementPrice}</li>
-        <li onClick={(evt) => onSortTypeClick(evt)} className="places__option" tabIndex={0}>{SortTypes.Rating}</li>
+        {sortTypesList.map((type: string) => (
+          <li
+            key={type}
+            onClick={(evt) => onSortTypeClick(evt)}
+            className={classNames(
+              'places__option',
+              {'places__option--active': activeSorting === type},
+            )}
+            tabIndex={0}
+          >
+            {type}
+          </li>),
+        )}
       </ul>
     </form>
   );
