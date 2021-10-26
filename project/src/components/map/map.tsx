@@ -14,6 +14,7 @@ const defaultCustomIcon = new Icon({
   iconAnchor: IconsParams.IconAnchor,
 });
 
+//eslint-disable-next-line
 const currentCustomIcon = new Icon({
   iconUrl: IconsURL.Current,
   iconSize: IconsParams.IconSize,

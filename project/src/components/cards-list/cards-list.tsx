@@ -1,21 +1,43 @@
-import {useState} from 'react';
 import classNames from 'classnames';
+import {Dispatch} from 'redux';
 
 import {isMainPage} from '../../utils';
 import {Offers} from '../../types/offer';
 
 import Card from '../card/card';
+import {connect, ConnectedProps} from 'react-redux';
+import {State} from '../../types/state';
+import {Actions} from '../../types/action';
 
+import {setActiveId} from '../../store/actions/action';
+
+function mapStateToProps({id}: State) {
+  return({
+    currentId: id,
+  });
+}
+
+function mapDispatchToProps (dispatch: Dispatch<Actions>) {
+  return({
+    onCardHover(id: number) {
+      dispatch(setActiveId(id));
+    },
+  });
+}
+
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type CardsListProps = {
   cards: Offers;
   type: string;
 }
+type PropsFromRedux = ConnectedProps<typeof connector>;
 
-function CardsList({cards, type}: CardsListProps): JSX.Element {
+type ConnectedComponentProps = CardsListProps & PropsFromRedux;
 
-  const [activeItem, setActiveItem] = useState<number>(0);
 
+function CardsList({cards, type, currentId, onCardHover}: ConnectedComponentProps): JSX.Element {
   return (
     <div
       className={classNames(
@@ -30,15 +52,16 @@ function CardsList({cards, type}: CardsListProps): JSX.Element {
             key={card.id}
             typeCard={type}
             onCardHover={ isMainPage(type)
-              ? (id) => setActiveItem(id)
+              ? (id) => onCardHover(id)
               : null}
           />
         ))
       }
-      {activeItem} {/* временно, чтобы eslint не ругался*/}
+      {currentId} {/* временно, чтобы eslint не ругался*/}
     </div>
 
   );
 }
 
-export default CardsList;
+export {CardsList};
+export default connector(CardsList);

@@ -5,6 +5,8 @@ import {Offer} from '../../types/offer';
 import {AppRoute} from '../../const';
 import {isMainPage, formatType, getRatingPercentValue} from '../../utils';
 
+import {DEFAULT_ID} from '../../store/reducers/reducer';
+
 
 type CardProps = {
   card: Offer;
@@ -37,7 +39,7 @@ function Card({card, typeCard, onCardHover}: CardProps): JSX.Element {
 
   const handleCardLeave = () => {
     if (onCardHover) {
-      onCardHover(0);
+      onCardHover(DEFAULT_ID);
     }
   };
 

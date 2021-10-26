@@ -35,4 +35,4 @@ function setActiveId (id: number): SetActiveIdAction {
   });
 }
 
-export {selectActiveCity, fillOffersList, changeActiveSorting};
+export {selectActiveCity, fillOffersList, changeActiveSorting, setActiveId};

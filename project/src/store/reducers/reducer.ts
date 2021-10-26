@@ -34,4 +34,4 @@ function reducer (state: State = initialState, action: Actions): State {
   }
 }
 
-export {reducer, DEFAULT_SORT_TYPE};
+export {reducer, DEFAULT_SORT_TYPE, DEFAULT_ID};
