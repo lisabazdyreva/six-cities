@@ -12,6 +12,9 @@ import {State} from '../../types/state';
 
 import {MapStylesProperties} from '../../const';
 
+import {Dispatch} from 'redux';
+import {setActiveId} from '../../store/actions/action';
+
 
 function mapStateToProps ({offers}: State) {
   return ({
@@ -19,7 +22,15 @@ function mapStateToProps ({offers}: State) {
   });
 }
 
-const connector = connect(mapStateToProps);
+function mapDispatchToProps (dispatch: Dispatch) {
+  return({
+    onCardOpen(id: number) {
+      dispatch(setActiveId(id));
+    },
+  });
+}
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type OfferScreenType = {
@@ -28,13 +39,15 @@ type OfferScreenType = {
 type ConnectedComponentProps = PropsFromRedux & OfferScreenType;
 
 
-function OfferScreen({offers, reviews}: ConnectedComponentProps ): JSX.Element {
+function OfferScreen({offers, reviews, onCardOpen}: ConnectedComponentProps ): JSX.Element {
   const params: {id: string} = useParams();
   const { id } = params;
 
   const [card] = offers.filter((offer) => offer.id === +id);
+  onCardOpen(card.id);
   const nearbyOffers = offers.filter((offer) => offer.id !== +card.id);
-  const cards = (nearbyOffers.length > 3) ? nearbyOffers.slice(0, 3) : nearbyOffers.slice();
+  const cardsForList = (nearbyOffers.length > 3) ? nearbyOffers.slice(0, 3) : nearbyOffers.slice();
+  const cardsForMap = [card, ...cardsForList];
 
   return (
     <>
@@ -48,14 +61,14 @@ function OfferScreen({offers, reviews}: ConnectedComponentProps ): JSX.Element {
               card={card}
             />
             <section className="property__map map">
-              <Map cards={cards} styles={MapStylesProperties.OfferPage}/>
+              <Map cards={cardsForMap} styles={MapStylesProperties.OfferPage}/>
             </section>
           </section>
           <div className="container">
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <NearbyCardsList
-                cards={cards}
+                cards={cardsForList}
               />
             </section>
           </div>
