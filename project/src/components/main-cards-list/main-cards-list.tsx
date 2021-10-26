@@ -1,5 +1,3 @@
-import React from 'react';
-
 import CardsList from '../cards-list/cards-list';
 
 import {Offers} from '../../types/offer';

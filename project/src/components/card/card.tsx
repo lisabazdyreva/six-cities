@@ -1,12 +1,10 @@
-import React from 'react';
 import classNames from 'classnames';
 import {Link} from 'react-router-dom';
 
 import {Offer} from '../../types/offer';
 import {AppRoute} from '../../const';
-import {isMainPage} from '../../utils';
+import {isMainPage, formatType, getRatingPercentValue} from '../../utils';
 
-import {formatType, getRatingPercentValue} from '../../utils';
 
 type CardProps = {
   card: Offer;

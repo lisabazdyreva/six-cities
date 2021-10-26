@@ -1,5 +1,3 @@
-import React from 'react';
-
 import {CardTypes} from '../../const';
 import {Offers} from '../../types/offer';
 

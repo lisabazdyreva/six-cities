@@ -1,4 +1,4 @@
-import React, {useRef, useEffect, CSSProperties} from 'react';
+import {useRef, useEffect, CSSProperties} from 'react';
 import {Icon, LayerGroup, Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
