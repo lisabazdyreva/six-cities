@@ -1,38 +1,33 @@
-import {
-  ActionType,
-  ChangeActiveSortingAction,
-  FillOffersListAction,
-  SelectActiveCityAction,
-  SetActiveIdAction
-} from '../../types/action';
-import {Offers} from '../../types/offer';
+import {ActionType} from '../../types/action';
 
-function selectActiveCity (city: string): SelectActiveCityAction {
+import type {Offers} from '../../types/offer';
+
+function selectActiveCity(city: string) {
   return ({
     type: ActionType.SelectActiveCity,
     payload: city,
-  });
+  } as const);
 }
 
-function fillOffersList (offers: Offers): FillOffersListAction {
+function fillOffersList(offers: Offers) {
   return ({
     type: ActionType.FillOffersList,
     payload: offers,
-  });
+  } as const);
 }
 
-function changeActiveSorting (sortingValue: string): ChangeActiveSortingAction {
+function changeActiveSortType(sortingValue: string) {
   return ({
-    type: ActionType.ChangeActiveSorting,
+    type: ActionType.ChangeActiveSortType,
     payload: sortingValue,
-  });
+  } as const);
 }
 
-function setActiveId (id: number): SetActiveIdAction {
-  return({
+function setActiveId(id: number) {
+  return ({
     type: ActionType.SetActiveId,
     payload: id,
-  });
+  } as const);
 }
 
-export {selectActiveCity, fillOffersList, changeActiveSorting, setActiveId};
+export {selectActiveCity, fillOffersList, changeActiveSortType, setActiveId};

@@ -1,33 +1,31 @@
 import {connect, ConnectedProps} from 'react-redux';
 
-import {State} from '../../types/state';
+import type {State} from '../../types/state';
 
 import Icons from '../icons/icons';
 import MainCardsList from '../main-cards-list/main-cards-list';
 import Header from '../header/header';
+import NoOffers from '../no-offers/no-offers';
 import Map from '../map/map';
 import LocationsList from '../locations-list/locations-list';
-import NoOffers from '../no-offers/no-offers';
-
-import {MapStylesProperties} from '../../const';
 import SortingForm from '../sorting-form/sorting-form';
 
+import {MapStylesProperties} from '../../const';
 
-function mapStateToProps({sortingOffers, selectedCity}: State) {
+
+function mapStateToProps({sortedOffers, selectedCity}: State) {
   return ({
-    cards: sortingOffers,
+    cards: sortedOffers,
     selectedCity,
   });
 }
 
 const connector = connect(mapStateToProps);
 
+type PropsFromRedux = ConnectedProps<typeof connector>;
 type MainScreenProps = {
   cities: string[];
 };
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
 type ConnectedComponentProps = PropsFromRedux & MainScreenProps;
 
 

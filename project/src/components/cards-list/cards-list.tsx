@@ -1,15 +1,17 @@
-import classNames from 'classnames';
+import {connect, ConnectedProps} from 'react-redux';
 import {Dispatch} from 'redux';
+import classNames from 'classnames';
 
-import {isMainPage} from '../../utils';
-import {Offers} from '../../types/offer';
+import type {Offers} from '../../types/offer';
+import type {State} from '../../types/state';
+import type {Actions} from '../../types/action';
 
 import Card from '../card/card';
-import {connect, ConnectedProps} from 'react-redux';
-import {State} from '../../types/state';
-import {Actions} from '../../types/action';
 
 import {setActiveId} from '../../store/actions/action';
+
+import {isMainPage} from '../../utils';
+
 
 function mapStateToProps({id}: State) {
   return({
@@ -25,15 +27,13 @@ function mapDispatchToProps (dispatch: Dispatch<Actions>) {
   });
 }
 
-
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
+type PropsFromRedux = ConnectedProps<typeof connector>;
 type CardsListProps = {
   cards: Offers;
   type: string;
 }
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
 type ConnectedComponentProps = CardsListProps & PropsFromRedux;
 
 

@@ -1,12 +1,14 @@
 import {Link} from 'react-router-dom';
 import {connect, ConnectedProps} from 'react-redux';
 
-import {Offers} from '../../types/offer';
-import {State} from '../../types/state';
-import {AppRoute} from '../../const';
-import {getFavoriteCitiesList} from '../../utils';
+import type {Offers} from '../../types/offer';
+import type {State} from '../../types/state';
 
 import FavoriteCards from '../favorite-cards/favorite-cards';
+
+import {getFavoriteCitiesList} from '../../utils';
+
+import {AppRoute} from '../../const';
 
 
 type FavoriteCardsByCities = {
@@ -33,7 +35,6 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 function FavoritesCardsList({offers}: PropsFromRedux): JSX.Element {
   const favoriteCardsByCities = getFavoriteCardsByCities(offers.slice());
-
 
   return (
     <ul className="favorites__list">

@@ -1,20 +1,24 @@
-import {SortTypes} from '../../const';
-import {State} from '../../types/state';
+import {SyntheticEvent, useState} from 'react';
 import {connect, ConnectedProps} from 'react-redux';
 import {Dispatch} from 'redux';
-import {Actions} from '../../types/action';
-import {changeActiveSorting, fillOffersList} from '../../store/actions/action';
-import {Offers} from '../../types/offer';
-import {SyntheticEvent, useState} from 'react';
-import {getSortedOffers} from '../../utils';
 import classNames from 'classnames';
+
+import type {State} from '../../types/state';
+import type {Actions} from '../../types/action';
+import type {Offers} from '../../types/offer';
+
+import {changeActiveSortType, fillOffersList} from '../../store/actions/action';
+
+import {getSortedOffers} from '../../utils';
+import {SortTypes} from '../../const';
+
 
 const sortTypesList = Object.values(SortTypes);
 
-function mapStateToProps ({sortingOffers, activeSorting}: State) {
+function mapStateToProps ({sortedOffers, activeSortType}: State) {
   return ({
-    sortingOffers,
-    activeSorting,
+    sortedOffers,
+    activeSortType,
   });
 }
 
@@ -24,23 +28,22 @@ function mapDispatchToProps(dispatch: Dispatch<Actions>) {
       dispatch(fillOffersList(offers));
     },
     onSortChange(sortingValue: string) {
-      dispatch(changeActiveSorting(sortingValue));
+      dispatch(changeActiveSortType(sortingValue));
     },
   });
 }
-
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 
-function SortingForm({sortingOffers, activeSorting, onOffersSort, onSortChange}: PropsFromRedux): JSX.Element {
+function SortingForm({sortedOffers, activeSortType, onOffersSort, onSortChange}: PropsFromRedux): JSX.Element {
   const [isOpenSorting, setOpenSorting] = useState(false);
 
-  function sortOffers (type: string) {
-    const sortedOffers = getSortedOffers(type, sortingOffers);
-    onOffersSort(sortedOffers);
+  function sortOffers(type: string) {
+    const sortingOffers = getSortedOffers(type, sortedOffers);
+    onOffersSort(sortingOffers);
   }
 
   function changeSortType(type: string) {
@@ -61,7 +64,7 @@ function SortingForm({sortingOffers, activeSorting, onOffersSort, onSortChange}:
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by </span>
       <span className="places__sorting-type" tabIndex={0} onClick={() => setOpenSorting(!isOpenSorting)}>
-        {activeSorting}
+        {activeSortType}
         <svg className="places__sorting-arrow" width="7" height="4" style={{transform: isOpenSorting ? 'rotate(180deg) translateY(50%)': ''}}>
           <use xlinkHref="#icon-arrow-select"/>
         </svg>
@@ -78,7 +81,7 @@ function SortingForm({sortingOffers, activeSorting, onOffersSort, onSortChange}:
             onClick={(evt) => onSortTypeClick(evt)}
             className={classNames(
               'places__option',
-              {'places__option--active': activeSorting === type},
+              {'places__option--active': activeSortType === type},
             )}
             tabIndex={0}
           >

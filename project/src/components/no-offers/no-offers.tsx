@@ -2,6 +2,7 @@ type NoOffersProps = {
   city: string,
 };
 
+
 function NoOffers({city}: NoOffersProps): JSX.Element {
   return (
     <div className="cities">

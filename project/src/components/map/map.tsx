@@ -1,14 +1,20 @@
 import {useRef, useEffect, CSSProperties} from 'react';
+import {connect, ConnectedProps} from 'react-redux';
 import {Icon, LayerGroup, Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+
+import type {Offers} from '../../types/offer';
+import type {State} from '../../types/state';
 
 import useMap from '../../hooks/useMap';
 
 import {defaultIcon, currentIcon} from '../../const';
-import {Offers} from '../../types/offer';
 
-import {connect, ConnectedProps} from 'react-redux';
-import {State} from '../../types/state';
+
+let prevActiveCity: string | undefined;
+const defaultCustomIcon = new Icon(defaultIcon);
+const currentCustomIcon = new Icon(currentIcon);
+
 
 function mapStateToProps({id}: State) {
   return ({
@@ -18,18 +24,14 @@ function mapStateToProps({id}: State) {
 
 const connector = connect(mapStateToProps);
 
+type PropsFromRedux = ConnectedProps<typeof connector>;
 type MapProps = {
   cards: Offers,
   styles?: CSSProperties,
   activeCity? : string,
 };
-type PropsFromRedux = ConnectedProps<typeof connector>;
 type ConnectedComponentProps = PropsFromRedux & MapProps;
 
-let prevActiveCity: string | undefined;
-
-const defaultCustomIcon = new Icon(defaultIcon);
-const currentCustomIcon = new Icon(currentIcon);
 
 function Map({cards, activeCity, styles, activeId}: ConnectedComponentProps): JSX.Element {
   const [locationCard] = cards;

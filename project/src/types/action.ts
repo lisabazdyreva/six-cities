@@ -1,31 +1,15 @@
-import {Offers} from './offer';
+import {
+  selectActiveCity,
+  fillOffersList,
+  changeActiveSortType,
+  setActiveId
+} from '../store/actions/action';
 
 export enum ActionType {
   SelectActiveCity = 'main/selectActiveCity',
   FillOffersList = 'main/fillOffersList',
-  ChangeActiveSorting = 'main/changeActiveSorting',
+  ChangeActiveSortType = 'main/changeActiveSortType',
   SetActiveId = 'main/setActiveId',
 }
 
-export type SelectActiveCityAction = {
-  type: ActionType.SelectActiveCity,
-  payload: string,
-};
-
-export type FillOffersListAction = {
-  type: ActionType.FillOffersList,
-  payload: Offers,
-}
-
-export type ChangeActiveSortingAction = {
-  type: ActionType.ChangeActiveSorting,
-  payload: string,
-}
-
-export type SetActiveIdAction = {
-  type: ActionType.SetActiveId,
-  payload: number,
-}
-
-
-export type Actions = SelectActiveCityAction | FillOffersListAction | ChangeActiveSortingAction | SetActiveIdAction;
+export type Actions = ReturnType<typeof selectActiveCity> | ReturnType<typeof fillOffersList> | ReturnType<typeof changeActiveSortType> | ReturnType<typeof setActiveId>;

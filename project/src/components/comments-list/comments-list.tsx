@@ -1,9 +1,12 @@
 import type {Reviews} from '../../types/review';
+
 import CommentMessage from '../comment-message/comment-message';
+
 
 type CommentsListProps = {
   reviews: Reviews;
 };
+
 
 function CommentsList({reviews}: CommentsListProps):JSX.Element {
   return (

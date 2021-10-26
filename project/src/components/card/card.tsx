@@ -1,9 +1,10 @@
-import classNames from 'classnames';
 import {Link} from 'react-router-dom';
+import classNames from 'classnames';
 
-import {Offer} from '../../types/offer';
-import {AppRoute, DEFAULT_ID} from '../../const';
+import type {Offer} from '../../types/offer';
+
 import {isMainPage, formatType, getRatingPercentValue} from '../../utils';
+import {AppRoute, DEFAULT_ID} from '../../const';
 
 
 type CardProps = {
@@ -11,6 +12,7 @@ type CardProps = {
   typeCard: string;
   onCardHover: ((id: number) => void) | null;
 }
+
 
 function Card({card, typeCard, onCardHover}: CardProps): JSX.Element {
 

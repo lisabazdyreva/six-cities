@@ -1,10 +1,12 @@
 import {Link} from 'react-router-dom';
-import {AppRoute, DEFAULT_ID} from '../../const';
-
 import {connect, ConnectedProps} from 'react-redux';
 import {Dispatch} from 'redux';
-import {Actions} from '../../types/action';
+
+import type {Actions} from '../../types/action';
+
 import {setActiveId} from '../../store/actions/action';
+
+import {AppRoute, DEFAULT_ID} from '../../const';
 
 
 function mapDispatchToProps (dispatch: Dispatch<Actions>) {
@@ -16,7 +18,9 @@ function mapDispatchToProps (dispatch: Dispatch<Actions>) {
 }
 
 const connector = connect(null, mapDispatchToProps);
+
 type PropsFromRedux = ConnectedProps<typeof connector>;
+
 
 function Logo({onResetId}: PropsFromRedux):JSX.Element {
   return (

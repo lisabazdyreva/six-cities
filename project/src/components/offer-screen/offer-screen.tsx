@@ -1,5 +1,10 @@
 import {useParams} from 'react-router-dom';
 import {connect, ConnectedProps} from 'react-redux';
+import {Dispatch} from 'redux';
+
+import type {Reviews} from '../../types/review';
+import type {State} from '../../types/state';
+import type {Actions} from '../../types/action';
 
 import Icons from '../icons/icons';
 import Header from '../header/header';
@@ -7,13 +12,9 @@ import OfferCard from '../offer-card/offer-card';
 import Map from '../map/map';
 import NearbyCardsList from '../nearby-cards-list/nearby-cards-list';
 
-import type {Reviews} from '../../types/review';
-import {State} from '../../types/state';
+import {setActiveId} from '../../store/actions/action';
 
 import {MapStylesProperties} from '../../const';
-
-import {Dispatch} from 'redux';
-import {setActiveId} from '../../store/actions/action';
 
 
 function mapStateToProps ({offers}: State) {
@@ -22,7 +23,7 @@ function mapStateToProps ({offers}: State) {
   });
 }
 
-function mapDispatchToProps (dispatch: Dispatch) {
+function mapDispatchToProps (dispatch: Dispatch<Actions>) {
   return({
     onCardOpen(id: number) {
       dispatch(setActiveId(id));
@@ -39,7 +40,7 @@ type OfferScreenType = {
 type ConnectedComponentProps = PropsFromRedux & OfferScreenType;
 
 
-function OfferScreen({offers, reviews, onCardOpen}: ConnectedComponentProps ): JSX.Element {
+function OfferScreen({offers, reviews, onCardOpen}: ConnectedComponentProps): JSX.Element {
   const params: {id: string} = useParams();
   const { id } = params;
 
