@@ -4,32 +4,34 @@ import 'leaflet/dist/leaflet.css';
 
 import useMap from '../../hooks/useMap';
 
-import {IconsURL, IconsParams} from '../../const';
+import {defaultIcon, currentIcon} from '../../const';
 import {Offers} from '../../types/offer';
 
+import {connect, ConnectedProps} from 'react-redux';
+import {State} from '../../types/state';
 
-const defaultCustomIcon = new Icon({
-  iconUrl: IconsURL.Default,
-  iconSize: IconsParams.IconSize,
-  iconAnchor: IconsParams.IconAnchor,
-});
+function mapStateToProps({id}: State) {
+  return ({
+    activeId: id,
+  });
+}
 
-//eslint-disable-next-line
-const currentCustomIcon = new Icon({
-  iconUrl: IconsURL.Current,
-  iconSize: IconsParams.IconSize,
-  iconAnchor: IconsParams.IconAnchor,
-}); // пока так оставила
+const connector = connect(mapStateToProps);
 
 type MapProps = {
   cards: Offers,
   styles?: CSSProperties,
   activeCity? : string,
 };
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type ConnectedComponentProps = PropsFromRedux & MapProps;
 
 let prevActiveCity: string | undefined;
 
-function Map({cards, activeCity, styles}: MapProps): JSX.Element {
+const defaultCustomIcon = new Icon(defaultIcon);
+const currentCustomIcon = new Icon(currentIcon);
+
+function Map({cards, activeCity, styles, activeId}: ConnectedComponentProps): JSX.Element {
   const [locationCard] = cards;
   const location = locationCard.location;
 
@@ -46,6 +48,9 @@ function Map({cards, activeCity, styles}: MapProps): JSX.Element {
         });
 
         marker.setIcon(defaultCustomIcon);
+        if (card.id === activeId) {
+          marker.setIcon(currentCustomIcon);
+        }
         marker.addTo(layerIconsGroup);
       });
       layerIconsGroup.addTo(map);
@@ -60,7 +65,7 @@ function Map({cards, activeCity, styles}: MapProps): JSX.Element {
 
     }
     return () => {layerIconsGroup.clearLayers();};
-  }, [map, cards,  activeCity, location]);
+  }, [map, cards,  activeCity, location, activeId]);
 
   return (
     <div
@@ -70,4 +75,5 @@ function Map({cards, activeCity, styles}: MapProps): JSX.Element {
   );
 }
 
-export default Map;
+export {Map};
+export default connector(Map);

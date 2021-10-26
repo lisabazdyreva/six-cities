@@ -37,7 +37,7 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 type ConnectedComponentProps = CardsListProps & PropsFromRedux;
 
 
-function CardsList({cards, type, currentId, onCardHover}: ConnectedComponentProps): JSX.Element {
+function CardsList({cards, type, onCardHover}: ConnectedComponentProps): JSX.Element {
   return (
     <div
       className={classNames(
@@ -57,7 +57,6 @@ function CardsList({cards, type, currentId, onCardHover}: ConnectedComponentProp
           />
         ))
       }
-      {currentId} {/* временно, чтобы eslint не ругался*/}
     </div>
 
   );

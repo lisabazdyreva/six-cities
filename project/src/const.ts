@@ -118,4 +118,18 @@ export enum SortTypes {
   Rating = 'Top rated first',
 }
 
+
+export const defaultIcon = {
+  iconUrl: IconsURL.Default,
+  iconSize: IconsParams.IconSize,
+  iconAnchor: IconsParams.IconAnchor,
+};
+
+export const currentIcon = {
+  iconUrl: IconsURL.Current,
+  iconSize: IconsParams.IconSize,
+  iconAnchor: IconsParams.IconAnchor,
+};
+
+
 export {Locations, Users, citiesList};
