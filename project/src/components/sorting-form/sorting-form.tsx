@@ -1,10 +1,5 @@
+import {SortTypes} from '../../const';
 
-// const sortTypes = {
-//   POPULAR: 'Popular',
-//   INCREMENT_PRICE: 'Price: low to high',
-//   DECREMENT_PRICE: 'Price: high to low',
-//   RATING: 'Top rated first',
-// };
 
 function SortingForm(): JSX.Element {
   return (
@@ -14,10 +9,10 @@ function SortingForm(): JSX.Element {
         Popular<svg className="places__sorting-arrow" width="7" height="4"><use xlinkHref="#icon-arrow-select"/></svg>
       </span>
       <ul className="places__options places__options--custom places__options--opened">
-        <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-        <li className="places__option" tabIndex={0}>Price: low to high</li>
-        <li className="places__option" tabIndex={0}>Price: high to low</li>
-        <li className="places__option" tabIndex={0}>Top rated first</li>
+        <li className="places__option places__option--active" tabIndex={0}>{SortTypes.Popular}</li>
+        <li className="places__option" tabIndex={0}>{SortTypes.IncrementPrice}</li>
+        <li className="places__option" tabIndex={0}>{SortTypes.DecrementPrice}</li>
+        <li className="places__option" tabIndex={0}>{SortTypes.Rating}</li>
       </ul>
     </form>
   );

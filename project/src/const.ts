@@ -110,4 +110,12 @@ export enum CardTypes {
   Offer = 'Offer',
 }
 
+
+export enum SortTypes {
+  Popular = 'Popular',
+  IncrementPrice = 'Price: low to high',
+  DecrementPrice = 'Price: high to low',
+  Rating = 'Top rated first',
+}
+
 export {Locations, Users, citiesList};

@@ -13,9 +13,9 @@ import {MapStylesProperties} from '../../const';
 import SortingForm from '../sorting-form/sorting-form';
 
 
-function mapStateToProps({offers, selectedCity}: State) {
+function mapStateToProps({sortingOffers, selectedCity}: State) {
   return ({
-    cards: offers,
+    cards: sortingOffers,
     selectedCity,
   });
 }

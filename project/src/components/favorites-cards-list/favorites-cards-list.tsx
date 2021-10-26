@@ -1,13 +1,13 @@
 import {Link} from 'react-router-dom';
+import {connect, ConnectedProps} from 'react-redux';
 
 import {Offers} from '../../types/offer';
+import {State} from '../../types/state';
 import {AppRoute} from '../../const';
+import {getFavoriteCitiesList} from '../../utils';
 
 import FavoriteCards from '../favorite-cards/favorite-cards';
 
-type FavoritesCardsListProps = {
-  cards: Offers;
-};
 
 type FavoriteCardsByCities = {
   [propertyName: string] : Offers,
@@ -15,13 +15,25 @@ type FavoriteCardsByCities = {
 
 function getFavoriteCardsByCities(cards: Offers): FavoriteCardsByCities {
   const favoriteCards = cards.filter((card) => card.isFavorite);
-  const favoriteCities = Array.from(new Set(favoriteCards.reduce((prev, current) => `${prev} ${current.city.name}`, '').trim().split(' ')));
+  const favoriteCities = getFavoriteCitiesList(favoriteCards);
 
   return favoriteCities.map((city) => Object.assign({}, {[city]: favoriteCards.filter((card) => card.city.name === city)}));
 }
 
-function FavoritesCardsList({cards}: FavoritesCardsListProps): JSX.Element {
-  const favoriteCardsByCities = getFavoriteCardsByCities(cards.slice());
+
+function mapStateToProps ({offers}: State) {
+  return ({
+    offers,
+  });
+}
+const connector = connect(mapStateToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+
+function FavoritesCardsList({offers}: PropsFromRedux): JSX.Element {
+  const favoriteCardsByCities = getFavoriteCardsByCities(offers.slice());
+
 
   return (
     <ul className="favorites__list">
@@ -43,4 +55,5 @@ function FavoritesCardsList({cards}: FavoritesCardsListProps): JSX.Element {
   );
 }
 
-export default FavoritesCardsList;
+export {FavoritesCardsList};
+export default connector(FavoritesCardsList);

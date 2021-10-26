@@ -11,7 +11,6 @@ import App from './components/app/app';
 
 import {citiesList} from './const';
 
-import {offers} from './mocks/offers';
 import {reviews} from './mocks/reviews';
 
 
@@ -24,7 +23,6 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <App
-        offers={offers}
         reviews={reviews}
         cities={citiesList}
       />

@@ -10,18 +10,16 @@ import PrivateRoute from '../private-route/private-route';
 
 import {AppRoute, AuthorizationStatus} from '../../const';
 
-import type {Offers} from '../../types/offer';
 import type {Reviews} from '../../types/review';
 
 
 type AppScreenProps = {
-  offers: Offers;
   reviews: Reviews;
   cities: string[];
 };
 
 function App(props: AppScreenProps): JSX.Element {
-  const {offers, reviews, cities} = props;
+  const {reviews, cities} = props;
 
   return (
     <BrowserRouter>
@@ -37,13 +35,12 @@ function App(props: AppScreenProps): JSX.Element {
         <PrivateRoute
           exact
           path={AppRoute.Favorites}
-          render={() => <FavoritesScreen offers={offers}/>}
+          render={() => <FavoritesScreen/>}
           authorizationStatus={AuthorizationStatus.Auth}
         >
         </PrivateRoute>
         <Route path={AppRoute.RoomID} exact>
           <OfferScreen
-            offers={offers}
             reviews={reviews}
           />
         </Route>

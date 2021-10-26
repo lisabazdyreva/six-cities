@@ -71,7 +71,7 @@ export const offers: Offers = [
     host: Users.Default,
     id: Ids.AMSTERDAM_HOUSE,
     images: ['img/apartment-03.jpg', 'img/studio-01.jpg', 'img/apartment-01.jpg'],
-    isFavorite: true,
+    isFavorite: false,
     isPremium: true,
     location: {
       latitude: 52.3909553943508,
@@ -121,7 +121,7 @@ export const offers: Offers = [
     host: Users.Default,
     id: Ids.PARIS_APART,
     images: ['img/room.jpg'],
-    isFavorite: false,
+    isFavorite: true,
     isPremium: true,
     location: {
       latitude: 48.864716,

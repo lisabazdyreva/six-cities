@@ -10,6 +10,7 @@ type FavoriteCardsProps = {
 };
 
 function FavoriteCards({cardsByCity}: FavoriteCardsProps): JSX.Element {
+
   return (
     <>
       {cardsByCity.map((card: Offer): JSX.Element  => {

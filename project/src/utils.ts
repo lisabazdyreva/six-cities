@@ -19,8 +19,9 @@ const filterOffers = (activeCity: string): Offers => offers.filter((offer) => of
 
 
 const formatDateValue = (value: string): string => new Date(value).toLocaleDateString('en-US', {year: 'numeric', month: 'long'});
-
 const formatDateAttr = (value: string): string => value.slice(0, 10);
 
 
-export {formatType, getRatingPercentValue, isMainPage, filterOffers, formatDateValue, formatDateAttr};
+const getFavoriteCitiesList = (cards: Offers): string[] => Array.from(new Set(cards.reduce((prev, current) => `${prev} ${current.city.name}`, '').trim().split(' ')));
+
+export {formatType, getRatingPercentValue, isMainPage, filterOffers, formatDateValue, formatDateAttr, getFavoriteCitiesList};
