@@ -29,9 +29,9 @@ const getSortedOffers = (type: string, cards: Offers): Offers => {
     case (SortTypes.Popular):
       return cards.slice().sort((cardA, cardB) => cardB.id - cardA.id); // пока так
     case (SortTypes.IncrementPrice):
-      return cards.slice().sort((cardA, cardB) => cardB.price - cardA.price);
-    case (SortTypes.DecrementPrice):
       return cards.slice().sort((cardA, cardB) => cardA.price - cardB.price);
+    case (SortTypes.DecrementPrice):
+      return cards.slice().sort((cardA, cardB) => cardB.price - cardA.price);
     case (SortTypes.Rating):
       return cards.slice().sort((cardA, cardB) => cardB.rating - cardA.rating);
     default:

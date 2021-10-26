@@ -7,9 +7,11 @@ import {connect, ConnectedProps} from 'react-redux';
 import {AppRoute} from '../../const';
 import {State} from '../../types/state';
 
-import {fillOffersList, selectActiveCity} from '../../store/actions/action';
+import {changeActiveSorting, fillOffersList, selectActiveCity} from '../../store/actions/action';
 
 import {filterOffers} from '../../utils';
+
+import {DEFAULT_SORT_TYPE} from '../../store/reducers/reducer';
 
 
 function mapStateToProps ({selectedCity}: State) {
@@ -26,6 +28,7 @@ function mapDispatchToProps (dispatch: Dispatch) {
       const updatedOffers = filterOffers(activeCity);
 
       dispatch(selectActiveCity(activeCity));
+      dispatch(changeActiveSorting(DEFAULT_SORT_TYPE));
       dispatch(fillOffersList(updatedOffers));
     },
   });

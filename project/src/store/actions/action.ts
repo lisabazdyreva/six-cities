@@ -1,7 +1,7 @@
-import {ActionType, FillOffersListAction, SelectActiveCityAction} from '../../types/action';
+import {ActionType, ChangeActiveSortingAction, FillOffersListAction, SelectActiveCityAction} from '../../types/action';
 import {Offers} from '../../types/offer';
 
-function selectActiveCity(city: string): SelectActiveCityAction {
+function selectActiveCity (city: string): SelectActiveCityAction {
   return ({
     type: ActionType.SelectActiveCity,
     payload: city,
@@ -15,4 +15,11 @@ function fillOffersList (offers: Offers): FillOffersListAction {
   });
 }
 
-export {selectActiveCity, fillOffersList};
+function changeActiveSorting (sortingValue: string): ChangeActiveSortingAction {
+  return ({
+    type: ActionType.ChangeActiveSorting,
+    payload: sortingValue,
+  });
+}
+
+export {selectActiveCity, fillOffersList, changeActiveSorting};
