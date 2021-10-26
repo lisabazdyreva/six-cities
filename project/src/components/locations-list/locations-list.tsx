@@ -4,14 +4,12 @@ import classNames from 'classnames';
 import {Dispatch} from 'redux';
 import {connect, ConnectedProps} from 'react-redux';
 
-import {AppRoute} from '../../const';
+import {AppRoute, DEFAULT_SORT_TYPE} from '../../const';
 import {State} from '../../types/state';
 
 import {changeActiveSorting, fillOffersList, selectActiveCity} from '../../store/actions/action';
 
 import {filterOffers} from '../../utils';
-
-import {DEFAULT_SORT_TYPE} from '../../store/reducers/reducer';
 
 
 function mapStateToProps ({selectedCity}: State) {

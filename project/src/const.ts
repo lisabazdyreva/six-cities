@@ -1,6 +1,7 @@
 import {PointExpression} from 'leaflet';
 import {CSSProperties} from 'react';
 
+
 export enum AppRoute {
   Main = '/',
   Login = '/login',
@@ -131,5 +132,8 @@ export const currentIcon = {
   iconAnchor: IconsParams.IconAnchor,
 };
 
+export const INITIAL_CITY = 'Paris';
+export const DEFAULT_SORT_TYPE =  SortTypes.Popular;
+export const DEFAULT_ID = 0;
 
 export {Locations, Users, citiesList};

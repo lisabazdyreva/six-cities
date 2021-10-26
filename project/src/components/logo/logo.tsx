@@ -1,11 +1,11 @@
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import {AppRoute, DEFAULT_ID} from '../../const';
 
 import {connect, ConnectedProps} from 'react-redux';
 import {Dispatch} from 'redux';
 import {Actions} from '../../types/action';
 import {setActiveId} from '../../store/actions/action';
-import {DEFAULT_ID} from '../../store/reducers/reducer';
+
 
 function mapDispatchToProps (dispatch: Dispatch<Actions>) {
   return({

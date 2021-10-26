@@ -2,10 +2,8 @@ import classNames from 'classnames';
 import {Link} from 'react-router-dom';
 
 import {Offer} from '../../types/offer';
-import {AppRoute} from '../../const';
+import {AppRoute, DEFAULT_ID} from '../../const';
 import {isMainPage, formatType, getRatingPercentValue} from '../../utils';
-
-import {DEFAULT_ID} from '../../store/reducers/reducer';
 
 
 type CardProps = {

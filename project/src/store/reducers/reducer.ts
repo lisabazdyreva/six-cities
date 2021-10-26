@@ -1,15 +1,10 @@
 import {State} from '../../types/state';
 import {Actions, ActionType} from '../../types/action';
-
+import {INITIAL_CITY, DEFAULT_SORT_TYPE, DEFAULT_ID} from '../../const';
 import {offers} from '../../mocks/offers';
-import {SortTypes} from '../../const';
 
-//пока здесь полежит
-const INITIAL_CITY = 'Paris';
 const SORTING_OFFERS = offers.filter((offer) => offer.city.name === INITIAL_CITY);
 const OFFERS = offers.slice();
-const DEFAULT_SORT_TYPE =  SortTypes.Popular;
-const DEFAULT_ID = 0;
 
 const initialState = {
   selectedCity: INITIAL_CITY,
@@ -34,4 +29,4 @@ function reducer (state: State = initialState, action: Actions): State {
   }
 }
 
-export {reducer, DEFAULT_SORT_TYPE, DEFAULT_ID};
+export {reducer};
