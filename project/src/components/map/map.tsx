@@ -1,34 +1,39 @@
-import React, {useRef, useEffect, CSSProperties} from 'react';
+import {useRef, useEffect, CSSProperties} from 'react';
+import {connect, ConnectedProps} from 'react-redux';
 import {Icon, LayerGroup, Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
+import type {Offers} from '../../types/offer';
+import type {State} from '../../types/state';
+
 import useMap from '../../hooks/useMap';
 
-import {IconsURL, IconsParams} from '../../const';
-import {Offers} from '../../types/offer';
+import {defaultIcon, currentIcon} from '../../const';
 
 
-const defaultCustomIcon = new Icon({
-  iconUrl: IconsURL.Default,
-  iconSize: IconsParams.IconSize,
-  iconAnchor: IconsParams.IconAnchor,
-});
+let prevActiveCity: string | undefined;
+const defaultCustomIcon = new Icon(defaultIcon);
+const currentCustomIcon = new Icon(currentIcon);
 
-// const currentCustomIcon = new Icon({
-//   iconUrl: IconsURL.Current,
-//   iconSize: IconsParams.IconSize,
-//   iconAnchor: IconsParams.IconAnchor,
-// }); пока так оставила
 
+function mapStateToProps({id}: State) {
+  return ({
+    activeId: id,
+  });
+}
+
+const connector = connect(mapStateToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
 type MapProps = {
   cards: Offers,
   styles?: CSSProperties,
   activeCity? : string,
 };
+type ConnectedComponentProps = PropsFromRedux & MapProps;
 
-let prevActiveCity: string | undefined;
 
-function Map({cards, activeCity, styles}: MapProps): JSX.Element {
+function Map({cards, activeCity, styles, activeId}: ConnectedComponentProps): JSX.Element {
   const [locationCard] = cards;
   const location = locationCard.location;
 
@@ -45,6 +50,9 @@ function Map({cards, activeCity, styles}: MapProps): JSX.Element {
         });
 
         marker.setIcon(defaultCustomIcon);
+        if (card.id === activeId) {
+          marker.setIcon(currentCustomIcon);
+        }
         marker.addTo(layerIconsGroup);
       });
       layerIconsGroup.addTo(map);
@@ -59,7 +67,7 @@ function Map({cards, activeCity, styles}: MapProps): JSX.Element {
 
     }
     return () => {layerIconsGroup.clearLayers();};
-  }, [map, cards,  activeCity, location]);
+  }, [map, cards,  activeCity, location, activeId]);
 
   return (
     <div
@@ -69,4 +77,5 @@ function Map({cards, activeCity, styles}: MapProps): JSX.Element {
   );
 }
 
-export default Map;
+export {Map};
+export default connector(Map);

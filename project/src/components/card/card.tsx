@@ -1,18 +1,18 @@
-import React from 'react';
-import classNames from 'classnames';
 import {Link} from 'react-router-dom';
+import classNames from 'classnames';
 
-import {Offer} from '../../types/offer';
-import {AppRoute} from '../../const';
-import {isMainPage} from '../../utils';
+import type {Offer} from '../../types/offer';
 
-import {formatType, getRatingPercentValue} from '../../utils';
+import {isMainPage, formatType, getRatingPercentValue} from '../../utils';
+import {AppRoute, DEFAULT_ID} from '../../const';
+
 
 type CardProps = {
   card: Offer;
   typeCard: string;
   onCardHover: ((id: number) => void) | null;
 }
+
 
 function Card({card, typeCard, onCardHover}: CardProps): JSX.Element {
 
@@ -39,7 +39,7 @@ function Card({card, typeCard, onCardHover}: CardProps): JSX.Element {
 
   const handleCardLeave = () => {
     if (onCardHover) {
-      onCardHover(0);
+      onCardHover(DEFAULT_ID);
     }
   };
 

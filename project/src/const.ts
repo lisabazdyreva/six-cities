@@ -1,34 +1,22 @@
 import {PointExpression} from 'leaflet';
 import {CSSProperties} from 'react';
 
-enum AppRoute {
+
+export enum AppRoute {
   Main = '/',
   Login = '/login',
   Favorites = '/favorites',
   Room = '/offer',
-  RoomID = '/offer/:id', // пока так оставила
+  RoomID = '/offer/:id',
 }
 
-enum AuthorizationStatus {
+
+export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
 
-const Months = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-] as const;
 
 // для моков, потом удалить
 const Users = {
@@ -53,6 +41,7 @@ const Users = {
 } as const;
 
 
+// пока так
 const Locations = {
   Paris: {
     latitude: 48.864716,
@@ -85,38 +74,68 @@ const Locations = {
     zoom: 10,
   },
 } as const;
+// пока так
+const citiesList = Object.keys(Locations);
 
-const CITIES = Object.keys(Locations);
 
-const enum IconsURL {
+export enum IconsURL {
   Default = 'img/pin.svg',
   Current = 'img/pin-active.svg',
 }
+
 
 interface IconParamsTypes {
   IconSize: PointExpression,
   IconAnchor: PointExpression,
 }
 
-const IconsParams: IconParamsTypes = {
+export const IconsParams: IconParamsTypes = {
   IconSize: [27, 39],
   IconAnchor: [14, 39],
 };
+
 
 interface MapStylesPropertiesTypes {
   MainPage: CSSProperties,
   OfferPage: CSSProperties,
 }
 
-const MapStylesProperties: MapStylesPropertiesTypes = {
+export const MapStylesProperties: MapStylesPropertiesTypes = {
   MainPage: {height: '100%'},
   OfferPage: {width: '1144px', height: '100%', margin: '0 auto'},
 };
 
-const enum CardTypes {
+
+export enum CardTypes {
   Main = 'Main',
   Offer = 'Offer',
 }
 
 
-export {AppRoute, AuthorizationStatus, Locations, Users, Months, IconsParams, IconsURL, MapStylesProperties, CardTypes, CITIES};
+export enum SortTypes {
+  Popular = 'Popular',
+  IncrementPrice = 'Price: low to high',
+  DecrementPrice = 'Price: high to low',
+  Rating = 'Top rated first',
+}
+
+
+export const defaultIcon = {
+  iconUrl: IconsURL.Default,
+  iconSize: IconsParams.IconSize,
+  iconAnchor: IconsParams.IconAnchor,
+};
+
+export const currentIcon = {
+  iconUrl: IconsURL.Current,
+  iconSize: IconsParams.IconSize,
+  iconAnchor: IconsParams.IconAnchor,
+};
+
+export const INITIAL_CITY = 'Paris';
+
+export const DEFAULT_SORT_TYPE =  SortTypes.Popular;
+
+export const DEFAULT_ID = 0;
+
+export {Locations, Users, citiesList};

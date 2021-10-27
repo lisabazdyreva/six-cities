@@ -1,15 +1,17 @@
+import type {Offer} from '../../types/offer';
+import type {Reviews} from '../../types/review';
+
 import CommentForm from '../comment-form/comment-form';
 import CommentsList from '../comments-list/comments-list';
 
 import {getRatingPercentValue, formatType} from '../../utils';
 
-import type {Offer} from '../../types/offer';
-import type {Reviews} from '../../types/review';
 
 type OfferCardProps = {
   card: Offer;
   reviews: Reviews;
 };
+
 
 function OfferCard({card, reviews}: OfferCardProps): JSX.Element {
   const {

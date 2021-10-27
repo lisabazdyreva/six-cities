@@ -1,15 +1,19 @@
 import {Link} from 'react-router-dom';
 
+import type {Offers, Offer} from '../../types/offer';
+
 import {formatType, getRatingPercentValue} from '../../utils';
-import {Offers, Offer} from '../../types/offer';
 
 import {AppRoute} from '../../const';
+
 
 type FavoriteCardsProps = {
   cardsByCity: Offers;
 };
 
+
 function FavoriteCards({cardsByCity}: FavoriteCardsProps): JSX.Element {
+
   return (
     <>
       {cardsByCity.map((card: Offer): JSX.Element  => {
