@@ -1,6 +1,6 @@
 import {State} from '../../types/state';
 import {Actions, ActionType} from '../../types/action';
-import {INITIAL_CITY, DEFAULT_SORT_TYPE, DEFAULT_ID} from '../../const';
+import {DEFAULT_ID, DEFAULT_SORT_TYPE, INITIAL_CITY} from '../../const';
 import {offers} from '../../mocks/offers';
 
 const SORTED_OFFERS = offers.filter((offer) => offer.city.name === INITIAL_CITY);
@@ -12,6 +12,7 @@ const initialState = {
   offers: OFFERS,
   activeSortType: DEFAULT_SORT_TYPE,
   id: DEFAULT_ID,
+  offersData: [],
 };
 
 function reducer (state: State = initialState, action: Actions): State {
@@ -24,6 +25,8 @@ function reducer (state: State = initialState, action: Actions): State {
       return {...state, activeSortType: action.payload};
     case ActionType.SetActiveId:
       return {...state, id: action.payload};
+    case ActionType.GetOffers:
+      return {...state, offersData: action.payload};
     default:
       return state;
   }

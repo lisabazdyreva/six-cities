@@ -30,4 +30,11 @@ function setActiveId(id: number) {
   } as const);
 }
 
-export {selectActiveCity, fillOffersList, changeActiveSortType, setActiveId};
+function getOffers(offers: Offers) {
+  return({
+    type: ActionType.GetOffers,
+    payload: offers,
+  } as const);
+}
+
+export {selectActiveCity, fillOffersList, changeActiveSortType, setActiveId, getOffers};

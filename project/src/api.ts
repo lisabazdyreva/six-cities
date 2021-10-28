@@ -1,4 +1,4 @@
-import axios, {AxiosError, AxiosInstance} from 'axios';
+import axios, {AxiosError, AxiosInstance, AxiosResponse} from 'axios';
 
 const BASE_URL = 'https://8.react.pages.academy/six-cities';
 const TIMEOUT = 5000;
@@ -12,10 +12,8 @@ function createAPI(): AxiosInstance {
 
 
   api.interceptors.response.use(
-    (response) => response,
-    (error: AxiosError) => {
-      return Promise.reject(error);
-    }
+    (response: AxiosResponse) => response,
+    (error: AxiosError) => Promise.reject(error),
   );
 
   return api;
