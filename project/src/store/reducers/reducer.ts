@@ -9,6 +9,7 @@ const initialState = {
   sortedOffers: [],
   activeSortType: DEFAULT_SORT_TYPE,
   id: DEFAULT_ID,
+  isDataLoaded: false,
 };
 
 function reducer (state: State = initialState, action: Actions): State {
@@ -22,7 +23,7 @@ function reducer (state: State = initialState, action: Actions): State {
     case ActionType.SetActiveId:
       return {...state, id: action.payload};
     case ActionType.GetOffers:
-      return {...state, offers: action.payload};
+      return {...state, offers: action.payload, isDataLoaded: true};
     default:
       return state;
   }
