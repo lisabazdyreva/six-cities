@@ -1,4 +1,3 @@
-import {SyntheticEvent} from 'react';
 import {Link} from 'react-router-dom';
 import {connect, ConnectedProps} from 'react-redux';
 import {Dispatch} from 'redux';
@@ -46,12 +45,10 @@ type ConnectedComponentProps = PropsFromRedux & LocationsListProps;
 
 
 function LocationsList({cities, onCitySelect, onSortTypeReset, onOffersUpdate, selectedCity, offers}: ConnectedComponentProps): JSX.Element {
-  function onLocationClick(evt: SyntheticEvent) {
-    const element = evt.target as HTMLInputElement;
-    const activeCity = element.innerText;
-    const updatedOffers = filterOffers(activeCity, offers);
+  function onLocationClick(city: string) {
+    const updatedOffers = filterOffers(city, offers);
 
-    onCitySelect(activeCity);
+    onCitySelect(city);
     onSortTypeReset();
     onOffersUpdate(updatedOffers);
   }
@@ -62,7 +59,7 @@ function LocationsList({cities, onCitySelect, onSortTypeReset, onOffersUpdate, s
           <li
             className="locations__item"
             key={city}
-            onClick={(evt) => onLocationClick(evt)}
+            onClick={() => onLocationClick(city)}
           >
             <Link
               className={classNames(

@@ -1,4 +1,4 @@
-import {SyntheticEvent, useState} from 'react';
+import {useState} from 'react';
 import {connect, ConnectedProps} from 'react-redux';
 import {Dispatch} from 'redux';
 import classNames from 'classnames';
@@ -51,11 +51,8 @@ function SortingForm({sortedOffers, activeSortType, onOffersSort, onSortChange}:
     sortOffers(type);
   }
 
-  function onSortTypeClick (evt: SyntheticEvent) {
-    const element = evt.target as HTMLInputElement;
-    const selectedType = element.innerText;
-
-    changeSortType(selectedType);
+  function onSortTypeClick (type: string) {
+    changeSortType(type);
     setOpenSorting(!isOpenSorting);
   }
 
@@ -78,7 +75,7 @@ function SortingForm({sortedOffers, activeSortType, onOffersSort, onSortChange}:
         {sortTypesList.map((type: string) => (
           <li
             key={type}
-            onClick={(evt) => onSortTypeClick(evt)}
+            onClick={() => onSortTypeClick(type)}
             className={classNames(
               'places__option',
               {'places__option--active': activeSortType === type},
