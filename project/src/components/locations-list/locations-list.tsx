@@ -15,9 +15,10 @@ import {filterOffers} from '../../utils';
 import {AppRoute, DEFAULT_SORT_TYPE} from '../../const';
 
 
-function mapStateToProps ({selectedCity}: State) {
+function mapStateToProps ({selectedCity, offers}: State) {
   return ({
     selectedCity,
+    offers,
   });
 }
 
@@ -44,11 +45,11 @@ type LocationsListProps = {
 type ConnectedComponentProps = PropsFromRedux & LocationsListProps;
 
 
-function LocationsList({cities, onCitySelect, onSortTypeReset, onOffersUpdate, selectedCity}: ConnectedComponentProps): JSX.Element {
+function LocationsList({cities, onCitySelect, onSortTypeReset, onOffersUpdate, selectedCity, offers}: ConnectedComponentProps): JSX.Element {
   function onLocationClick(evt: SyntheticEvent) {
     const element = evt.target as HTMLInputElement;
     const activeCity = element.innerText;
-    const updatedOffers = filterOffers(activeCity);
+    const updatedOffers = filterOffers(activeCity, offers);
 
     onCitySelect(activeCity);
     onSortTypeReset();

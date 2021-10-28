@@ -7,5 +7,4 @@ export type State = {
   sortedOffers: Offers,
   activeSortType: string | SortTypes,
   id: number,
-  offersData: Offers,
 };

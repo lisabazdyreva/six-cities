@@ -1,4 +1,15 @@
 import {
+  ThunkAction,
+  ThunkDispatch
+} from 'redux-thunk';
+
+import {
+  AxiosInstance
+} from 'axios';
+
+import {State} from './state';
+
+import {
   selectActiveCity,
   fillOffersList,
   changeActiveSortType,
@@ -20,3 +31,7 @@ export type Actions =
   ReturnType<typeof changeActiveSortType> |
   ReturnType<typeof setActiveId> |
   ReturnType<typeof getOffers>;
+
+
+export type ThunkActionResult<P = Promise<void>> = ThunkAction<P, State, AxiosInstance, Actions>;
+export type ThunkAppDispatch = ThunkDispatch<State, AxiosInstance, Actions>;

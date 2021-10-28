@@ -5,7 +5,9 @@ import {Provider} from 'react-redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
-import  {createAPI} from './api';
+import {ThunkAppDispatch} from './types/action';
+
+import {createAPI} from './api';
 import {reducer} from './store/reducers/reducer';
 
 import App from './components/app/app';
@@ -13,6 +15,8 @@ import App from './components/app/app';
 import {citiesList} from './const';
 
 import {reviews} from './mocks/reviews';
+
+import {fetchOffersList} from './store/actions/api-actions';
 
 
 const api = createAPI();
@@ -24,6 +28,8 @@ const store = createStore(
     applyMiddleware(thunk.withExtraArgument(api)),
   ),
 );
+
+(store.dispatch as ThunkAppDispatch)(fetchOffersList());
 
 ReactDOM.render(
   <React.StrictMode>
