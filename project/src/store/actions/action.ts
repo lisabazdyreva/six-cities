@@ -2,6 +2,8 @@ import {ActionType} from '../../types/action';
 
 import type {Offers} from '../../types/offer';
 
+import {AuthorizationStatus} from '../../const';
+
 function selectActiveCity(city: string) {
   return ({
     type: ActionType.SelectActiveCity,
@@ -31,10 +33,17 @@ function setActiveId(id: number) {
 }
 
 function getOffers(offers: Offers) {
-  return({
+  return ({
     type: ActionType.GetOffers,
     payload: offers,
   } as const);
 }
 
-export {selectActiveCity, fillOffersList, changeActiveSortType, setActiveId, getOffers};
+function requireAuthorization(authorizationStatus: AuthorizationStatus) {
+  return ({
+    type: ActionType.RequireAuthorization,
+    payload: authorizationStatus,
+  } as const);
+}
+
+export {selectActiveCity, fillOffersList, changeActiveSortType, setActiveId, getOffers, requireAuthorization};
