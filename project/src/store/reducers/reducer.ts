@@ -1,17 +1,15 @@
 import {State} from '../../types/state';
 import {Actions, ActionType} from '../../types/action';
-import {INITIAL_CITY, DEFAULT_SORT_TYPE, DEFAULT_ID} from '../../const';
-import {offers} from '../../mocks/offers';
+import {DEFAULT_ID, DEFAULT_SORT_TYPE, INITIAL_CITY} from '../../const';
 
-const SORTED_OFFERS = offers.filter((offer) => offer.city.name === INITIAL_CITY);
-const OFFERS = offers.slice();
 
 const initialState = {
+  offers: [],
   selectedCity: INITIAL_CITY,
-  sortedOffers: SORTED_OFFERS,
-  offers: OFFERS,
+  sortedOffers: [],
   activeSortType: DEFAULT_SORT_TYPE,
   id: DEFAULT_ID,
+  isDataLoaded: false,
 };
 
 function reducer (state: State = initialState, action: Actions): State {
@@ -24,6 +22,8 @@ function reducer (state: State = initialState, action: Actions): State {
       return {...state, activeSortType: action.payload};
     case ActionType.SetActiveId:
       return {...state, id: action.payload};
+    case ActionType.GetOffers:
+      return {...state, offers: action.payload, isDataLoaded: true};
     default:
       return state;
   }

@@ -1,4 +1,3 @@
-import {SyntheticEvent} from 'react';
 import {Link} from 'react-router-dom';
 import {connect, ConnectedProps} from 'react-redux';
 import {Dispatch} from 'redux';
@@ -15,9 +14,10 @@ import {filterOffers} from '../../utils';
 import {AppRoute, DEFAULT_SORT_TYPE} from '../../const';
 
 
-function mapStateToProps ({selectedCity}: State) {
+function mapStateToProps ({selectedCity, offers}: State) {
   return ({
     selectedCity,
+    offers,
   });
 }
 
@@ -44,13 +44,11 @@ type LocationsListProps = {
 type ConnectedComponentProps = PropsFromRedux & LocationsListProps;
 
 
-function LocationsList({cities, onCitySelect, onSortTypeReset, onOffersUpdate, selectedCity}: ConnectedComponentProps): JSX.Element {
-  function onLocationClick(evt: SyntheticEvent) {
-    const element = evt.target as HTMLInputElement;
-    const activeCity = element.innerText;
-    const updatedOffers = filterOffers(activeCity);
+function LocationsList({cities, onCitySelect, onSortTypeReset, onOffersUpdate, selectedCity, offers}: ConnectedComponentProps): JSX.Element {
+  function onLocationClick(city: string) {
+    const updatedOffers = filterOffers(city, offers);
 
-    onCitySelect(activeCity);
+    onCitySelect(city);
     onSortTypeReset();
     onOffersUpdate(updatedOffers);
   }
@@ -61,7 +59,7 @@ function LocationsList({cities, onCitySelect, onSortTypeReset, onOffersUpdate, s
           <li
             className="locations__item"
             key={city}
-            onClick={(evt) => onLocationClick(evt)}
+            onClick={() => onLocationClick(city)}
           >
             <Link
               className={classNames(
