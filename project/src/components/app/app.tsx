@@ -12,7 +12,7 @@ import OfferScreen from '../offer-screen/offer-screen';
 import PrivateRoute from '../private-route/private-route';
 import Spinner from '../spinner/spinner';
 
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute} from '../../const';
 
 
 function mapStateToProps({isDataLoaded}: State) {
@@ -54,7 +54,6 @@ function App(props: ConnectedComponentProps): JSX.Element {
           exact
           path={AppRoute.Favorites}
           render={() => <FavoritesScreen/>}
-          authorizationStatus={AuthorizationStatus.Auth}
         >
         </PrivateRoute>
         <Route path={AppRoute.RoomID} exact>
