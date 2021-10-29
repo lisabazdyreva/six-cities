@@ -18,7 +18,6 @@ import {
   requireAuthorization
 } from '../store/actions/action';
 
-import {AuthorizationStatus} from '../const';
 
 export enum ActionType {
   SelectActiveCity = 'main/selectActiveCity',

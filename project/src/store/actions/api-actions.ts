@@ -1,10 +1,8 @@
 import {ThunkActionResult} from '../../types/action';
-import {getOffers, fillOffersList} from './action';
+import {fillOffersList, getOffers, requireAuthorization} from './action';
 
-import {adaptToClient} from '../../utils';
-
-import {filterOffers} from '../../utils';
-import {INITIAL_CITY} from '../../const';
+import {adaptToClient, filterOffers} from '../../utils';
+import {AuthorizationStatus, INITIAL_CITY} from '../../const';
 
 
 function fetchOffersList(): ThunkActionResult {
@@ -17,5 +15,11 @@ function fetchOffersList(): ThunkActionResult {
   };
 }
 
-export {fetchOffersList};
+function checkAuthorization(): ThunkActionResult {
+  return async(dispatch, _getState, api): Promise<void> => {
+    await api.get('/login').then(() => dispatch(requireAuthorization(AuthorizationStatus.Auth)));
+  };
+}
+
+export {fetchOffersList, checkAuthorization};
 
