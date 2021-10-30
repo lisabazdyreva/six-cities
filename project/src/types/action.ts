@@ -15,7 +15,8 @@ import {
   changeActiveSortType,
   setActiveId,
   getOffers,
-  requireAuthorization
+  requireAuthorization,
+  requireLogout
 } from '../store/actions/action';
 
 
@@ -26,6 +27,7 @@ export enum ActionType {
   SetActiveId = 'main/setActiveId',
   GetOffers = 'data/getOffers',
   RequireAuthorization = 'user/requireAuthorization',
+  RequireLogout = 'user/requireLogout',
 }
 
 export type Actions =
@@ -34,7 +36,8 @@ export type Actions =
   ReturnType<typeof changeActiveSortType> |
   ReturnType<typeof setActiveId> |
   ReturnType<typeof getOffers> |
-  ReturnType<typeof requireAuthorization>;
+  ReturnType<typeof requireAuthorization> |
+  ReturnType<typeof requireLogout>;
 
 
 export type ThunkActionResult<P = Promise<void>> = ThunkAction<P, State, AxiosInstance, Actions>;

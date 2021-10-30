@@ -1,12 +1,12 @@
 import {ThunkActionResult} from '../../types/action';
 import {AuthorizationData} from '../../types/authorization-data';
 
-import {fillOffersList, getOffers, requireAuthorization} from './action';
+import {fillOffersList, getOffers, requireAuthorization, requireLogout} from './action';
 
 import {adaptToClient, filterOffers} from '../../utils';
 import {AuthorizationStatus, INITIAL_CITY} from '../../const';
 
-import {saveToken, Token} from '../../services/token';
+import {saveToken, deleteToken, Token} from '../../services/token';
 
 
 function fetchOffersList(): ThunkActionResult {
@@ -33,5 +33,13 @@ function loginAction({login: email, password}: AuthorizationData): ThunkActionRe
   };
 }
 
-export {fetchOffersList, checkAuthorization, loginAction};
+function logoutAction(): ThunkActionResult {
+  return async(dispatch, _getState, api): Promise<void> => {
+    api.delete('./logout');
+    deleteToken();
+    dispatch(requireLogout());
+  }
+}
+
+export {fetchOffersList, checkAuthorization, loginAction, logoutAction};
 

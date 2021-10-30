@@ -46,4 +46,10 @@ function requireAuthorization(authorizationStatus: AuthorizationStatus) {
   } as const);
 }
 
-export {selectActiveCity, fillOffersList, changeActiveSortType, setActiveId, getOffers, requireAuthorization};
+function requireLogout() {
+  return ({
+    type: ActionType.RequireLogout,
+  } as const);
+}
+
+export {selectActiveCity, fillOffersList, changeActiveSortType, setActiveId, getOffers, requireAuthorization, requireLogout};

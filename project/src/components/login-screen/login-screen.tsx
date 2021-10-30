@@ -28,6 +28,8 @@ function LoginScreen({onSubmit}: PropsFromRedux): JSX.Element {
 
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
+
 
   function handleSubmit(evt: SyntheticEvent) {
     evt.preventDefault();
@@ -81,7 +83,7 @@ function LoginScreen({onSubmit}: PropsFromRedux): JSX.Element {
                     required
                   />
                 </div>
-                <button className="login__submit form__submit button" type="submit" onClick={handleSubmit} disabled>Sign in</button>
+                <button className="login__submit form__submit button" type="submit" onClick={handleSubmit} ref={buttonRef}>Sign in</button>
               </form>
             </section>
             <section className="locations locations--login locations--current">
