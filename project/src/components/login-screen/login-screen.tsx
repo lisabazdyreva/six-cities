@@ -1,6 +1,7 @@
-import {SyntheticEvent, useRef} from 'react';
+import {useState, SyntheticEvent} from 'react';
 import {connect, ConnectedProps} from 'react-redux';
 import {Link, useHistory} from 'react-router-dom';
+
 
 import {ThunkAppDispatch} from '../../types/action';
 
@@ -24,23 +25,20 @@ const connector = connect(null, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 function LoginScreen({onSubmit}: PropsFromRedux): JSX.Element {
-  const history = useHistory();
+  const [login, setLogin] = useState('');
+  const [password, setPassword] = useState('');
 
-  const loginRef = useRef<HTMLInputElement | null>(null);
-  const passwordRef = useRef<HTMLInputElement | null>(null);
-  const buttonRef = useRef<HTMLButtonElement | null>(null);
+  const history = useHistory();
 
 
   function handleSubmit(evt: SyntheticEvent) {
     evt.preventDefault();
-    if (loginRef.current !== null && passwordRef.current !== null) {
+    if (login !== '' && password !== '') {
       onSubmit({
-        login: loginRef.current.value,
-        password: passwordRef.current.value,
+        login: login,
+        password: password,
       });
-      if (loginRef.current.value && passwordRef.current.value) {
-        history.push(AppRoute.Main);
-      }
+      history.push(AppRoute.Main);
     }
   }
 
@@ -68,7 +66,8 @@ function LoginScreen({onSubmit}: PropsFromRedux): JSX.Element {
                     type="email"
                     name="email"
                     placeholder="Email"
-                    ref={loginRef}
+                    onChange={(evt) => setLogin(evt.target.value)}
+                    value={login}
                     required
                   />
                 </div>
@@ -79,11 +78,19 @@ function LoginScreen({onSubmit}: PropsFromRedux): JSX.Element {
                     type="password"
                     name="password"
                     placeholder="Password"
-                    ref={passwordRef}
+                    onChange={(evt) => setPassword(evt.target.value)}
+                    value={password}
                     required
                   />
                 </div>
-                <button className="login__submit form__submit button" type="submit" onClick={handleSubmit} ref={buttonRef}>Sign in</button>
+                <button
+                  className="login__submit form__submit button"
+                  type="submit"
+                  onClick={(evt) => handleSubmit(evt)}
+                  disabled={login === '' || password === ''}
+                >
+                  Sign in
+                </button>
               </form>
             </section>
             <section className="locations locations--login locations--current">
