@@ -38,7 +38,7 @@ function logoutAction(): ThunkActionResult {
     api.delete('./logout');
     deleteToken();
     dispatch(requireLogout());
-  }
+  };
 }
 
 export {fetchOffersList, checkAuthorization, loginAction, logoutAction};

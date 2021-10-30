@@ -6,6 +6,8 @@ import {State} from '../../types/state';
 import Logo from '../logo/logo';
 
 import {AppRoute, AuthorizationStatus} from '../../const';
+import {ThunkAppDispatch} from '../../types/action';
+import {requireLogout} from '../../store/actions/action';
 
 
 function mapStateToProps ({authorizationStatus}: State) {
@@ -14,11 +16,19 @@ function mapStateToProps ({authorizationStatus}: State) {
   });
 }
 
-const connector = connect(mapStateToProps);
+function mapDispatchToProps(dispatch: ThunkAppDispatch) {
+  return({
+    onLogout() {
+      dispatch(requireLogout());
+    },
+  });
+}
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 
-function Header({authorizationStatus}: PropsFromRedux): JSX.Element {
+function Header({authorizationStatus, onLogout}: PropsFromRedux): JSX.Element {
   return (
     <header className="header">
       <div className="container">
@@ -35,7 +45,7 @@ function Header({authorizationStatus}: PropsFromRedux): JSX.Element {
                         <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
                       </Link>
                     </li>
-                    <li className="header__nav-item">
+                    <li className="header__nav-item" onClick={onLogout}>
                       <Link className="header__nav-link" to={AppRoute.Login}>
                         <span className="header__signout">Sign out</span>
                       </Link>
