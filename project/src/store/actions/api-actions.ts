@@ -6,6 +6,8 @@ import {fillOffersList, getOffers, requireAuthorization} from './action';
 import {adaptToClient, filterOffers} from '../../utils';
 import {AuthorizationStatus, INITIAL_CITY} from '../../const';
 
+import {saveToken, Token} from '../../services/token';
+
 
 function fetchOffersList(): ThunkActionResult {
   return async (dispatch, _getState, api):Promise<void> => {
@@ -25,9 +27,8 @@ function checkAuthorization(): ThunkActionResult {
 
 function loginAction({login: email, password}: AuthorizationData): ThunkActionResult {
   return async(dispatch, _getState, api): Promise<void> => {
-    const {data} = await api.post('/login', {email, password});
-    //eslint-disable-next-line
-    console.log(data);
+    const {data: {token}} = await api.post<{token: Token}>('/login', {email, password});
+    saveToken(token);
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
   };
 }

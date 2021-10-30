@@ -1,4 +1,4 @@
-import {useRef} from 'react';
+import {SyntheticEvent, useRef} from 'react';
 import {connect, ConnectedProps} from 'react-redux';
 import {Link} from 'react-router-dom';
 
@@ -28,10 +28,9 @@ function LoginScreen({onSubmit}: PropsFromRedux): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
-  function handleSubmit() {
+  function handleSubmit(evt: SyntheticEvent) {
+    evt.preventDefault();
     if (loginRef.current !== null && passwordRef.current !== null) {
-      //eslint-disable-next-line
-      console.log(loginRef.current.value, passwordRef.current.value)
       onSubmit({
         login: loginRef.current.value,
         password: passwordRef.current.value,
@@ -78,7 +77,7 @@ function LoginScreen({onSubmit}: PropsFromRedux): JSX.Element {
                     required
                   />
                 </div>
-                <button className="login__submit form__submit button" type="submit" onSubmit={handleSubmit}>Sign in</button>
+                <button className="login__submit form__submit button" type="submit" onClick={handleSubmit}>Sign in</button>
               </form>
             </section>
             <section className="locations locations--login locations--current">
