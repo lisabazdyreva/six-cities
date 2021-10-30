@@ -1,4 +1,6 @@
 import {ThunkActionResult} from '../../types/action';
+import {AuthorizationData} from '../../types/authorization-data';
+
 import {fillOffersList, getOffers, requireAuthorization} from './action';
 
 import {adaptToClient, filterOffers} from '../../utils';
@@ -21,5 +23,14 @@ function checkAuthorization(): ThunkActionResult {
   };
 }
 
-export {fetchOffersList, checkAuthorization};
+function loginAction({login: email, password}: AuthorizationData): ThunkActionResult {
+  return async(dispatch, _getState, api): Promise<void> => {
+    const {data} = await api.post('/login', {email, password});
+    //eslint-disable-next-line
+    console.log(data);
+    dispatch(requireAuthorization(AuthorizationStatus.Auth));
+  };
+}
+
+export {fetchOffersList, checkAuthorization, loginAction};
 

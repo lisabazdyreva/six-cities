@@ -1,12 +1,44 @@
+import {useRef} from 'react';
+import {connect, ConnectedProps} from 'react-redux';
 import {Link} from 'react-router-dom';
+
+import {ThunkAppDispatch} from '../../types/action';
 
 import Icons from '../icons/icons';
 import Logo from '../logo/logo';
 
 import {AppRoute} from '../../const';
+import {loginAction} from '../../store/actions/api-actions';
+import {AuthorizationData} from '../../types/authorization-data';
 
 
-function LoginScreen(): JSX.Element {
+function mapDispatchToProps(dispatch: ThunkAppDispatch) {
+  return ({
+    onSubmit(authorizationData: AuthorizationData) {
+      dispatch(loginAction(authorizationData));
+    },
+  });
+}
+const connector = connect(null, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+function LoginScreen({onSubmit}: PropsFromRedux): JSX.Element {
+
+  const loginRef = useRef<HTMLInputElement | null>(null);
+  const passwordRef = useRef<HTMLInputElement | null>(null);
+
+  function handleSubmit() {
+    if (loginRef.current !== null && passwordRef.current !== null) {
+      //eslint-disable-next-line
+      console.log(loginRef.current.value, passwordRef.current.value)
+      onSubmit({
+        login: loginRef.current.value,
+        password: passwordRef.current.value,
+      });
+    }
+  }
+
   return (
     <>
       <Icons />
@@ -26,13 +58,27 @@ function LoginScreen(): JSX.Element {
               <form className="login__form form" action="#" method="post">
                 <div className="login__input-wrapper form__input-wrapper">
                   <label className="visually-hidden">E-mail</label>
-                  <input className="login__input form__input" type="email" name="email" placeholder="Email" required/>
+                  <input
+                    className="login__input form__input"
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    ref={loginRef}
+                    required
+                  />
                 </div>
                 <div className="login__input-wrapper form__input-wrapper">
                   <label className="visually-hidden">Password</label>
-                  <input className="login__input form__input" type="password" name="password" placeholder="Password" required/>
+                  <input
+                    className="login__input form__input"
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    ref={passwordRef}
+                    required
+                  />
                 </div>
-                <button className="login__submit form__submit button" type="submit">Sign in</button>
+                <button className="login__submit form__submit button" type="submit" onSubmit={handleSubmit}>Sign in</button>
               </form>
             </section>
             <section className="locations locations--login locations--current">
@@ -49,4 +95,5 @@ function LoginScreen(): JSX.Element {
   );
 }
 
-export default LoginScreen;
+export {LoginScreen};
+export default connector(LoginScreen);
