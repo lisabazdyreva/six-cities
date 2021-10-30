@@ -1,6 +1,6 @@
 import {SyntheticEvent, useRef} from 'react';
 import {connect, ConnectedProps} from 'react-redux';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 
 import {ThunkAppDispatch} from '../../types/action';
 
@@ -24,6 +24,7 @@ const connector = connect(null, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 function LoginScreen({onSubmit}: PropsFromRedux): JSX.Element {
+  const history = useHistory();
 
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
@@ -35,6 +36,9 @@ function LoginScreen({onSubmit}: PropsFromRedux): JSX.Element {
         login: loginRef.current.value,
         password: passwordRef.current.value,
       });
+      if (loginRef.current.value && passwordRef.current.value) {
+        history.push(AppRoute.Main);
+      }
     }
   }
 
@@ -77,7 +81,7 @@ function LoginScreen({onSubmit}: PropsFromRedux): JSX.Element {
                     required
                   />
                 </div>
-                <button className="login__submit form__submit button" type="submit" onClick={handleSubmit}>Sign in</button>
+                <button className="login__submit form__submit button" type="submit" onClick={handleSubmit} disabled>Sign in</button>
               </form>
             </section>
             <section className="locations locations--login locations--current">

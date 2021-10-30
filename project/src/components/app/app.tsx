@@ -1,4 +1,4 @@
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {Router as BrowserRouter, Route, Switch} from 'react-router-dom';
 import {connect, ConnectedProps} from 'react-redux';
 
 import type {Reviews} from '../../types/review';
@@ -11,6 +11,8 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import OfferScreen from '../offer-screen/offer-screen';
 import PrivateRoute from '../private-route/private-route';
 import Spinner from '../spinner/spinner';
+
+import browserHistory from '../../browser-history';
 
 import {AppRoute} from '../../const';
 
@@ -40,7 +42,7 @@ function App(props: ConnectedComponentProps): JSX.Element {
   }
 
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
         <Route path={AppRoute.Main} exact>
           <MainScreen
