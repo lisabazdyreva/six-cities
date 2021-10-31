@@ -48,7 +48,7 @@ function Header({authorizationStatus, login,  onLogout}: PropsFromRedux): JSX.El
                       </Link>
                     </li>
                     <li className="header__nav-item" onClick={onLogout}>
-                      <Link className="header__nav-link" to={AppRoute.Login}>
+                      <Link className="header__nav-link" to={AppRoute.Main}> {/*возможно потом убрать, так как в тз нет перехода на страницу авторизации*/}
                         <span className="header__signout">Sign out</span>
                       </Link>
                     </li>

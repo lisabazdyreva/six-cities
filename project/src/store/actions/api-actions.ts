@@ -21,7 +21,7 @@ function fetchOffersList(): ThunkActionResult {
 
 function checkAuthorization(): ThunkActionResult {
   return async(dispatch, _getState, api): Promise<void> => {
-    await api.get('/login').then(() => dispatch(requireAuthorization(AuthorizationStatus.Auth)));
+    await api.get('/login').then(() => dispatch(requireAuthorization(AuthorizationStatus.NoAuth)));
   };
 }
 

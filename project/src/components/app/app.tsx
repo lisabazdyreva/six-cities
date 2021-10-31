@@ -17,9 +17,10 @@ import browserHistory from '../../browser-history';
 import {AppRoute} from '../../const';
 
 
-function mapStateToProps({isDataLoaded}: State) {
+function mapStateToProps({isDataLoaded, authorizationStatus}: State) {
   return ({
     isDataLoaded,
+    authorizationStatus,
   });
 }
 
@@ -40,9 +41,7 @@ function App(props: ConnectedComponentProps): JSX.Element {
   if (!isDataLoaded) {
     return <Spinner />;
   }
-  // Страница Favorites доступна только авторизованным пользователям. При попытке перехода к приватной странице выполняется перенаправление на страницу «Sign In» (/login).
-  // Если пользователь авторизован, то при переходе на страницу Sign In выполняется перенаправление на главную страницу.
-  // Клик по кнопке «Sign Out» приводит к завершению сеанса работы — выходу из закрытой части приложения.
+  // Если пользователь авторизован, то при переходе на страницу Sign In выполняется перенаправление на главную страницу. пока непонятно, потом сделать
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>
@@ -51,9 +50,11 @@ function App(props: ConnectedComponentProps): JSX.Element {
             cities={cities}
           />
         </Route>
-        <Route path={AppRoute.Login} exact >
-          <LoginScreen />
-        </Route>
+        <Route
+          path={AppRoute.Login}
+          exact
+          render={({history}) => <LoginScreen onAuth={() => history.push(AppRoute.Main)}/>}
+        />
         <PrivateRoute
           exact
           path={AppRoute.Favorites}

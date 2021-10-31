@@ -1,7 +1,6 @@
 import {useState, SyntheticEvent} from 'react';
 import {connect, ConnectedProps} from 'react-redux';
-import {Link, useHistory} from 'react-router-dom';
-
+import {Link} from 'react-router-dom';
 
 import {ThunkAppDispatch} from '../../types/action';
 
@@ -23,13 +22,15 @@ function mapDispatchToProps(dispatch: ThunkAppDispatch) {
 }
 const connector = connect(null, mapDispatchToProps);
 
+type LoginScreenProps = {
+  onAuth: () => void;
+}
 type PropsFromRedux = ConnectedProps<typeof connector>;
+type ConnectedComponentProps = PropsFromRedux & LoginScreenProps;
 
-function LoginScreen({onSubmit}: PropsFromRedux): JSX.Element {
+function LoginScreen({onSubmit, onAuth}: ConnectedComponentProps): JSX.Element {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
-
-  const history = useHistory();
 
 
   function handleSubmit(evt: SyntheticEvent) {
@@ -38,7 +39,7 @@ function LoginScreen({onSubmit}: PropsFromRedux): JSX.Element {
       onSubmit({
         login: login,
         password: password,
-      }, () => history.push(AppRoute.Main), // иначе нет валидации
+      }, onAuth, // иначе нет валидации
       );
     }
   }
