@@ -9,4 +9,5 @@ export type State = {
   id: number,
   isDataLoaded: boolean,
   authorizationStatus: AuthorizationStatus,
+  login: string,
 };

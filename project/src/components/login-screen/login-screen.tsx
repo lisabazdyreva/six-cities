@@ -15,8 +15,9 @@ import {AuthorizationData} from '../../types/authorization-data';
 
 function mapDispatchToProps(dispatch: ThunkAppDispatch) {
   return ({
-    onSubmit(authorizationData: AuthorizationData) {
+    onSubmit(authorizationData: AuthorizationData, openMainPage: () => void) {
       dispatch(loginAction(authorizationData));
+      openMainPage();
     },
   });
 }
@@ -37,8 +38,8 @@ function LoginScreen({onSubmit}: PropsFromRedux): JSX.Element {
       onSubmit({
         login: login,
         password: password,
-      });
-      history.push(AppRoute.Main);
+      }, () => history.push(AppRoute.Main), // иначе нет валидации
+      );
     }
   }
 
@@ -58,7 +59,7 @@ function LoginScreen({onSubmit}: PropsFromRedux): JSX.Element {
           <div className="page__login-container container">
             <section className="login">
               <h1 className="login__title">Sign in</h1>
-              <form className="login__form form" action="#" method="post">
+              <form className="login__form form" action="#" method="post" onSubmit={handleSubmit}>
                 <div className="login__input-wrapper form__input-wrapper">
                   <label className="visually-hidden">E-mail</label>
                   <input
@@ -86,7 +87,6 @@ function LoginScreen({onSubmit}: PropsFromRedux): JSX.Element {
                 <button
                   className="login__submit form__submit button"
                   type="submit"
-                  onClick={(evt) => handleSubmit(evt)}
                   disabled={login === '' || password === ''}
                 >
                   Sign in

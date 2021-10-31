@@ -40,7 +40,9 @@ function App(props: ConnectedComponentProps): JSX.Element {
   if (!isDataLoaded) {
     return <Spinner />;
   }
-
+  // Страница Favorites доступна только авторизованным пользователям. При попытке перехода к приватной странице выполняется перенаправление на страницу «Sign In» (/login).
+  // Если пользователь авторизован, то при переходе на страницу Sign In выполняется перенаправление на главную страницу.
+  // Клик по кнопке «Sign Out» приводит к завершению сеанса работы — выходу из закрытой части приложения.
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>

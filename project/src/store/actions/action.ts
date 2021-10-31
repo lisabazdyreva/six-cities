@@ -52,4 +52,11 @@ function requireLogout() {
   } as const);
 }
 
-export {selectActiveCity, fillOffersList, changeActiveSortType, setActiveId, getOffers, requireAuthorization, requireLogout};
+function setLogin(login: string) {
+  return ({
+    type: ActionType.SetLogin,
+    payload: login,
+  } as const);
+}
+
+export {selectActiveCity, fillOffersList, changeActiveSortType, setActiveId, getOffers, requireAuthorization, requireLogout, setLogin};
