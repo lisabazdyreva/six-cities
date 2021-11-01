@@ -1,4 +1,4 @@
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {Router as BrowserRouter, Route, Switch} from 'react-router-dom';
 import {connect, ConnectedProps} from 'react-redux';
 
 import type {Reviews} from '../../types/review';
@@ -12,12 +12,15 @@ import OfferScreen from '../offer-screen/offer-screen';
 import PrivateRoute from '../private-route/private-route';
 import Spinner from '../spinner/spinner';
 
-import {AppRoute, AuthorizationStatus} from '../../const';
+import browserHistory from '../../browser-history';
+
+import {AppRoute} from '../../const';
 
 
-function mapStateToProps({isDataLoaded}: State) {
+function mapStateToProps({isDataLoaded, authorizationStatus}: State) {
   return ({
     isDataLoaded,
+    authorizationStatus,
   });
 }
 
@@ -38,23 +41,24 @@ function App(props: ConnectedComponentProps): JSX.Element {
   if (!isDataLoaded) {
     return <Spinner />;
   }
-
+  // Если пользователь авторизован, то при переходе на страницу Sign In выполняется перенаправление на главную страницу. пока непонятно, потом сделать
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
         <Route path={AppRoute.Main} exact>
           <MainScreen
             cities={cities}
           />
         </Route>
-        <Route path={AppRoute.Login} exact >
-          <LoginScreen />
-        </Route>
+        <Route
+          path={AppRoute.Login}
+          exact
+          render={({history}) => <LoginScreen onAuth={() => history.push(AppRoute.Main)}/>}
+        />
         <PrivateRoute
           exact
           path={AppRoute.Favorites}
           render={() => <FavoritesScreen/>}
-          authorizationStatus={AuthorizationStatus.Auth}
         >
         </PrivateRoute>
         <Route path={AppRoute.RoomID} exact>

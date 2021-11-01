@@ -16,7 +16,7 @@ type FavoriteCardsByCities = {
 }[];
 
 function getFavoriteCardsByCities(cards: Offers): FavoriteCardsByCities {
-  const favoriteCards = cards.filter((card) => card.isFavorite);
+  const favoriteCards = cards.filter((card) => !card.isFavorite); // пока для отладки так
   const favoriteCities = getFavoriteCitiesList(favoriteCards);
 
   return favoriteCities.map((city) => Object.assign({}, {[city]: favoriteCards.filter((card) => card.city.name === city)}));

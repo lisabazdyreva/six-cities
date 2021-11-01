@@ -1,10 +1,12 @@
 import {ThunkActionResult} from '../../types/action';
-import {getOffers, fillOffersList} from './action';
+import {AuthorizationData} from '../../types/authorization-data';
 
-import {adaptToClient} from '../../utils';
+import {fillOffersList, getOffers, requireAuthorization, requireLogout, setLogin} from './action';
 
-import {filterOffers} from '../../utils';
-import {INITIAL_CITY} from '../../const';
+import {adaptToClient, filterOffers} from '../../utils';
+import {AuthorizationStatus, INITIAL_CITY, INITIAL_LOGIN} from '../../const';
+
+import {saveToken, deleteToken, Token} from '../../services/token';
 
 
 function fetchOffersList(): ThunkActionResult {
@@ -17,5 +19,29 @@ function fetchOffersList(): ThunkActionResult {
   };
 }
 
-export {fetchOffersList};
+function checkAuthorization(): ThunkActionResult {
+  return async(dispatch, _getState, api): Promise<void> => {
+    await api.get('/login').then(() => dispatch(requireAuthorization(AuthorizationStatus.NoAuth)));
+  };
+}
+
+function loginAction({login: email, password}: AuthorizationData): ThunkActionResult {
+  return async(dispatch, _getState, api): Promise<void> => {
+    const {data: {token}} = await api.post<{token: Token}>('/login', {email, password});
+    saveToken(token);
+    dispatch(requireAuthorization(AuthorizationStatus.Auth));
+    dispatch(setLogin(email));
+  };
+}
+
+function logoutAction(): ThunkActionResult {
+  return async(dispatch, _getState, api): Promise<void> => {
+    api.delete('./logout');
+    deleteToken();
+    dispatch(requireLogout());
+    dispatch(setLogin(INITIAL_LOGIN));
+  };
+}
+
+export {fetchOffersList, checkAuthorization, loginAction, logoutAction};
 

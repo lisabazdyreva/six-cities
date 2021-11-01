@@ -1,6 +1,6 @@
 import {State} from '../../types/state';
 import {Actions, ActionType} from '../../types/action';
-import {DEFAULT_ID, DEFAULT_SORT_TYPE, INITIAL_CITY} from '../../const';
+import {AuthorizationStatus, DEFAULT_ID, DEFAULT_SORT_TYPE, INITIAL_CITY, INITIAL_LOGIN} from '../../const';
 
 
 const initialState = {
@@ -10,6 +10,8 @@ const initialState = {
   activeSortType: DEFAULT_SORT_TYPE,
   id: DEFAULT_ID,
   isDataLoaded: false,
+  authorizationStatus: AuthorizationStatus.Unknown,
+  login: INITIAL_LOGIN,
 };
 
 function reducer (state: State = initialState, action: Actions): State {
@@ -24,6 +26,12 @@ function reducer (state: State = initialState, action: Actions): State {
       return {...state, id: action.payload};
     case ActionType.GetOffers:
       return {...state, offers: action.payload, isDataLoaded: true};
+    case ActionType.RequireAuthorization:
+      return {...state, authorizationStatus: action.payload};
+    case ActionType.RequireLogout:
+      return {...state, authorizationStatus: AuthorizationStatus.NoAuth};
+    case ActionType.SetLogin:
+      return {...state, login: action.payload};
     default:
       return state;
   }

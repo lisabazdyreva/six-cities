@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {createStore, applyMiddleware} from 'redux';
+import {applyMiddleware, createStore} from 'redux';
 import {Provider} from 'react-redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
@@ -12,14 +12,16 @@ import {reducer} from './store/reducers/reducer';
 
 import App from './components/app/app';
 
-import {citiesList} from './const';
+import {AuthorizationStatus, citiesList} from './const';
 
 import {reviews} from './mocks/reviews';
 
-import {fetchOffersList} from './store/actions/api-actions';
+import {checkAuthorization, fetchOffersList} from './store/actions/api-actions';
+
+import {requireAuthorization} from './store/actions/action';
 
 
-const api = createAPI();
+const api = createAPI(() => store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth)));
 
 
 const store = createStore(
@@ -29,7 +31,9 @@ const store = createStore(
   ),
 );
 
+(store.dispatch as ThunkAppDispatch)(checkAuthorization());
 (store.dispatch as ThunkAppDispatch)(fetchOffersList());
+
 
 ReactDOM.render(
   <React.StrictMode>

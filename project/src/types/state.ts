@@ -1,5 +1,5 @@
 import {Offers} from './offer';
-import {SortTypes} from '../const';
+import {AuthorizationStatus, SortTypes} from '../const';
 
 export type State = {
   selectedCity: string,
@@ -8,4 +8,6 @@ export type State = {
   activeSortType: string | SortTypes,
   id: number,
   isDataLoaded: boolean,
+  authorizationStatus: AuthorizationStatus,
+  login: string,
 };

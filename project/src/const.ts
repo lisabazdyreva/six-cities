@@ -134,6 +134,8 @@ export const currentIcon = {
 
 export const INITIAL_CITY = 'Paris';
 
+export const INITIAL_LOGIN= '';
+
 export const DEFAULT_SORT_TYPE =  SortTypes.Popular;
 
 export const DEFAULT_ID = 0;
