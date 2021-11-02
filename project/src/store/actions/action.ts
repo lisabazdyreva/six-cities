@@ -1,6 +1,6 @@
 import {ActionType} from '../../types/action';
 
-import type {Offers} from '../../types/offer';
+import type {Offer, Offers} from '../../types/offer';
 
 import {AuthorizationStatus} from '../../const';
 
@@ -59,4 +59,29 @@ function setLogin(login: string) {
   } as const);
 }
 
-export {selectActiveCity, fillOffersList, changeActiveSortType, setActiveId, getOffers, requireAuthorization, requireLogout, setLogin};
+function setCurrentOffer(offer: Offer) {
+  return ({
+    type: ActionType.SetCurrentOffer,
+    payload: offer,
+  } as const);
+}
+
+function setNearbyOffersList(offers: Offers) {
+  return ({
+    type: ActionType.SetNearbyOffersList,
+    payload: offers,
+  } as const);
+}
+
+export {
+  selectActiveCity,
+  fillOffersList,
+  changeActiveSortType,
+  setActiveId,
+  getOffers,
+  requireAuthorization,
+  requireLogout,
+  setLogin,
+  setCurrentOffer,
+  setNearbyOffersList
+};

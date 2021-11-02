@@ -27,7 +27,12 @@ const getFavoriteCitiesList = (cards: Offers): string[] => Array.from(new Set(ca
 const getSortedOffers = (type: string, cards: Offers): Offers => {
   switch (type) {
     case (SortTypes.Popular):
-      return cards.slice().sort((cardA, cardB) => cardB.id - cardA.id); // пока так
+      return cards.slice().sort((cardA, cardB) => {
+        const numberIdA = Number(cardA.id);
+        const numberIdB = Number(cardB.id);
+
+        return numberIdB - numberIdA; // пока так
+      });
     case (SortTypes.IncrementPrice):
       return cards.slice().sort((cardA, cardB) => cardA.price - cardB.price);
     case (SortTypes.DecrementPrice):

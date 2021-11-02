@@ -140,4 +140,38 @@ export const DEFAULT_SORT_TYPE =  SortTypes.Popular;
 
 export const DEFAULT_ID = 0;
 
+export const DEFAULT_CURRENT_OFFER = {
+  bedrooms: 0,
+  city: {
+    location: {
+      latitude: 0,
+      longitude: 0,
+      zoom: 0,
+    },
+    name: INITIAL_CITY,
+  },
+  description: '',
+  goods: [''],
+  host: {
+    avatarUrl: '',
+    id: DEFAULT_ID,
+    isPro: false,
+    name: '',
+  },
+  id: DEFAULT_ID,
+  images: [''],
+  isFavorite: false,
+  isPremium: false,
+  location: {
+    latitude: 0,
+    longitude: 0,
+    zoom: 0,
+  },
+  maxAdults:0,
+  previewImage: '',
+  price: 0,
+  rating: 0,
+  title: '',
+  type: '',
+};
 export {Locations, Users, citiesList};
