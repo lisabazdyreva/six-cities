@@ -28,6 +28,12 @@ function useMap(mapRef: MutableRefObject<HTMLElement | null>, location: Location
       instance.addLayer(layer);
       setMap(instance);
     }
+    if (map) {
+      map.setView({
+        lat: location.latitude,
+        lng: location.longitude,
+      }, location.zoom);
+    }
   }, [mapRef, map, location]);
   return map;
 }
