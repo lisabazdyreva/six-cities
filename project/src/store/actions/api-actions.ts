@@ -47,11 +47,13 @@ function fetchCurrentOffer(id: number): ThunkActionResult {
 
 function fetchNearbyOffers(id: number): ThunkActionResult {
   return async(dispatch, _getState, api) => {
-    const {data} = await api.get(`/hotels/${id}/nearby`);
-    const adaptedToClientData = adaptToClient(data);
+    dispatch(setFetchStatus(FetchStatus.Trying));
+    await api.get(`/hotels/${id}/nearby`)
+      .then(({data}) => dispatch(setNearbyOffersList(adaptToClient(data))))
+      .then(() => dispatch(setFetchStatus(FetchStatus.Ok)))
 
-    dispatch(setNearbyOffersList(adaptedToClientData));
-  };
+      .catch(() => dispatch(setFetchStatus(FetchStatus.Error)));
+  }; // TODO как обработать отдельно от карточки
 }
 
 function checkAuthorization(): ThunkActionResult {
