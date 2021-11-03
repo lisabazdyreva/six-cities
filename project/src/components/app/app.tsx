@@ -14,13 +14,14 @@ import Spinner from '../spinner/spinner';
 
 import browserHistory from '../../browser-history';
 
-import {AppRoute} from '../../const';
+import {AppRoute, FetchStatus} from '../../const';
 
 
-function mapStateToProps({isDataLoaded, authorizationStatus}: State) {
+function mapStateToProps({isDataLoaded, authorizationStatus, fetchStatus}: State) {
   return ({
     isDataLoaded,
     authorizationStatus,
+    fetchStatus,
   });
 }
 
@@ -36,11 +37,12 @@ type ConnectedComponentProps = AppScreenProps & PropsFromRedux;
 
 
 function App(props: ConnectedComponentProps): JSX.Element {
-  const {reviews, cities, isDataLoaded} = props;
+  const {reviews, cities, isDataLoaded, fetchStatus} = props;
 
-  if (!isDataLoaded) {
+  if (!isDataLoaded && fetchStatus === FetchStatus.Trying) {
     return <Spinner />;
   }
+
   // Если пользователь авторизован, то при переходе на страницу Sign In выполняется перенаправление на главную страницу. пока непонятно, потом сделать
   return (
     <BrowserRouter history={browserHistory}>

@@ -20,10 +20,16 @@ import {deleteToken, saveToken, Token} from '../../services/token';
 
 function fetchOffersList(): ThunkActionResult {
   return async (dispatch, _getState, api):Promise<void> => {
-    const {data} = await api.get('/hotels');
-    const adaptedToClientData =  adaptToClient(data);
-    dispatch(getOffers(adaptedToClientData));
-    dispatch(fillOffersList(filterOffers(INITIAL_CITY, adaptedToClientData)));
+    dispatch(setFetchStatus(FetchStatus.Trying));
+    await api.get('/hotels')
+      .then(({data}) => adaptToClient(data))
+      .then((data) => {
+        dispatch(getOffers(data));
+        dispatch(fillOffersList(filterOffers(INITIAL_CITY, data)));
+      })
+      .then(() => dispatch(setFetchStatus(FetchStatus.Ok)))
+
+      .catch(() => dispatch(setFetchStatus(FetchStatus.Error)));
   };
 }
 
