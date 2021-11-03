@@ -73,8 +73,6 @@ const adaptToClient = (items: OffersServer): Offers => items.map((item): Offer =
 
 
 const adaptCommentsToClient = (items: ReviewsServer): Reviews => items.map((item): Review => {
-  //eslint-disable-next-line
-  console.log(item);
   const adaptedComment: Review = Object.assign(
     {},
     item,

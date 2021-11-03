@@ -17,6 +17,7 @@ import {adaptCommentsToClient, adaptToClient, filterOffers} from '../../utils';
 import {AuthorizationStatus, FetchStatus, INITIAL_CITY, INITIAL_LOGIN} from '../../const';
 
 import {deleteToken, saveToken, Token} from '../../services/token';
+import {CommentData} from '../../types/comment-data';
 
 
 function fetchOffersList(): ThunkActionResult {
@@ -67,6 +68,14 @@ function fetchOfferComments(id: number): ThunkActionResult {
   };
 }
 
+function postComment({id, comment, rating}: CommentData): ThunkActionResult {
+  return async(dispatch, _getState, api): Promise<void> => {
+    await api.post(`/comments/${id}`, {comment, rating})
+      .then(({data}) => dispatch(setCommentsList(adaptCommentsToClient(data))))
+      .catch(() => dispatch(setFetchStatus(FetchStatus.Error)));
+  };
+}
+
 function checkAuthorization(): ThunkActionResult {
   return async(dispatch, _getState, api): Promise<void> => {
     await api.get('/login').then(() => dispatch(requireAuthorization(AuthorizationStatus.NoAuth)));
@@ -98,6 +107,7 @@ export {
   loginAction,
   logoutAction,
   fetchNearbyOffers,
-  fetchOfferComments
+  fetchOfferComments,
+  postComment
 };
 
