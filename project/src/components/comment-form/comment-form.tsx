@@ -1,17 +1,10 @@
 import {ChangeEvent, FormEvent, useState} from 'react';
 import {connect, ConnectedProps} from 'react-redux';
-import {State} from '../../types/state';
 import {ThunkAppDispatch} from '../../types/action';
 import {CommentData} from '../../types/comment-data';
 
 import {postComment} from '../../store/actions/api-actions';
 
-
-function mapStateToProps({id}: State) {
-  return ({
-    id,
-  });
-}
 
 function mapDispatchToProps(dispatch: ThunkAppDispatch) {
   return ({
@@ -21,10 +14,15 @@ function mapDispatchToProps(dispatch: ThunkAppDispatch) {
   });
 }
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
+const connector = connect(null, mapDispatchToProps);
 
-function CommentForm(props: PropsFromRedux): JSX.Element {
+type CommentFormProps = {
+  id: number;
+};
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type ConnectedComponentProps = CommentFormProps & PropsFromRedux;
+
+function CommentForm(props: ConnectedComponentProps): JSX.Element {
   const {id, onSubmit} = props;
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
