@@ -1,5 +1,5 @@
 import {Offers, Offer} from './offer';
-import {AuthorizationStatus, SortTypes} from '../const';
+import {AuthorizationStatus, FetchStatus, SortTypes} from '../const';
 
 export type State = {
   selectedCity: string,
@@ -12,4 +12,5 @@ export type State = {
   login: string,
   currentOffer: Offer,
   nearbyOffers: Offers,
+  fetchStatus: FetchStatus,
 };

@@ -13,16 +13,18 @@ import NearbyCardsList from '../nearby-cards-list/nearby-cards-list';
 
 import {setActiveId} from '../../store/actions/action';
 
-import {MapStylesProperties} from '../../const';
+import {FetchStatus, MapStylesProperties} from '../../const';
 
 import {fetchCurrentOffer, fetchNearbyOffers} from '../../store/actions/api-actions';
 import {ThunkAppDispatch} from '../../types/action';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 
-function mapStateToProps ({currentOffer, nearbyOffers}: State) {
+function mapStateToProps ({currentOffer, fetchStatus, nearbyOffers}: State) {
   return ({
     currentOffer,
     nearbyData: nearbyOffers,
+    fetchStatus,
   });
 }
 
@@ -47,7 +49,7 @@ type OfferScreenType = {
 type ConnectedComponentProps = PropsFromRedux & OfferScreenType;
 
 
-function OfferScreen({reviews, currentOffer, nearbyData, getData, onSetId}: ConnectedComponentProps): JSX.Element {
+function OfferScreen({reviews, currentOffer, nearbyData, getData, onSetId, fetchStatus}: ConnectedComponentProps): JSX.Element {
   const params: {id: string} = useParams();
   const { id } = params;
   const idNum = Number(id);
@@ -61,31 +63,36 @@ function OfferScreen({reviews, currentOffer, nearbyData, getData, onSetId}: Conn
     getData(idNum);
   }, [idNum]);
   return (
-    <>
-      <Icons />
-      <div className="page">
-        <Header />
-        <main className="page__main page__main--property">
-          <section className="property">
-            <OfferCard
-              reviews={reviews}
-              card={currentOffer}
-            />
-            <section className="property__map map">
-              <Map cards={cardsForMap} styles={MapStylesProperties.OfferPage}/>
-            </section>
-          </section>
-          <div className="container">
-            <section className="near-places places">
-              <h2 className="near-places__title">Other places in the neighbourhood</h2>
-              <NearbyCardsList
-                cards={nearbyData}
-              />
-            </section>
+    fetchStatus === FetchStatus.Ok ?
+      (
+        <>
+          <Icons />
+          <div className="page">
+            <Header />
+            <main className="page__main page__main--property">
+              <section className="property">
+                <OfferCard
+                  reviews={reviews}
+                  card={currentOffer}
+                />
+                <section className="property__map map">
+                  <Map cards={cardsForMap} styles={MapStylesProperties.OfferPage}/>
+                </section>
+              </section>
+              <div className="container">
+                <section className="near-places places">
+                  <h2 className="near-places__title">Other places in the neighbourhood</h2>
+                  <NearbyCardsList
+                    cards={nearbyData}
+                  />
+                </section>
+              </div>
+            </main>
           </div>
-        </main>
-      </div>
-    </>
+        </>
+      ) : (
+        <NotFoundScreen />
+      )
   );
 }
 

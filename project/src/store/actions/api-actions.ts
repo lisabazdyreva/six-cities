@@ -7,14 +7,15 @@ import {
   requireAuthorization,
   requireLogout,
   setCurrentOffer,
+  setFetchStatus,
   setLogin,
   setNearbyOffersList
 } from './action';
 
 import {adaptToClient, filterOffers} from '../../utils';
-import {AuthorizationStatus, INITIAL_CITY, INITIAL_LOGIN} from '../../const';
+import {AuthorizationStatus, FetchStatus, INITIAL_CITY, INITIAL_LOGIN} from '../../const';
 
-import {saveToken, deleteToken, Token} from '../../services/token';
+import {deleteToken, saveToken, Token} from '../../services/token';
 
 
 function fetchOffersList(): ThunkActionResult {
@@ -28,10 +29,13 @@ function fetchOffersList(): ThunkActionResult {
 
 function fetchCurrentOffer(id: number): ThunkActionResult {
   return async (dispatch, _getState, api): Promise<void> => {
-    const {data} = await api.get(`/hotels/${id}`);
-    const [adaptedToClientData] = adaptToClient([data]);
+    dispatch(setFetchStatus(FetchStatus.Trying));
+    await api.get(`/hotels/${id}`)
+      .then(({data}) => adaptToClient([data]))
+      .then(([data]) => dispatch(setCurrentOffer(data)))
+      .then(() => dispatch(setFetchStatus(FetchStatus.Ok)))
 
-    dispatch(setCurrentOffer(adaptedToClientData));
+      .catch(() => dispatch(setFetchStatus(FetchStatus.Error)));
   };
 }
 

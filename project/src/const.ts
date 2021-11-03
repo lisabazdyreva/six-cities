@@ -10,6 +10,12 @@ export enum AppRoute {
   RoomID = '/offer/:id',
 }
 
+export enum FetchStatus {
+  Error = 'Error',
+  Trying = 'Trying',
+  Ok = 'Ok',
+}
+
 
 export enum AuthorizationStatus {
   Auth = 'AUTH',
@@ -174,4 +180,6 @@ export const DEFAULT_CURRENT_OFFER = {
   title: '',
   type: '',
 };
+
+
 export {Locations, Users, citiesList};

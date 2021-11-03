@@ -6,7 +6,8 @@ import {
   DEFAULT_ID,
   DEFAULT_SORT_TYPE,
   INITIAL_CITY,
-  INITIAL_LOGIN
+  INITIAL_LOGIN,
+  FetchStatus
 } from '../../const';
 
 
@@ -21,6 +22,7 @@ const initialState = {
   login: INITIAL_LOGIN,
   currentOffer: DEFAULT_CURRENT_OFFER,
   nearbyOffers: [],
+  fetchStatus: FetchStatus.Trying,
 };
 
 function reducer (state: State = initialState, action: Actions): State {
@@ -45,6 +47,8 @@ function reducer (state: State = initialState, action: Actions): State {
       return {...state, currentOffer: action.payload};
     case ActionType.SetNearbyOffersList:
       return {...state, nearbyOffers: action.payload};
+    case ActionType.SetFetchStatus:
+      return {...state, fetchStatus: action.payload};
     default:
       return state;
   }

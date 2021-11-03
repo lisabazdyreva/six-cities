@@ -2,7 +2,7 @@ import {ActionType} from '../../types/action';
 
 import type {Offer, Offers} from '../../types/offer';
 
-import {AuthorizationStatus} from '../../const';
+import {AuthorizationStatus, FetchStatus} from '../../const';
 
 function selectActiveCity(city: string) {
   return ({
@@ -73,6 +73,13 @@ function setNearbyOffersList(offers: Offers) {
   } as const);
 }
 
+function setFetchStatus(status: FetchStatus) {
+  return ({
+    type: ActionType.SetFetchStatus,
+    payload: status,
+  } as const);
+}
+
 export {
   selectActiveCity,
   fillOffersList,
@@ -83,5 +90,6 @@ export {
   requireLogout,
   setLogin,
   setCurrentOffer,
-  setNearbyOffersList
+  setNearbyOffersList,
+  setFetchStatus
 };
