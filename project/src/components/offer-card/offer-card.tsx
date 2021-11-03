@@ -1,7 +1,6 @@
 import type {Offer} from '../../types/offer';
 
-import CommentForm from '../comment-form/comment-form';
-import CommentsList from '../comments-list/comments-list';
+import CommentsSection from '../comments-section/comments-section';
 
 import {getRatingPercentValue, formatType} from '../../utils';
 
@@ -104,11 +103,7 @@ function OfferCard({card}: OfferCardProps): JSX.Element {
               <p className="property__text">{description}</p>
             </div>
           </div>
-          <section className="property__reviews reviews">
-            <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">reviews.length</span></h2>
-            <CommentsList />
-            <CommentForm />
-          </section>
+          <CommentsSection />
         </div>
       </div>
     </>

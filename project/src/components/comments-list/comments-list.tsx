@@ -24,17 +24,28 @@ function mapDispatchToProps (dispatch : ThunkAppDispatch) {
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
+type CommentsListProps = {
+  onCommentsCount: (length: number) => void;
+}
 type PropsFromRedux = ConnectedProps<typeof connector>;
+type ConnectedComponentProps = CommentsListProps & PropsFromRedux;
 
-function CommentsList({commentsList, getData, id}: PropsFromRedux):JSX.Element {
+function CommentsList({commentsList, getData, id, onCommentsCount}: ConnectedComponentProps ):JSX.Element {
 
   useEffect(() => {
     getData(id);
   }, [id]);
-
+  onCommentsCount(commentsList.length);
   return (
     <ul className="reviews__list">
-      {commentsList.map((commentItem) => <CommentMessage commentItem={commentItem} key={new Date().getTime() + commentItem.id} />)}
+      {
+        commentsList.map((commentItem) => (
+          <CommentMessage
+            commentItem={commentItem}
+            key={new Date().getTime() + commentItem.id}
+          />
+        ))
+      }
     </ul>
   );
 }

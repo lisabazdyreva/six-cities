@@ -18,7 +18,7 @@ import {fetchCurrentOffer, fetchNearbyOffers} from '../../store/actions/api-acti
 import {ThunkAppDispatch} from '../../types/action';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 
-
+// TODO страница моргает, надо что-то с этим делать (404)
 function mapStateToProps ({currentOffer, fetchStatus, nearbyOffers}: State) {
   return ({
     currentOffer,
