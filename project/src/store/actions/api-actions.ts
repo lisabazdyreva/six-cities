@@ -6,13 +6,14 @@ import {
   getOffers,
   requireAuthorization,
   requireLogout,
+  setCommentsList,
   setCurrentOffer,
   setFetchStatus,
   setLogin,
   setNearbyOffersList
 } from './action';
 
-import {adaptToClient, filterOffers} from '../../utils';
+import {adaptCommentsToClient, adaptToClient, filterOffers} from '../../utils';
 import {AuthorizationStatus, FetchStatus, INITIAL_CITY, INITIAL_LOGIN} from '../../const';
 
 import {deleteToken, saveToken, Token} from '../../services/token';
@@ -46,7 +47,7 @@ function fetchCurrentOffer(id: number): ThunkActionResult {
 }
 
 function fetchNearbyOffers(id: number): ThunkActionResult {
-  return async(dispatch, _getState, api) => {
+  return async(dispatch, _getState, api): Promise<void> => {
     dispatch(setFetchStatus(FetchStatus.Trying));
     await api.get(`/hotels/${id}/nearby`)
       .then(({data}) => dispatch(setNearbyOffersList(adaptToClient(data))))
@@ -54,6 +55,16 @@ function fetchNearbyOffers(id: number): ThunkActionResult {
 
       .catch(() => dispatch(setFetchStatus(FetchStatus.Error)));
   }; // TODO как обработать отдельно от карточки
+}
+
+function fetchOfferComments(id: number): ThunkActionResult {
+  return async (dispatch, _getState, api): Promise<void> => {
+    await api.get(`/comments/${id}`)
+      .then(({data}) => adaptCommentsToClient(data))
+      .then((data) => dispatch(setCommentsList(data)))
+
+      .catch(() => dispatch(setFetchStatus(FetchStatus.Error)));
+  };
 }
 
 function checkAuthorization(): ThunkActionResult {
@@ -86,6 +97,7 @@ export {
   checkAuthorization,
   loginAction,
   logoutAction,
-  fetchNearbyOffers
+  fetchNearbyOffers,
+  fetchOfferComments
 };
 

@@ -1,7 +1,6 @@
 import {Router as BrowserRouter, Route, Switch} from 'react-router-dom';
 import {connect, ConnectedProps} from 'react-redux';
 
-import type {Reviews} from '../../types/review';
 import {State} from '../../types/state';
 
 import MainScreen from '../main-screen/main-screen';
@@ -29,7 +28,6 @@ function mapStateToProps({isDataLoaded, authorizationStatus, fetchStatus}: State
 const connector = connect(mapStateToProps);
 
 type AppScreenProps = {
-  reviews: Reviews;
   cities: string[];
 };
 type PropsFromRedux = ConnectedProps<typeof connector>;
@@ -37,7 +35,7 @@ type ConnectedComponentProps = AppScreenProps & PropsFromRedux;
 
 
 function App(props: ConnectedComponentProps): JSX.Element {
-  const {reviews, cities, isDataLoaded, fetchStatus} = props;
+  const {cities, isDataLoaded, fetchStatus} = props;
 
   if (!isDataLoaded && fetchStatus === FetchStatus.Trying) {
     return <Spinner />;
@@ -64,9 +62,7 @@ function App(props: ConnectedComponentProps): JSX.Element {
         >
         </PrivateRoute>
         <Route path={AppRoute.RoomID} exact>
-          <OfferScreen
-            reviews={reviews}
-          />
+          <OfferScreen/>
         </Route>
         <Route>
           <NotFoundScreen />

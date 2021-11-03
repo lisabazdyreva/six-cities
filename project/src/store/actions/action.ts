@@ -3,6 +3,7 @@ import {ActionType} from '../../types/action';
 import type {Offer, Offers} from '../../types/offer';
 
 import {AuthorizationStatus, FetchStatus} from '../../const';
+import {Reviews} from '../../types/review';
 
 function selectActiveCity(city: string) {
   return ({
@@ -73,6 +74,13 @@ function setNearbyOffersList(offers: Offers) {
   } as const);
 }
 
+function setCommentsList(commentsList: Reviews) {
+  return ({
+    type: ActionType.SetCommentsList,
+    payload: commentsList,
+  } as const);
+}
+
 function setFetchStatus(status: FetchStatus) {
   return ({
     type: ActionType.SetFetchStatus,
@@ -91,5 +99,6 @@ export {
   setLogin,
   setCurrentOffer,
   setNearbyOffersList,
-  setFetchStatus
+  setFetchStatus,
+  setCommentsList
 };

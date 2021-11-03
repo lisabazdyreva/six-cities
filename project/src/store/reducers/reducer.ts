@@ -23,6 +23,7 @@ const initialState = {
   currentOffer: DEFAULT_CURRENT_OFFER,
   nearbyOffers: [],
   fetchStatus: FetchStatus.Trying,
+  commentsList: [],
 };
 
 function reducer (state: State = initialState, action: Actions): State {
@@ -49,6 +50,8 @@ function reducer (state: State = initialState, action: Actions): State {
       return {...state, nearbyOffers: action.payload};
     case ActionType.SetFetchStatus:
       return {...state, fetchStatus: action.payload};
+    case ActionType.SetCommentsList:
+      return {...state, commentsList: action.payload};
     default:
       return state;
   }

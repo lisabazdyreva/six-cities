@@ -1,19 +1,43 @@
-import type {Reviews} from '../../types/review';
+import {connect, ConnectedProps} from 'react-redux';
 
 import CommentMessage from '../comment-message/comment-message';
+import {State} from '../../types/state';
 
+import {ThunkAppDispatch} from '../../types/action';
+import {fetchOfferComments} from '../../store/actions/api-actions';
+import {useEffect} from 'react';
 
-type CommentsListProps = {
-  reviews: Reviews;
-};
+function mapStateToProps ({commentsList, id}: State) {
+  return ({
+    commentsList,
+    id,
+  });
+}
 
+function mapDispatchToProps (dispatch : ThunkAppDispatch) {
+  return ({
+    getData(id: number) {
+      dispatch(fetchOfferComments(id));
+    },
+  });
+}
 
-function CommentsList({reviews}: CommentsListProps):JSX.Element {
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+function CommentsList({commentsList, getData, id}: PropsFromRedux):JSX.Element {
+
+  useEffect(() => {
+    getData(id);
+  }, [id]);
+
   return (
     <ul className="reviews__list">
-      {reviews.map((review) => <CommentMessage review={review} key={new Date().getTime() + review.id} />)}
+      {commentsList.map((commentItem) => <CommentMessage commentItem={commentItem} key={new Date().getTime() + commentItem.id} />)}
     </ul>
   );
 }
 
-export default CommentsList;
+export {CommentsList};
+export default connector(CommentsList);

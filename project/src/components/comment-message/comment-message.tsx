@@ -4,12 +4,12 @@ import {getRatingPercentValue, formatDateValue, formatDateAttr} from '../../util
 
 
 type CommentMessageProps = {
-  review: Review;
+  commentItem: Review;
 };
 
 
-function CommentMessage({review}: CommentMessageProps): JSX.Element {
-  const {comment, user, date, rating} = review;
+function CommentMessage({commentItem}: CommentMessageProps): JSX.Element {
+  const {comment, user, date, rating} = commentItem;
 
   const ratingPercentValue = getRatingPercentValue(rating);
 

@@ -2,7 +2,6 @@ import {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import {connect, ConnectedProps} from 'react-redux';
 
-import type {Reviews} from '../../types/review';
 import type {State} from '../../types/state';
 
 import Icons from '../icons/icons';
@@ -43,13 +42,8 @@ function mapDispatchToProps (dispatch: ThunkAppDispatch) {
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
-type OfferScreenType = {
-  reviews: Reviews;
-};
-type ConnectedComponentProps = PropsFromRedux & OfferScreenType;
 
-
-function OfferScreen({reviews, currentOffer, nearbyData, getData, onSetId, fetchStatus}: ConnectedComponentProps): JSX.Element {
+function OfferScreen({currentOffer, nearbyData, getData, onSetId, fetchStatus}: PropsFromRedux): JSX.Element {
   const params: {id: string} = useParams();
   const { id } = params;
   const idNum = Number(id);
@@ -72,7 +66,6 @@ function OfferScreen({reviews, currentOffer, nearbyData, getData, onSetId, fetch
             <main className="page__main page__main--property">
               <section className="property">
                 <OfferCard
-                  reviews={reviews}
                   card={currentOffer}
                 />
                 <section className="property__map map">

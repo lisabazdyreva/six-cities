@@ -2,6 +2,8 @@ import {CardTypes, SortTypes} from './const';
 
 import {Offers, OffersServer, Offer} from './types/offer';
 
+import {Review, Reviews, ReviewsServer} from './types/review';
+
 const formatType = (typeText: string): string => {
   const result = typeText.slice(0, 1).toUpperCase() + typeText.slice(1);
 
@@ -69,4 +71,22 @@ const adaptToClient = (items: OffersServer): Offers => items.map((item): Offer =
   return adaptedOffer;
 });
 
-export {formatType, getRatingPercentValue, isMainPage, filterOffers, formatDateValue, formatDateAttr, getFavoriteCitiesList, getSortedOffers, adaptToClient};
+
+const adaptCommentsToClient = (items: ReviewsServer): Reviews => items.map((item): Review => {
+  //eslint-disable-next-line
+  console.log(item);
+  const adaptedComment: Review = Object.assign(
+    {},
+    item,
+    {
+      user: Object.assign({}, item.user, {isPro: item.user.is_pro, avatarUrl: item.user.avatar_url}),
+    },
+  );
+
+  delete adaptedComment.user.is_pro;
+  delete adaptedComment.user.avatar_url;
+
+  return adaptedComment;
+});
+
+export {formatType, getRatingPercentValue, isMainPage, filterOffers, formatDateValue, formatDateAttr, getFavoriteCitiesList, getSortedOffers, adaptToClient, adaptCommentsToClient};
