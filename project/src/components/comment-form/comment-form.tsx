@@ -1,5 +1,6 @@
 import {ChangeEvent, FormEvent, useState} from 'react';
 import {connect, ConnectedProps} from 'react-redux';
+
 import {ThunkAppDispatch} from '../../types/action';
 import {CommentData} from '../../types/comment-data';
 
@@ -22,8 +23,10 @@ type CommentFormProps = {
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type ConnectedComponentProps = CommentFormProps & PropsFromRedux;
 
+
 function CommentForm(props: ConnectedComponentProps): JSX.Element {
   const {id, onSubmit} = props;
+
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
 
@@ -37,18 +40,19 @@ function CommentForm(props: ConnectedComponentProps): JSX.Element {
 
   function onSubmitComment(evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
+
     if (rating !== 0 && comment !== '') {
       onSubmit ({
         id: id,
         comment: comment,
         rating: rating,
       });
-      //eslint-disable-next-line
+
       setRating(0);
       setComment('');
     }
   }
-
+  // TODO динамически формировать
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={onSubmitComment}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>

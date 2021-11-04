@@ -1,11 +1,13 @@
 import {useState} from 'react';
+import {connect, ConnectedProps} from 'react-redux';
+
+import {State} from '../../types/state';
 
 import CommentsList from '../comments-list/comments-list';
 import CommentForm from '../comment-form/comment-form';
 
-import {connect, ConnectedProps} from 'react-redux';
-import {State} from '../../types/state';
 import {AuthorizationStatus} from '../../const';
+
 
 function mapStateToProps({id, authorizationStatus}: State) {
   return ({
@@ -18,8 +20,10 @@ const connector = connect(mapStateToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
+
 function CommentsSection(props: PropsFromRedux): JSX.Element {
   const {id, authorizationStatus} = props;
+
   const [commentsLength, setCommentsLength] = useState(0);
 
   return (

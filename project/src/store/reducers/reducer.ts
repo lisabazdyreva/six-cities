@@ -2,12 +2,12 @@ import {State} from '../../types/state';
 import {Actions, ActionType} from '../../types/action';
 import {
   AuthorizationStatus,
+  FetchStatus,
   DEFAULT_CURRENT_OFFER,
   DEFAULT_ID,
   DEFAULT_SORT_TYPE,
   INITIAL_CITY,
   INITIAL_LOGIN,
-  FetchStatus
 } from '../../const';
 
 

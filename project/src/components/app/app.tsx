@@ -24,7 +24,6 @@ function mapStateToProps({isDataLoaded, authorizationStatus, fetchStatus}: State
   });
 }
 
-
 const connector = connect(mapStateToProps);
 
 type AppScreenProps = {
@@ -41,7 +40,8 @@ function App(props: ConnectedComponentProps): JSX.Element {
     return <Spinner />;
   }
 
-  // Если пользователь авторизован, то при переходе на страницу Sign In выполняется перенаправление на главную страницу. пока непонятно, потом сделать
+  // TODO Если пользователь авторизован, то при переходе на страницу Sign In выполняется перенаправление на главную страницу. пока непонятно, потом сделать
+  // TODO авторизация сохраняется при обновлении?
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>

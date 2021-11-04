@@ -2,7 +2,7 @@ import type {Offer} from '../../types/offer';
 
 import CommentsSection from '../comments-section/comments-section';
 
-import {getRatingPercentValue, formatType} from '../../utils';
+import {getRatingPercentValue, formatType} from '../../utils/utils';
 
 
 type OfferCardProps = {

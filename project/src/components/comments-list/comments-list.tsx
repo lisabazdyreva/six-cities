@@ -1,20 +1,22 @@
+import {useEffect} from 'react';
 import {connect, ConnectedProps} from 'react-redux';
 
-import CommentMessage from '../comment-message/comment-message';
 import {State} from '../../types/state';
-
 import {ThunkAppDispatch} from '../../types/action';
-import {fetchOfferComments} from '../../store/actions/api-actions';
-import {useEffect} from 'react';
 
-function mapStateToProps ({commentsList, id}: State) {
+import CommentMessage from '../comment-message/comment-message';
+
+import {fetchOfferComments} from '../../store/actions/api-actions';
+
+
+function mapStateToProps({commentsList, id}: State) {
   return ({
     commentsList,
     id,
   });
 }
 
-function mapDispatchToProps (dispatch : ThunkAppDispatch) {
+function mapDispatchToProps(dispatch : ThunkAppDispatch) {
   return ({
     getData(id: number) {
       dispatch(fetchOfferComments(id));
@@ -30,12 +32,15 @@ type CommentsListProps = {
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type ConnectedComponentProps = CommentsListProps & PropsFromRedux;
 
+
 function CommentsList({commentsList, getData, id, onCommentsCount}: ConnectedComponentProps ):JSX.Element {
 
   useEffect(() => {
     getData(id);
   }, [id]);
+
   onCommentsCount(commentsList.length);
+
   return (
     <ul className="reviews__list">
       {

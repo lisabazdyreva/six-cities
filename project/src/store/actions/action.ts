@@ -1,9 +1,10 @@
 import {ActionType} from '../../types/action';
 
 import type {Offer, Offers} from '../../types/offer';
+import type {Reviews} from '../../types/review';
 
 import {AuthorizationStatus, FetchStatus} from '../../const';
-import {Reviews} from '../../types/review';
+
 
 function selectActiveCity(city: string) {
   return ({

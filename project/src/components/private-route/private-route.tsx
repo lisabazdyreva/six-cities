@@ -21,6 +21,7 @@ type PrivateRouteProps = RouteProps & {
 }
 type ConnectedComponentProps = PropsFromRedux & PrivateRouteProps;
 
+
 function PrivateRoute(props: ConnectedComponentProps): JSX.Element {
   const {exact, path, render, authorizationStatus} = props;
 

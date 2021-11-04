@@ -9,21 +9,21 @@ import type {Offers} from '../../types/offer';
 
 import {changeActiveSortType, fillOffersList, selectActiveCity} from '../../store/actions/action';
 
-import {filterOffers} from '../../utils';
+import {filterOffers} from '../../utils/utils';
 
 import {AppRoute, DEFAULT_SORT_TYPE} from '../../const';
 
 
-function mapStateToProps ({selectedCity, offers}: State) {
+function mapStateToProps({selectedCity, offers}: State) {
   return ({
     selectedCity,
     offers,
   });
 }
 
-function mapDispatchToProps (dispatch: Dispatch<Actions>) {
+function mapDispatchToProps(dispatch: Dispatch<Actions>) {
   return ({
-    onCitySelect(selectedCity: string) { // точно ли выбран нормальный тип для события, т.к. без след. строчки ругается
+    onCitySelect(selectedCity: string) {
       dispatch(selectActiveCity(selectedCity));
     },
     onSortTypeReset() {
@@ -45,6 +45,7 @@ type ConnectedComponentProps = PropsFromRedux & LocationsListProps;
 
 
 function LocationsList({cities, onCitySelect, onSortTypeReset, onOffersUpdate, selectedCity, offers}: ConnectedComponentProps): JSX.Element {
+
   function onLocationClick(city: string) {
     const updatedOffers = filterOffers(city, offers);
 
@@ -52,6 +53,7 @@ function LocationsList({cities, onCitySelect, onSortTypeReset, onOffersUpdate, s
     onSortTypeReset();
     onOffersUpdate(updatedOffers);
   }
+
   return (
     <ul className="locations__list tabs__list">
       {

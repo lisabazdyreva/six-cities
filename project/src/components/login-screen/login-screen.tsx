@@ -3,17 +3,17 @@ import {connect, ConnectedProps} from 'react-redux';
 import {Link} from 'react-router-dom';
 
 import {ThunkAppDispatch} from '../../types/action';
+import {AuthorizationData} from '../../types/authorization-data';
 
 import Icons from '../icons/icons';
 import Logo from '../logo/logo';
 
 import {AppRoute} from '../../const';
 import {loginAction} from '../../store/actions/api-actions';
-import {AuthorizationData} from '../../types/authorization-data';
 
 
 function mapDispatchToProps(dispatch: ThunkAppDispatch) {
-  return ({
+  return({
     onSubmit(authorizationData: AuthorizationData, openMainPage: () => void) {
       dispatch(loginAction(authorizationData));
       openMainPage();
@@ -39,7 +39,7 @@ function LoginScreen({onSubmit, onAuth}: ConnectedComponentProps): JSX.Element {
       onSubmit({
         login: login,
         password: password,
-      }, onAuth, // иначе нет валидации
+      }, onAuth,
       );
     }
   }
@@ -97,7 +97,7 @@ function LoginScreen({onSubmit, onAuth}: ConnectedComponentProps): JSX.Element {
             <section className="locations locations--login locations--current">
               <div className="locations__item">
                 <Link className="locations__item-link" to={AppRoute.Main}>
-                  <span>Amsterdam</span>
+                  <span>Amsterdam</span> {/*TODO должен ли быть закордхожен город*/}
                 </Link>
               </div>
             </section>

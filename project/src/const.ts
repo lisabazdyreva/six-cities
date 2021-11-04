@@ -16,6 +16,12 @@ export enum FetchStatus {
   Ok = 'Ok',
 }
 
+export enum APIRoute {
+  Login = '/login',
+  Hotels = '/hotels',
+  Logout = '/logout',
+}
+
 
 export enum AuthorizationStatus {
   Auth = 'AUTH',
@@ -23,31 +29,7 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-
-// для моков, потом удалить
-const Users = {
-  Angelina: {
-    avatarUrl: 'img/avatar-angelina.jpg',
-    id: 3,
-    isPro: true,
-    name: 'Angelina',
-  },
-  Default: {
-    avatarUrl: 'img/avatar.svg',
-    id: 1,
-    isPro: false,
-    name: 'None',
-  },
-  Max: {
-    avatarUrl: 'img/avatar-max.jpg' ,
-    id: 2,
-    isPro: false,
-    name: 'Max',
-  },
-} as const;
-
-
-// пока так
+// TODO пока так
 const Locations = {
   Paris: {
     latitude: 48.864716,
@@ -80,7 +62,7 @@ const Locations = {
     zoom: 10,
   },
 } as const;
-// пока так
+// TODO пока так
 const citiesList = Object.keys(Locations);
 
 
@@ -182,4 +164,4 @@ export const DEFAULT_CURRENT_OFFER = {
 };
 
 
-export {Locations, Users, citiesList};
+export {Locations, citiesList};

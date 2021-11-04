@@ -32,6 +32,7 @@ type MapProps = {
 };
 type ConnectedComponentProps = PropsFromRedux & MapProps;
 
+
 function Map({cards, activeCity, styles, activeId}: ConnectedComponentProps): JSX.Element {
   const [locationCard] = cards;
   const location = locationCard.city.location;

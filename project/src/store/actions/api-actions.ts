@@ -13,8 +13,9 @@ import {
   setNearbyOffersList
 } from './action';
 
-import {adaptCommentsToClient, adaptToClient, filterOffers} from '../../utils';
-import {AuthorizationStatus, FetchStatus, INITIAL_CITY, INITIAL_LOGIN} from '../../const';
+import {filterOffers} from '../../utils/utils';
+import {adaptCommentsToClient, adaptToClient} from '../../utils/adapt-utils';
+import {AuthorizationStatus, FetchStatus, INITIAL_CITY, INITIAL_LOGIN, APIRoute} from '../../const';
 
 import {deleteToken, saveToken, Token} from '../../services/token';
 import {CommentData} from '../../types/comment-data';
@@ -23,7 +24,7 @@ import {CommentData} from '../../types/comment-data';
 function fetchOffersList(): ThunkActionResult {
   return async (dispatch, _getState, api):Promise<void> => {
     dispatch(setFetchStatus(FetchStatus.Trying));
-    await api.get('/hotels')
+    await api.get(APIRoute.Hotels)
       .then(({data}) => adaptToClient(data))
       .then((data) => {
         dispatch(getOffers(data));
@@ -55,7 +56,7 @@ function fetchNearbyOffers(id: number): ThunkActionResult {
       .then(() => dispatch(setFetchStatus(FetchStatus.Ok)))
 
       .catch(() => dispatch(setFetchStatus(FetchStatus.Error)));
-  }; // TODO как обработать отдельно от карточки
+  }; // TODO как обработать отдельно от карточки ошибку
 }
 
 function fetchOfferComments(id: number): ThunkActionResult {
@@ -78,13 +79,13 @@ function postComment({id, comment, rating}: CommentData): ThunkActionResult {
 
 function checkAuthorization(): ThunkActionResult {
   return async(dispatch, _getState, api): Promise<void> => {
-    await api.get('/login').then(() => dispatch(requireAuthorization(AuthorizationStatus.NoAuth)));
+    await api.get(APIRoute.Login).then(() => dispatch(requireAuthorization(AuthorizationStatus.NoAuth)));
   };
 }
 
 function loginAction({login: email, password}: AuthorizationData): ThunkActionResult {
   return async(dispatch, _getState, api): Promise<void> => {
-    const {data: {token}} = await api.post<{token: Token}>('/login', {email, password});
+    const {data: {token}} = await api.post<{token: Token}>(APIRoute.Login, {email, password});
     saveToken(token);
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
     dispatch(setLogin(email));
@@ -93,7 +94,7 @@ function loginAction({login: email, password}: AuthorizationData): ThunkActionRe
 
 function logoutAction(): ThunkActionResult {
   return async(dispatch, _getState, api): Promise<void> => {
-    api.delete('./logout');
+    await api.delete(APIRoute.Logout);
     deleteToken();
     dispatch(requireLogout());
     dispatch(setLogin(INITIAL_LOGIN));

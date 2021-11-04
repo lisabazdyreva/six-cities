@@ -1,6 +1,6 @@
 import type {Review} from '../../types/review';
 
-import {getRatingPercentValue, formatDateValue, formatDateAttr} from '../../utils';
+import {getRatingPercentValue, formatDateValue, formatDateAttr} from '../../utils/utils';
 
 
 type CommentMessageProps = {

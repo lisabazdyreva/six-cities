@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import type {Offer} from '../../types/offer';
 
-import {isMainPage, formatType, getRatingPercentValue} from '../../utils';
+import {isMainPage, formatType, getRatingPercentValue} from '../../utils/utils';
 import {AppRoute, DEFAULT_ID} from '../../const';
 
 
@@ -32,13 +32,13 @@ function Card({card, typeCard, onCardHover}: CardProps): JSX.Element {
 
 
   const handleCardEnter = () => {
-    if (onCardHover) {
+    if(onCardHover) {
       onCardHover(id);
     }
   };
 
   const handleCardLeave = () => {
-    if (onCardHover) {
+    if(onCardHover) {
       onCardHover(DEFAULT_ID);
     }
   };

@@ -19,7 +19,7 @@ import {ThunkAppDispatch} from '../../types/action';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 // TODO страница моргает, надо что-то с этим делать (404)
-function mapStateToProps ({currentOffer, fetchStatus, nearbyOffers}: State) {
+function mapStateToProps({currentOffer, fetchStatus, nearbyOffers}: State) {
   return ({
     currentOffer,
     nearbyData: nearbyOffers,
@@ -27,7 +27,7 @@ function mapStateToProps ({currentOffer, fetchStatus, nearbyOffers}: State) {
   });
 }
 
-function mapDispatchToProps (dispatch: ThunkAppDispatch) {
+function mapDispatchToProps(dispatch: ThunkAppDispatch) {
   return({
     getData(id: number) {
       dispatch(fetchCurrentOffer(id));
@@ -45,6 +45,7 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 function OfferScreen({currentOffer, nearbyData, getData, onSetId, fetchStatus}: PropsFromRedux): JSX.Element {
   const params: {id: string} = useParams();
+
   const { id } = params;
   const idNum = Number(id);
 
@@ -52,10 +53,10 @@ function OfferScreen({currentOffer, nearbyData, getData, onSetId, fetchStatus}: 
 
   const cardsForMap = [currentOffer, ...nearbyData];
 
-
   useEffect(() => {
     getData(idNum);
   }, [idNum]);
+
   return (
     fetchStatus === FetchStatus.Ok ?
       (
