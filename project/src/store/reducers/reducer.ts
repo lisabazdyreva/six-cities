@@ -1,6 +1,14 @@
 import {State} from '../../types/state';
 import {Actions, ActionType} from '../../types/action';
-import {AuthorizationStatus, DEFAULT_ID, DEFAULT_SORT_TYPE, INITIAL_CITY, INITIAL_LOGIN} from '../../const';
+import {
+  AuthorizationStatus,
+  FetchStatus,
+  DEFAULT_CURRENT_OFFER,
+  DEFAULT_ID,
+  DEFAULT_SORT_TYPE,
+  INITIAL_CITY,
+  INITIAL_LOGIN
+} from '../../const';
 
 
 const initialState = {
@@ -12,6 +20,10 @@ const initialState = {
   isDataLoaded: false,
   authorizationStatus: AuthorizationStatus.Unknown,
   login: INITIAL_LOGIN,
+  currentOffer: DEFAULT_CURRENT_OFFER,
+  nearbyOffers: [],
+  fetchStatus: FetchStatus.Trying,
+  commentsList: [],
 };
 
 function reducer (state: State = initialState, action: Actions): State {
@@ -32,6 +44,14 @@ function reducer (state: State = initialState, action: Actions): State {
       return {...state, authorizationStatus: AuthorizationStatus.NoAuth};
     case ActionType.SetLogin:
       return {...state, login: action.payload};
+    case ActionType.SetCurrentOffer:
+      return {...state, currentOffer: action.payload};
+    case ActionType.SetNearbyOffersList:
+      return {...state, nearbyOffers: action.payload};
+    case ActionType.SetFetchStatus:
+      return {...state, fetchStatus: action.payload};
+    case ActionType.SetCommentsList:
+      return {...state, commentsList: action.payload};
     default:
       return state;
   }

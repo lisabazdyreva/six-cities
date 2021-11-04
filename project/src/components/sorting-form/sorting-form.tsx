@@ -9,7 +9,7 @@ import type {Offers} from '../../types/offer';
 
 import {changeActiveSortType, fillOffersList} from '../../store/actions/action';
 
-import {getSortedOffers} from '../../utils';
+import {getSortedOffers} from '../../utils/utils';
 import {SortTypes} from '../../const';
 
 

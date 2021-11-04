@@ -1,10 +1,8 @@
+import {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import {connect, ConnectedProps} from 'react-redux';
-import {Dispatch} from 'redux';
 
-import type {Reviews} from '../../types/review';
 import type {State} from '../../types/state';
-import type {Actions} from '../../types/action';
 
 import Icons from '../icons/icons';
 import Header from '../header/header';
@@ -14,18 +12,28 @@ import NearbyCardsList from '../nearby-cards-list/nearby-cards-list';
 
 import {setActiveId} from '../../store/actions/action';
 
-import {MapStylesProperties} from '../../const';
+import {FetchStatus, MapStylesProperties} from '../../const';
 
+import {fetchCurrentOffer, fetchNearbyOffers} from '../../store/actions/api-actions';
+import {ThunkAppDispatch} from '../../types/action';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 
-function mapStateToProps ({offers}: State) {
+// TODO страница моргает, надо что-то с этим делать (404)
+function mapStateToProps({currentOffer, fetchStatus, nearbyOffers}: State) {
   return ({
-    offers,
+    currentOffer,
+    nearbyData: nearbyOffers,
+    fetchStatus,
   });
 }
 
-function mapDispatchToProps (dispatch: Dispatch<Actions>) {
+function mapDispatchToProps(dispatch: ThunkAppDispatch) {
   return({
-    onCardOpen(id: number) {
+    getData(id: number) {
+      dispatch(fetchCurrentOffer(id));
+      dispatch(fetchNearbyOffers(id));
+    },
+    onSetId(id: number) {
       dispatch(setActiveId(id));
     },
   });
@@ -34,48 +42,51 @@ function mapDispatchToProps (dispatch: Dispatch<Actions>) {
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
-type OfferScreenType = {
-  reviews: Reviews;
-};
-type ConnectedComponentProps = PropsFromRedux & OfferScreenType;
 
-
-function OfferScreen({offers, reviews, onCardOpen}: ConnectedComponentProps): JSX.Element {
+function OfferScreen({currentOffer, nearbyData, getData, onSetId, fetchStatus}: PropsFromRedux): JSX.Element {
   const params: {id: string} = useParams();
-  const { id } = params;
 
-  const [card] = offers.filter((offer) => offer.id === +id);
-  onCardOpen(card.id);
-  const nearbyOffers = offers.filter((offer) => offer.id !== +card.id);
-  const cardsForList = (nearbyOffers.length > 3) ? nearbyOffers.slice(0, 3) : nearbyOffers.slice();
-  const cardsForMap = [card, ...cardsForList];
+  const { id } = params;
+  const idNum = Number(id);
+
+  onSetId(idNum);
+
+  const cardsForMap = [currentOffer, ...nearbyData];
+
+  useEffect(() => {
+    getData(idNum);
+  }, [idNum]);
 
   return (
-    <>
-      <Icons />
-      <div className="page">
-        <Header />
-        <main className="page__main page__main--property">
-          <section className="property">
-            <OfferCard
-              reviews={reviews}
-              card={card}
-            />
-            <section className="property__map map">
-              <Map cards={cardsForMap} styles={MapStylesProperties.OfferPage}/>
-            </section>
-          </section>
-          <div className="container">
-            <section className="near-places places">
-              <h2 className="near-places__title">Other places in the neighbourhood</h2>
-              <NearbyCardsList
-                cards={cardsForList}
-              />
-            </section>
+    fetchStatus === FetchStatus.Ok ?
+      (
+        <>
+          <Icons />
+          <div className="page">
+            <Header />
+            <main className="page__main page__main--property">
+              <section className="property">
+                <OfferCard
+                  card={currentOffer}
+                />
+                <section className="property__map map">
+                  <Map cards={cardsForMap} styles={MapStylesProperties.OfferPage}/>
+                </section>
+              </section>
+              <div className="container">
+                <section className="near-places places">
+                  <h2 className="near-places__title">Other places in the neighbourhood</h2>
+                  <NearbyCardsList
+                    cards={nearbyData}
+                  />
+                </section>
+              </div>
+            </main>
           </div>
-        </main>
-      </div>
-    </>
+        </>
+      ) : (
+        <NotFoundScreen />
+      )
   );
 }
 

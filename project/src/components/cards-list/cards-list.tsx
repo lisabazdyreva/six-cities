@@ -10,7 +10,7 @@ import Card from '../card/card';
 
 import {setActiveId} from '../../store/actions/action';
 
-import {isMainPage} from '../../utils';
+import {isMainPage} from '../../utils/utils';
 
 
 function mapStateToProps({id}: State) {
@@ -19,7 +19,7 @@ function mapStateToProps({id}: State) {
   });
 }
 
-function mapDispatchToProps (dispatch: Dispatch<Actions>) {
+function mapDispatchToProps(dispatch: Dispatch<Actions>) {
   return({
     onCardHover(id: number) {
       dispatch(setActiveId(id));

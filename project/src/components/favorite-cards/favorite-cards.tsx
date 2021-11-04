@@ -2,7 +2,7 @@ import {Link} from 'react-router-dom';
 
 import type {Offers, Offer} from '../../types/offer';
 
-import {formatType, getRatingPercentValue} from '../../utils';
+import {formatType, getRatingPercentValue} from '../../utils/utils';
 
 import {AppRoute} from '../../const';
 

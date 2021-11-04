@@ -4,19 +4,21 @@ import type {State} from '../../types/state';
 
 import Icons from '../icons/icons';
 import MainCardsList from '../main-cards-list/main-cards-list';
-import Header from '../header/header';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 import NoOffers from '../no-offers/no-offers';
+import Header from '../header/header';
 import Map from '../map/map';
 import LocationsList from '../locations-list/locations-list';
 import SortingForm from '../sorting-form/sorting-form';
 
-import {MapStylesProperties} from '../../const';
+import {FetchStatus, MapStylesProperties} from '../../const';
 
 
-function mapStateToProps({sortedOffers, selectedCity}: State) {
+function mapStateToProps({sortedOffers, selectedCity, fetchStatus}: State) {
   return ({
     cards: sortedOffers,
     selectedCity,
+    fetchStatus,
   });
 }
 
@@ -29,9 +31,12 @@ type MainScreenProps = {
 type ConnectedComponentProps = PropsFromRedux & MainScreenProps;
 
 
-function MainScreen({cards, selectedCity, cities}: ConnectedComponentProps): JSX.Element {
+function MainScreen({cards, selectedCity, cities, fetchStatus}: ConnectedComponentProps): JSX.Element {
   const cardsLength = cards.length;
 
+  if (fetchStatus === FetchStatus.Error) {
+    return <NotFoundScreen />;
+  }
   return (
     <>
       <Icons />

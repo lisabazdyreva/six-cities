@@ -1,6 +1,7 @@
-import {CardTypes, SortTypes} from './const';
+import {CardTypes, SortTypes} from '../const';
 
-import {Offers, OffersServer, Offer} from './types/offer';
+import {Offers} from '../types/offer';
+
 
 const formatType = (typeText: string): string => {
   const result = typeText.slice(0, 1).toUpperCase() + typeText.slice(1);
@@ -27,7 +28,12 @@ const getFavoriteCitiesList = (cards: Offers): string[] => Array.from(new Set(ca
 const getSortedOffers = (type: string, cards: Offers): Offers => {
   switch (type) {
     case (SortTypes.Popular):
-      return cards.slice().sort((cardA, cardB) => cardB.id - cardA.id); // пока так
+      return cards.slice().sort((cardA, cardB) => {
+        const numberIdA = Number(cardA.id);
+        const numberIdB = Number(cardB.id);
+
+        return numberIdB - numberIdA; // TODO пока так
+      });
     case (SortTypes.IncrementPrice):
       return cards.slice().sort((cardA, cardB) => cardA.price - cardB.price);
     case (SortTypes.DecrementPrice):
@@ -40,28 +46,4 @@ const getSortedOffers = (type: string, cards: Offers): Offers => {
 };
 
 
-const adaptToClient = (items: OffersServer): Offers => items.map((item): Offer => {
-  const adaptedOffer: Offer = Object.assign(
-    {},
-    item,
-    {
-      isFavorite: item.is_favorite,
-      isPremium: item.is_premium,
-      maxAdults: item.max_adults,
-      previewImage: item.preview_image,
-      host: Object.assign({}, item.host, {isPro: item.host.is_pro, avatarUrl: item.host.avatar_url}),
-    },
-  );
-
-  delete adaptedOffer.is_favorite;
-  delete adaptedOffer.is_premium;
-  delete adaptedOffer.max_adults;
-  delete adaptedOffer.preview_image;
-
-  delete adaptedOffer.host.avatar_url;
-  delete adaptedOffer.host.is_pro;
-
-  return adaptedOffer;
-});
-
-export {formatType, getRatingPercentValue, isMainPage, filterOffers, formatDateValue, formatDateAttr, getFavoriteCitiesList, getSortedOffers, adaptToClient};
+export {formatType, getRatingPercentValue, isMainPage, filterOffers, formatDateValue, formatDateAttr, getFavoriteCitiesList, getSortedOffers};

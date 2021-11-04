@@ -6,7 +6,7 @@ import type {State} from '../../types/state';
 
 import FavoriteCards from '../favorite-cards/favorite-cards';
 
-import {getFavoriteCitiesList} from '../../utils';
+import {getFavoriteCitiesList} from '../../utils/utils';
 
 import {AppRoute} from '../../const';
 
@@ -16,7 +16,7 @@ type FavoriteCardsByCities = {
 }[];
 
 function getFavoriteCardsByCities(cards: Offers): FavoriteCardsByCities {
-  const favoriteCards = cards.filter((card) => !card.isFavorite); // пока для отладки так
+  const favoriteCards = cards.filter((card) => !card.isFavorite); // TODO пока для отладки так
   const favoriteCities = getFavoriteCitiesList(favoriteCards);
 
   return favoriteCities.map((city) => Object.assign({}, {[city]: favoriteCards.filter((card) => card.city.name === city)}));

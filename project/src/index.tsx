@@ -14,8 +14,6 @@ import App from './components/app/app';
 
 import {AuthorizationStatus, citiesList} from './const';
 
-import {reviews} from './mocks/reviews';
-
 import {checkAuthorization, fetchOffersList} from './store/actions/api-actions';
 
 import {requireAuthorization} from './store/actions/action';
@@ -39,7 +37,6 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <App
-        reviews={reviews}
         cities={citiesList}
       />
     </Provider>

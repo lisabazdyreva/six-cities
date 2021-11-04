@@ -7,7 +7,7 @@ function getToken(): Token {
   return token ?? '';
 }
 
-function saveToken (token: Token): void {
+function saveToken(token: Token): void {
   localStorage.setItem(AUTHORIZATION_TOKEN_KEY_NAME, token);
 }
 

@@ -1,8 +1,10 @@
 import {ActionType} from '../../types/action';
 
-import type {Offers} from '../../types/offer';
+import type {Offer, Offers} from '../../types/offer';
+import type {Reviews} from '../../types/review';
 
-import {AuthorizationStatus} from '../../const';
+import {AuthorizationStatus, FetchStatus} from '../../const';
+
 
 function selectActiveCity(city: string) {
   return ({
@@ -59,4 +61,45 @@ function setLogin(login: string) {
   } as const);
 }
 
-export {selectActiveCity, fillOffersList, changeActiveSortType, setActiveId, getOffers, requireAuthorization, requireLogout, setLogin};
+function setCurrentOffer(offer: Offer) {
+  return ({
+    type: ActionType.SetCurrentOffer,
+    payload: offer,
+  } as const);
+}
+
+function setNearbyOffersList(offers: Offers) {
+  return ({
+    type: ActionType.SetNearbyOffersList,
+    payload: offers,
+  } as const);
+}
+
+function setCommentsList(commentsList: Reviews) {
+  return ({
+    type: ActionType.SetCommentsList,
+    payload: commentsList,
+  } as const);
+}
+
+function setFetchStatus(status: FetchStatus) {
+  return ({
+    type: ActionType.SetFetchStatus,
+    payload: status,
+  } as const);
+}
+
+export {
+  selectActiveCity,
+  fillOffersList,
+  changeActiveSortType,
+  setActiveId,
+  getOffers,
+  requireAuthorization,
+  requireLogout,
+  setLogin,
+  setCurrentOffer,
+  setNearbyOffersList,
+  setFetchStatus,
+  setCommentsList
+};
