@@ -7,7 +7,7 @@ import {
   DEFAULT_ID,
   DEFAULT_SORT_TYPE,
   INITIAL_CITY,
-  INITIAL_LOGIN,
+  INITIAL_LOGIN
 } from '../../const';
 
 

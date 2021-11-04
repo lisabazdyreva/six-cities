@@ -42,4 +42,4 @@ const adaptCommentsToClient = (items: ReviewsServer): Reviews => items.map((item
 });
 
 
-export {adaptToClient, adaptCommentsToClient}
+export {adaptToClient, adaptCommentsToClient};

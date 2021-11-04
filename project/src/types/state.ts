@@ -1,6 +1,6 @@
 import {Offers, Offer} from './offer';
 import {AuthorizationStatus, FetchStatus, SortTypes} from '../const';
-import {Reviews} from "./review";
+import {Reviews} from './review';
 
 export type State = {
   selectedCity: string,
