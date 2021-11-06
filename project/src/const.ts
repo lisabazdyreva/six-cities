@@ -163,5 +163,21 @@ export const DEFAULT_CURRENT_OFFER = {
   type: '',
 };
 
+export const enum OfferRatingTitles {
+  Perfect = 'rating',
+  Good = 'good',
+  NotBad = 'not bad',
+  Badly = 'badly',
+  Terribly = 'terribly',
+}
+
+export const OfferRatingValues = {
+  [OfferRatingTitles.Perfect] : 5,
+  [OfferRatingTitles.Good]: 4,
+  [OfferRatingTitles.NotBad]: 3,
+  [OfferRatingTitles.Badly]: 2,
+  [OfferRatingTitles.Terribly]: 1,
+};
+
 
 export {Locations, citiesList};
