@@ -7,6 +7,7 @@ import {CommentData} from '../../types/comment-data';
 import {postComment} from '../../store/actions/api-actions';
 
 import CommentFormRating from '../comment-form-rating/comment-form-rating';
+import {OfferRatingValues} from '../../const';
 
 
 function mapDispatchToProps(dispatch: ThunkAppDispatch) {
@@ -58,7 +59,19 @@ function CommentForm(props: ConnectedComponentProps): JSX.Element {
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={onSubmitComment}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
-      <CommentFormRating selectedRating={rating} handleRating={(evt) => handleInputChange(evt)}/>
+      <div className="reviews__rating-form form__rating">
+        {
+          Object.entries(OfferRatingValues).map(([ratingTitle, ratingValue]) => (
+            <CommentFormRating
+              key={`${ratingValue}${Date.now()}`}
+              selectedRating={rating}
+              handleRating={(evt) => handleInputChange(evt)}
+              ratingTitle={ratingTitle}
+              ratingValue={ratingValue}
+            />),
+          )
+        }
+      </div>
       <textarea
         className="reviews__textarea form__textarea"
         id="review"
