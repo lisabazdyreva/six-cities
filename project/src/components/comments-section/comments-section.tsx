@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect} from 'react';
 import {connect, ConnectedProps} from 'react-redux';
 
 import {State} from '../../types/state';
@@ -7,29 +7,44 @@ import CommentsList from '../comments-list/comments-list';
 import CommentForm from '../comment-form/comment-form';
 
 import {AuthorizationStatus} from '../../const';
+import {ThunkAppDispatch} from '../../types/action';
+import {fetchOfferComments} from '../../store/actions/api-actions';
 
 
-function mapStateToProps({id, authorizationStatus}: State) {
+function mapStateToProps({id, authorizationStatus, commentsList}: State) {
   return ({
     id,
     authorizationStatus,
+    commentsList,
   });
 }
 
-const connector = connect(mapStateToProps);
+function mapDispatchToProps(dispatch : ThunkAppDispatch) {
+  return ({
+    getData(id: number) {
+      dispatch(fetchOfferComments(id));
+    },
+  });
+}
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 
 function CommentsSection(props: PropsFromRedux): JSX.Element {
-  const {id, authorizationStatus} = props;
+  const {id, authorizationStatus, commentsList, getData} = props;
 
-  const [commentsLength, setCommentsLength] = useState(0);
+
+  useEffect(() => {
+    getData(id);
+  }, [id]);
+
 
   return (
     <section className="property__reviews reviews">
-      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{commentsLength}</span></h2>
-      <CommentsList onCommentsCount={(length: number) => setCommentsLength(length)}/>
+      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{commentsList.length}</span></h2>
+      <CommentsList commentsList={commentsList}/>
       {authorizationStatus === AuthorizationStatus.Auth && <CommentForm id={id} />}
     </section>
   );
