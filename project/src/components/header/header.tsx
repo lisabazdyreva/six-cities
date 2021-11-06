@@ -11,10 +11,10 @@ import {ThunkAppDispatch} from '../../types/action';
 import {logoutAction} from '../../store/actions/api-actions';
 
 
-function mapStateToProps({authorizationStatus, login}: State) {
+function mapStateToProps({USER}: State) {
   return ({
-    authorizationStatus,
-    login,
+    authorizationStatus: USER.authorizationStatus,
+    login: USER.login,
   });
 }
 

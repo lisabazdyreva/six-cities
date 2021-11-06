@@ -16,11 +16,11 @@ import browserHistory from '../../browser-history';
 import {AppRoute, FetchStatus} from '../../const';
 
 
-function mapStateToProps({isDataLoaded, authorizationStatus, fetchStatus}: State) {
+function mapStateToProps({DATA, USER}: State) {
   return ({
-    isDataLoaded,
-    authorizationStatus,
-    fetchStatus,
+    isDataLoaded: DATA.isDataLoaded,
+    authorizationStatus: USER.authorizationStatus,
+    fetchStatus: DATA.fetchStatus,
   });
 }
 

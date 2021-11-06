@@ -15,10 +15,10 @@ import {SortTypes} from '../../const';
 
 const sortTypesList = Object.values(SortTypes);
 
-function mapStateToProps ({sortedOffers, activeSortType}: State) {
+function mapStateToProps ({APP}: State) {
   return ({
-    sortedOffers,
-    activeSortType,
+    sortedOffers: APP.sortedOffers,
+    activeSortType: APP.activeSortType,
   });
 }
 

@@ -23,9 +23,9 @@ function getFavoriteCardsByCities(cards: Offers): FavoriteCardsByCities {
 }
 
 
-function mapStateToProps ({offers}: State) {
+function mapStateToProps ({DATA}: State) {
   return ({
-    offers,
+    offers: DATA.offers,
   });
 }
 const connector = connect(mapStateToProps);

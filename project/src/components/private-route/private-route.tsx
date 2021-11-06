@@ -6,9 +6,9 @@ import {State} from '../../types/state';
 import {AppRoute, AuthorizationStatus} from '../../const';
 
 
-function mapStateToProps({authorizationStatus}: State) {
+function mapStateToProps({USER}: State) {
   return ({
-    authorizationStatus,
+    authorizationStatus: USER.authorizationStatus,
   });
 }
 

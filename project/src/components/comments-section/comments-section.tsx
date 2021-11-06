@@ -11,11 +11,11 @@ import {ThunkAppDispatch} from '../../types/action';
 import {fetchOfferComments} from '../../store/actions/api-actions';
 
 
-function mapStateToProps({id, authorizationStatus, commentsList}: State) {
+function mapStateToProps({USER, DATA, APP}: State) {
   return ({
-    id,
-    authorizationStatus,
-    commentsList,
+    id: APP.id,
+    authorizationStatus: USER.authorizationStatus,
+    commentsList: DATA.commentsList,
   });
 }
 

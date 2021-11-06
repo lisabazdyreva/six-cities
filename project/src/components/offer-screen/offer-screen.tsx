@@ -20,11 +20,11 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Spinner from '../spinner/spinner';
 
 
-function mapStateToProps({currentOffer, fetchStatus, nearbyOffers}: State) {
+function mapStateToProps({DATA}: State) {
   return ({
-    currentOffer,
-    nearbyData: nearbyOffers,
-    fetchStatus,
+    currentOffer: DATA.currentOffer,
+    nearbyData: DATA.nearbyOffers,
+    fetchStatus: DATA.fetchStatus,
   });
 }
 

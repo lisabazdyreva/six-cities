@@ -14,10 +14,10 @@ import {filterOffers} from '../../utils/utils';
 import {AppRoute, DEFAULT_SORT_TYPE} from '../../const';
 
 
-function mapStateToProps({selectedCity, offers}: State) {
+function mapStateToProps({DATA, APP}: State) {
   return ({
-    selectedCity,
-    offers,
+    selectedCity: APP.selectedCity,
+    offers: DATA.offers,
   });
 }
 

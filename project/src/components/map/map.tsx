@@ -16,9 +16,9 @@ const defaultCustomIcon = new Icon(defaultIcon);
 const currentCustomIcon = new Icon(currentIcon);
 
 
-function mapStateToProps({id}: State) {
+function mapStateToProps({APP}: State) {
   return ({
-    activeId: id,
+    activeId: APP.id,
   });
 }
 

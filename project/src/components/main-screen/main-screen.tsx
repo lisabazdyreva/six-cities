@@ -14,11 +14,11 @@ import SortingForm from '../sorting-form/sorting-form';
 import {FetchStatus, MapStylesProperties} from '../../const';
 
 
-function mapStateToProps({sortedOffers, selectedCity, fetchStatus}: State) {
+function mapStateToProps({DATA, APP}: State) {
   return ({
-    cards: sortedOffers,
-    selectedCity,
-    fetchStatus,
+    cards: APP.sortedOffers,
+    selectedCity: APP.selectedCity,
+    fetchStatus: DATA.fetchStatus,
   });
 }
 
