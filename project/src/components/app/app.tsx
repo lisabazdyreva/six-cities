@@ -41,7 +41,6 @@ function App(props: ConnectedComponentProps): JSX.Element {
   }
 
   // TODO Если пользователь авторизован, то при переходе на страницу Sign In выполняется перенаправление на главную страницу. пока непонятно, потом сделать
-  // TODO авторизация сохраняется при обновлении?
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>

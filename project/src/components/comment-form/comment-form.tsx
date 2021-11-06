@@ -1,4 +1,4 @@
-import {ChangeEvent, FormEvent, useState} from 'react';
+import {ChangeEvent, FormEvent, useCallback, useState} from 'react';
 import {connect, ConnectedProps} from 'react-redux';
 
 import {ThunkAppDispatch} from '../../types/action';
@@ -7,7 +7,7 @@ import {CommentData} from '../../types/comment-data';
 import {postComment} from '../../store/actions/api-actions';
 
 import CommentFormRating from '../comment-form-rating/comment-form-rating';
-import {OfferRatingValues} from '../../const';
+import CommentFormMessage from '../comment-form-message/comment-form-message';
 
 
 function mapDispatchToProps(dispatch: ThunkAppDispatch) {
@@ -33,13 +33,17 @@ function CommentForm(props: ConnectedComponentProps): JSX.Element {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
 
-  const handleInputChange = (evt:ChangeEvent<HTMLInputElement>): void => {
-    setRating(Number(evt.target.value));
-  };
 
-  const handleTextAreaChange = (evt:ChangeEvent<HTMLTextAreaElement>):void => {
-    setComment(evt.target.value);
-  };
+  const handleRating = useCallback(
+    (evt:ChangeEvent<HTMLInputElement>) => setRating(Number(evt.target.value)),
+    [],
+  );
+
+  const handleMessage = useCallback(
+    (evt:ChangeEvent<HTMLTextAreaElement>):void => setComment(evt.target.value),
+    [],
+  );
+
 
   function onSubmitComment(evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
@@ -59,27 +63,13 @@ function CommentForm(props: ConnectedComponentProps): JSX.Element {
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={onSubmitComment}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
-      <div className="reviews__rating-form form__rating">
-        {
-          Object.entries(OfferRatingValues).map(([ratingTitle, ratingValue]) => (
-            <CommentFormRating
-              key={`${ratingValue}${Date.now()}`}
-              selectedRating={rating}
-              handleRating={(evt) => handleInputChange(evt)}
-              ratingTitle={ratingTitle}
-              ratingValue={ratingValue}
-            />),
-          )
-        }
-      </div>
-      <textarea
-        className="reviews__textarea form__textarea"
-        id="review"
-        name="review"
-        placeholder="Tell how was your stay, what you like and what can be improved"
-        onChange={handleTextAreaChange}
-        value={comment}
-        maxLength={50}
+      <CommentFormRating
+        handleRating={handleRating}
+        rating={rating}
+      />
+      <CommentFormMessage
+        handleMessage={handleMessage}
+        comment={comment}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
