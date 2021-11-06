@@ -1,20 +1,37 @@
+import {useCallback, memo} from 'react';
+import {Dispatch} from 'redux';
+import {connect, ConnectedProps} from 'react-redux';
 import {Link} from 'react-router-dom';
 import classNames from 'classnames';
 
 import type {Offer} from '../../types/offer';
 
 import {isMainPage, formatType, getRatingPercentValue} from '../../utils/utils';
-import {AppRoute, DEFAULT_ID} from '../../const';
+import {AppRoute, CardTypes, DEFAULT_ID} from '../../const';
+
+import {Actions} from '../../types/action';
+import {setActiveId} from '../../store/actions/action';
 
 
+function mapDispatchToProps(dispatch: Dispatch<Actions>) {
+  return({
+    onCardHover(id: number) {
+      dispatch(setActiveId(id));
+    },
+  });
+}
+
+const connector = connect(null, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
 type CardProps = {
   card: Offer;
   typeCard: string;
-  onCardHover: ((id: number) => void) | null;
 }
+type ConnectedComponentProps = CardProps  & PropsFromRedux;
 
 
-function Card({card, typeCard, onCardHover}: CardProps): JSX.Element {
+function Card({card, typeCard, onCardHover}: ConnectedComponentProps): JSX.Element {
 
   const {
     price,
@@ -30,18 +47,28 @@ function Card({card, typeCard, onCardHover}: CardProps): JSX.Element {
   const typeText = formatType(type);
   const ratingPercentValue = getRatingPercentValue(rating);
 
-
-  const handleCardEnter = () => {
-    if(onCardHover) {
+  const setId = () => {
+    if (typeCard === CardTypes.Main) {
       onCardHover(id);
     }
   };
 
-  const handleCardLeave = () => {
-    if(onCardHover) {
+  const setDefaultId = () => {
+    if (typeCard === CardTypes.Main) {
       onCardHover(DEFAULT_ID);
     }
   };
+
+
+  const handleEnter = useCallback(
+    setId,
+    [],
+  );
+
+  const handleLeave = useCallback(
+    setDefaultId,
+    [],
+  );
 
 
   return (
@@ -51,8 +78,8 @@ function Card({card, typeCard, onCardHover}: CardProps): JSX.Element {
         {'cities__place-card': isMainPage(typeCard)},
         {'near-places__card': !isMainPage(typeCard)},
       )}
-      onMouseEnter={handleCardEnter}
-      onMouseLeave={handleCardLeave}
+      onMouseEnter={handleEnter}
+      onMouseLeave={handleLeave}
     >
 
       {isPremium && isMainPage(typeCard) ? <div className="place-card__mark"><span>Premium</span></div> : ''}
@@ -99,4 +126,5 @@ function Card({card, typeCard, onCardHover}: CardProps): JSX.Element {
 }
 
 
-export default Card;
+export {Card};
+export default memo(connector(Card));
