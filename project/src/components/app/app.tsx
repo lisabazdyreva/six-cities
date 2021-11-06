@@ -40,7 +40,6 @@ function App(props: ConnectedComponentProps): JSX.Element {
     return <Spinner />;
   }
 
-  // TODO Если пользователь авторизован, то при переходе на страницу Sign In выполняется перенаправление на главную страницу. пока непонятно, потом сделать
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>

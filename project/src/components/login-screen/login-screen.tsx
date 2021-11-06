@@ -1,17 +1,33 @@
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
+import {connect, ConnectedProps} from 'react-redux';
 
 import Icons from '../icons/icons';
 import Logo from '../logo/logo';
 import LoginScreenForm from '../login-screen-form/login-screen-form';
 
-import {AppRoute} from '../../const';
+import {AppRoute, AuthorizationStatus} from '../../const';
+import {State} from '../../types/state';
+
+
+function mapStateToProps({authorizationStatus}: State) {
+  return ({
+    authorizationStatus,
+  });
+}
+
+const connector = connect(mapStateToProps);
 
 type LoginScreenProps = {
   onAuth: () => void;
 }
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type ConnectedComponentProps = LoginScreenProps & PropsFromRedux;
 
 
-function LoginScreen({onAuth}: LoginScreenProps): JSX.Element {
+function LoginScreen({onAuth, authorizationStatus}: ConnectedComponentProps): JSX.Element {
+  if (authorizationStatus === AuthorizationStatus.Auth) {
+    return <Redirect to={AppRoute.Main} />;
+  }
 
   return (
     <>
@@ -44,5 +60,6 @@ function LoginScreen({onAuth}: LoginScreenProps): JSX.Element {
   );
 }
 
-export default LoginScreen;
+export {LoginScreen};
+export default connector(LoginScreen);
 

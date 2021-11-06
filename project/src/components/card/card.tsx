@@ -1,4 +1,4 @@
-import {useCallback, memo} from 'react';
+import {useCallback} from 'react';
 import {Dispatch} from 'redux';
 import {connect, ConnectedProps} from 'react-redux';
 import {Link} from 'react-router-dom';
@@ -127,4 +127,4 @@ function Card({card, typeCard, onCardHover}: ConnectedComponentProps): JSX.Eleme
 
 
 export {Card};
-export default memo(connector(Card));
+export default connector(Card);
