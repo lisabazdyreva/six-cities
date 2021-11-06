@@ -17,8 +17,9 @@ import {FetchStatus, MapStylesProperties} from '../../const';
 import {fetchCurrentOffer, fetchNearbyOffers} from '../../store/actions/api-actions';
 import {ThunkAppDispatch} from '../../types/action';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+import Spinner from '../spinner/spinner';
 
-// TODO страница моргает, надо что-то с этим делать (404)
+
 function mapStateToProps({currentOffer, fetchStatus, nearbyOffers}: State) {
   return ({
     currentOffer,
@@ -57,18 +58,23 @@ function OfferScreen({currentOffer, nearbyData, getData, onSetId, fetchStatus}: 
     getData(idNum);
   }, [idNum]);
 
-  return (
-    fetchStatus === FetchStatus.Ok ?
-      (
+
+  switch (fetchStatus) {
+    case (FetchStatus.Error):
+      return <NotFoundScreen />;
+
+    case (FetchStatus.Trying):
+      return <Spinner />;
+
+    default:
+      return (
         <>
           <Icons />
           <div className="page">
             <Header />
             <main className="page__main page__main--property">
               <section className="property">
-                <OfferCard
-                  card={currentOffer}
-                />
+                <OfferCard card={currentOffer} />
                 <section className="property__map map">
                   <Map cards={cardsForMap} styles={MapStylesProperties.OfferPage}/>
                 </section>
@@ -84,10 +90,8 @@ function OfferScreen({currentOffer, nearbyData, getData, onSetId, fetchStatus}: 
             </main>
           </div>
         </>
-      ) : (
-        <NotFoundScreen />
-      )
-  );
+      );
+  }
 }
 
 export {OfferScreen};

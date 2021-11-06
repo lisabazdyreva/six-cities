@@ -15,7 +15,7 @@ import {
 
 import {filterOffers} from '../../utils/utils';
 import {adaptCommentsToClient, adaptToClient} from '../../utils/adapt-utils';
-import {AuthorizationStatus, FetchStatus, INITIAL_CITY, INITIAL_LOGIN, APIRoute} from '../../const';
+import {APIRoute, AuthorizationStatus, FetchStatus, INITIAL_CITY, INITIAL_LOGIN} from '../../const';
 
 import {deleteToken, saveToken, Token} from '../../services/token';
 import {CommentData} from '../../types/comment-data';
@@ -79,7 +79,11 @@ function postComment({id, comment, rating}: CommentData): ThunkActionResult {
 
 function checkAuthorization(): ThunkActionResult {
   return async(dispatch, _getState, api): Promise<void> => {
-    await api.get(APIRoute.Login).then(() => dispatch(requireAuthorization(AuthorizationStatus.NoAuth)));
+    await api.get(APIRoute.Login)
+      .then(({data}) => dispatch(setLogin(data.email)))
+      .then(() => dispatch(requireAuthorization(AuthorizationStatus.Auth)))
+
+      .catch(() => dispatch(requireAuthorization(AuthorizationStatus.NoAuth)));
   };
 }
 
