@@ -1,8 +1,5 @@
 import {ChangeEvent, FormEvent, useCallback, useState} from 'react';
-import {connect, ConnectedProps} from 'react-redux';
-
-import {ThunkAppDispatch} from '../../types/action';
-import {CommentData} from '../../types/comment-data';
+import {useDispatch} from 'react-redux';
 
 import {postComment} from '../../store/actions/api-actions';
 
@@ -10,26 +7,11 @@ import CommentFormRating from '../comment-form-rating/comment-form-rating';
 import CommentFormMessage from '../comment-form-message/comment-form-message';
 
 
-function mapDispatchToProps(dispatch: ThunkAppDispatch) {
-  return ({
-    onSubmit(commentData: CommentData) {
-      dispatch(postComment(commentData));
-    },
-  });
-}
-
-const connector = connect(null, mapDispatchToProps);
-
 type CommentFormProps = {
   id: number;
 };
-type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedComponentProps = CommentFormProps & PropsFromRedux;
 
-
-function CommentForm(props: ConnectedComponentProps): JSX.Element {
-  const {id, onSubmit} = props;
-
+function CommentForm({id}: CommentFormProps ): JSX.Element {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
 
@@ -44,16 +26,17 @@ function CommentForm(props: ConnectedComponentProps): JSX.Element {
     [],
   );
 
+  const dispatch = useDispatch();
 
   function onSubmitComment(evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
 
     if (rating !== 0 && comment !== '') {
-      onSubmit ({
+      dispatch(postComment({
         id: id,
         comment: comment,
         rating: rating,
-      });
+      }));
 
       setRating(0);
       setComment('');
@@ -89,4 +72,4 @@ function CommentForm(props: ConnectedComponentProps): JSX.Element {
 }
 
 export {CommentForm};
-export default connector(CommentForm);
+export default CommentForm;

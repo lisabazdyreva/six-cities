@@ -1,37 +1,22 @@
 import {SyntheticEvent, useState} from 'react';
-import {connect, ConnectedProps} from 'react-redux';
-
-import {ThunkAppDispatch} from '../../types/action';
-import {AuthorizationData} from '../../types/authorization-data';
-
+import {useDispatch} from 'react-redux';
 import {loginAction} from '../../store/actions/api-actions';
 
 
-function mapDispatchToProps(dispatch: ThunkAppDispatch) {
-  return({
-    onSubmit(authorizationData: AuthorizationData) {
-      dispatch(loginAction(authorizationData));
-    },
-  });
-}
-const connector = connect(null, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-
-function LoginScreenForm({onSubmit}:PropsFromRedux): JSX.Element {
+function LoginScreenForm(): JSX.Element {
+  const dispatch = useDispatch();
 
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
 
   function handleSubmit(evt: SyntheticEvent) {
     evt.preventDefault();
+
     if (login !== '' && password !== '') {
-      onSubmit({
+      dispatch(loginAction({
         login: login,
         password: password,
-      },
-      );
+      }));
     }
   }
 
@@ -73,4 +58,4 @@ function LoginScreenForm({onSubmit}:PropsFromRedux): JSX.Element {
 }
 
 export {LoginScreenForm};
-export default connector(LoginScreenForm);
+export default LoginScreenForm;

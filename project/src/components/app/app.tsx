@@ -1,7 +1,5 @@
 import {Router as BrowserRouter, Route, Switch} from 'react-router-dom';
-import {connect, ConnectedProps} from 'react-redux';
-
-import {State} from '../../types/state';
+import {useSelector} from 'react-redux';
 
 import MainScreen from '../main-screen/main-screen';
 import LoginScreen from '../login-screen/login-screen';
@@ -14,29 +12,21 @@ import Spinner from '../spinner/spinner';
 import browserHistory from '../../browser-history';
 
 import {AppRoute, FetchStatus} from '../../const';
-import {getFetchStatus, getIsDataLoaded} from '../../store/app-data/selectors';
-import {getAuthorizationStatus} from '../../store/app-user/selectors';
-
-
-function mapStateToProps(state: State) {
-  return ({
-    isDataLoaded: getIsDataLoaded(state),
-    authorizationStatus: getAuthorizationStatus(state),
-    fetchStatus: getFetchStatus(state),
-  });
-}
-
-const connector = connect(mapStateToProps);
+import {
+  getFetchStatus,
+  getIsDataLoaded
+} from '../../store/app-data/selectors';
 
 type AppScreenProps = {
   cities: string[];
 };
-type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedComponentProps = AppScreenProps & PropsFromRedux;
 
 
-function App(props: ConnectedComponentProps): JSX.Element {
-  const {cities, isDataLoaded, fetchStatus} = props;
+function App({cities}: AppScreenProps): JSX.Element {
+
+  const isDataLoaded = useSelector(getIsDataLoaded);
+  const fetchStatus = useSelector(getFetchStatus);
+
 
   if (!isDataLoaded && fetchStatus === FetchStatus.Trying) {
     return <Spinner />;
@@ -73,4 +63,4 @@ function App(props: ConnectedComponentProps): JSX.Element {
 }
 
 export {App};
-export default connector(App);
+export default App;

@@ -1,40 +1,23 @@
 import {Link} from 'react-router-dom';
-import {connect, ConnectedProps} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 import Icons from '../icons/icons';
 import Logo from '../logo/logo';
 import LoginScreenForm from '../login-screen-form/login-screen-form';
 
 import {AppRoute, AuthorizationStatus} from '../../const';
-import {State} from '../../types/state';
-import {Dispatch} from 'redux';
 
 import {redirectTo} from '../../store/actions/action';
 import {getAuthorizationStatus} from '../../store/app-user/selectors';
 
-function mapStateToProps(state: State) {
-  return ({
-    authorizationStatus: getAuthorizationStatus(state),
-  });
-}
 
-function mapDispatchToProps (dispatch: Dispatch) {
-  return ({
-    onRedirect(url: AppRoute) {
-      dispatch(redirectTo(url));
-    },
-  });
-}
+function LoginScreen(): JSX.Element {
+  const authorizationStatus = useSelector(getAuthorizationStatus);
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
+  const dispatch = useDispatch();
 
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-
-function LoginScreen({authorizationStatus, onRedirect}: PropsFromRedux): JSX.Element {
   if (authorizationStatus === AuthorizationStatus.Auth) {
-    onRedirect(AppRoute.Main);
+    dispatch(redirectTo(AppRoute.Main));
   }
 
   return (
@@ -69,5 +52,5 @@ function LoginScreen({authorizationStatus, onRedirect}: PropsFromRedux): JSX.Ele
 }
 
 export {LoginScreen};
-export default connector(LoginScreen);
+export default LoginScreen;
 

@@ -1,11 +1,6 @@
 import {Link} from 'react-router-dom';
-import {connect, ConnectedProps} from 'react-redux';
-import {Dispatch} from 'redux';
+import {useDispatch, useSelector} from 'react-redux';
 import classNames from 'classnames';
-
-import type {State} from '../../types/state';
-import type {Actions} from '../../types/action';
-import type {Offers} from '../../types/offer';
 
 import {changeActiveSortType, fillOffersList, selectActiveCity} from '../../store/actions/action';
 
@@ -16,44 +11,24 @@ import {getSelectedCity} from '../../store/app-process/selectors';
 import {getOffers} from '../../store/app-data/selectors';
 
 
-function mapStateToProps(state: State) {
-  return ({
-    selectedCity: getSelectedCity(state),
-    offers: getOffers(state),
-  });
-}
-
-function mapDispatchToProps(dispatch: Dispatch<Actions>) {
-  return ({
-    onCitySelect(selectedCity: string) {
-      dispatch(selectActiveCity(selectedCity));
-    },
-    onSortTypeReset() {
-      dispatch(changeActiveSortType(DEFAULT_SORT_TYPE));
-    },
-    onOffersUpdate(offers: Offers) {
-      dispatch(fillOffersList(offers));
-    },
-  });
-}
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
 type LocationsListProps = {
   cities: string[];
 };
-type ConnectedComponentProps = PropsFromRedux & LocationsListProps;
 
 
-function LocationsList({cities, onCitySelect, onSortTypeReset, onOffersUpdate, selectedCity, offers}: ConnectedComponentProps): JSX.Element {
+function LocationsList({cities}: LocationsListProps): JSX.Element {
+
+  const selectedCity = useSelector(getSelectedCity);
+  const offers = useSelector(getOffers);
+
+  const dispatch = useDispatch();
 
   function onLocationClick(city: string) {
     const updatedOffers = filterOffers(city, offers);
 
-    onCitySelect(city);
-    onSortTypeReset();
-    onOffersUpdate(updatedOffers);
+    dispatch(selectActiveCity(city));
+    dispatch(changeActiveSortType(DEFAULT_SORT_TYPE));
+    dispatch(fillOffersList(updatedOffers));
   }
 
   return (
@@ -82,4 +57,4 @@ function LocationsList({cities, onCitySelect, onSortTypeReset, onOffersUpdate, s
 }
 
 export {LocationsList};
-export default connector(LocationsList);
+export default LocationsList;

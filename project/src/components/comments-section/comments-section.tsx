@@ -1,46 +1,26 @@
 import {useEffect} from 'react';
-import {connect, ConnectedProps} from 'react-redux';
-
-import {State} from '../../types/state';
+import {useDispatch, useSelector} from 'react-redux';
 
 import CommentsList from '../comments-list/comments-list';
 import CommentForm from '../comment-form/comment-form';
 
 import {AuthorizationStatus} from '../../const';
-import {ThunkAppDispatch} from '../../types/action';
+
 import {fetchOfferComments} from '../../store/actions/api-actions';
 import {getId} from '../../store/app-process/selectors';
 import {getAuthorizationStatus} from '../../store/app-user/selectors';
 import {getCommentsList} from '../../store/app-data/selectors';
 
 
-function mapStateToProps(state: State) {
-  return ({
-    id: getId(state),
-    authorizationStatus: getAuthorizationStatus(state),
-    commentsList: getCommentsList(state),
-  });
-}
+function CommentsSection(): JSX.Element {
+  const id = useSelector(getId);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const commentsList = useSelector(getCommentsList);
 
-function mapDispatchToProps(dispatch : ThunkAppDispatch) {
-  return ({
-    getData(id: number) {
-      dispatch(fetchOfferComments(id));
-    },
-  });
-}
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-
-function CommentsSection(props: PropsFromRedux): JSX.Element {
-  const {id, authorizationStatus, commentsList, getData} = props;
-
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getData(id);
+    dispatch(fetchOfferComments(id));
   }, [id]);
 
 
@@ -54,4 +34,4 @@ function CommentsSection(props: PropsFromRedux): JSX.Element {
 }
 
 export {CommentsSection};
-export default connector(CommentsSection);
+export default CommentsSection;

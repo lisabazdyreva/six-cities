@@ -1,6 +1,5 @@
 import {useCallback} from 'react';
-import {Dispatch} from 'redux';
-import {connect, ConnectedProps} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {Link} from 'react-router-dom';
 import classNames from 'classnames';
 
@@ -9,29 +8,17 @@ import type {Offer} from '../../types/offer';
 import {isMainPage, formatType, getRatingPercentValue} from '../../utils/utils';
 import {AppRoute, CardTypes, DEFAULT_ID} from '../../const';
 
-import {Actions} from '../../types/action';
 import {setActiveId} from '../../store/actions/action';
 
 
-function mapDispatchToProps(dispatch: Dispatch<Actions>) {
-  return({
-    onCardHover(id: number) {
-      dispatch(setActiveId(id));
-    },
-  });
-}
-
-const connector = connect(null, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
 type CardProps = {
   card: Offer;
   typeCard: string;
 }
-type ConnectedComponentProps = CardProps  & PropsFromRedux;
 
 
-function Card({card, typeCard, onCardHover}: ConnectedComponentProps): JSX.Element {
+function Card({card, typeCard}: CardProps): JSX.Element {
+  const dispatch = useDispatch();
 
   const {
     price,
@@ -49,13 +36,13 @@ function Card({card, typeCard, onCardHover}: ConnectedComponentProps): JSX.Eleme
 
   const setId = () => {
     if (typeCard === CardTypes.Main) {
-      onCardHover(id);
+      dispatch(setActiveId(id));
     }
   };
 
   const setDefaultId = () => {
     if (typeCard === CardTypes.Main) {
-      onCardHover(DEFAULT_ID);
+      dispatch(setActiveId(DEFAULT_ID));
     }
   };
 
@@ -127,4 +114,4 @@ function Card({card, typeCard, onCardHover}: ConnectedComponentProps): JSX.Eleme
 
 
 export {Card};
-export default connector(Card);
+export default Card;

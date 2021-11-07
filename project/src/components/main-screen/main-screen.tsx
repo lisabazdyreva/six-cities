@@ -1,6 +1,4 @@
-import {connect, ConnectedProps} from 'react-redux';
-
-import type {State} from '../../types/state';
+import {useSelector} from 'react-redux';
 
 import Icons from '../icons/icons';
 import MainCardsList from '../main-cards-list/main-cards-list';
@@ -16,24 +14,17 @@ import {getSelectedCity, getSortedOffers} from '../../store/app-process/selector
 import {getFetchStatus} from '../../store/app-data/selectors';
 
 
-function mapStateToProps(state: State) {
-  return ({
-    cards: getSortedOffers(state),
-    selectedCity: getSelectedCity(state),
-    fetchStatus: getFetchStatus(state),
-  });
-}
-
-const connector = connect(mapStateToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
 type MainScreenProps = {
   cities: string[];
 };
-type ConnectedComponentProps = PropsFromRedux & MainScreenProps;
 
 
-function MainScreen({cards, selectedCity, cities, fetchStatus}: ConnectedComponentProps): JSX.Element {
+function MainScreen({cities}: MainScreenProps): JSX.Element {
+
+  const cards = useSelector(getSortedOffers);
+  const selectedCity = useSelector(getSelectedCity);
+  const fetchStatus = useSelector(getFetchStatus);
+
   const cardsLength = cards.length;
 
   if (fetchStatus === FetchStatus.Error) {
@@ -81,4 +72,4 @@ function MainScreen({cards, selectedCity, cities, fetchStatus}: ConnectedCompone
 }
 
 export {MainScreen};
-export default connector(MainScreen);
+export default MainScreen;

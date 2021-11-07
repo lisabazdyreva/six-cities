@@ -1,7 +1,15 @@
-import {ActionType, Actions} from '../../types/action';
 import {AppData} from '../../types/state';
 
 import {DEFAULT_CURRENT_OFFER, FetchStatus} from '../../const';
+import {createReducer} from '@reduxjs/toolkit';
+
+import {
+  getOffers,
+  setCurrentOffer,
+  setFetchStatus,
+  setCommentsList,
+  setNearbyOffersList
+} from '../actions/action';
 
 
 const initialState: AppData = {
@@ -13,22 +21,22 @@ const initialState: AppData = {
   nearbyOffers: [],
 };
 
-
-const appData = (state = initialState, action: Actions): AppData => {
-  switch (action.type) {
-    case ActionType.GetOffers:
-      return {...state, offers: action.payload, isDataLoaded: true};
-    case ActionType.SetCurrentOffer:
-      return {...state, currentOffer: action.payload};
-    case ActionType.SetFetchStatus:
-      return {...state, fetchStatus: action.payload};
-    case ActionType.SetCommentsList:
-      return {...state, commentsList: action.payload};
-    case ActionType.SetNearbyOffersList:
-      return {...state, nearbyOffers: action.payload};
-    default:
-      return state;
-  }
-};
-
-export {appData};
+export const appData = createReducer(initialState, (builder) => {
+  builder
+    .addCase(getOffers, (state, action) => {
+      state.offers = action.payload;
+      state.isDataLoaded = true;
+    })
+    .addCase(setCurrentOffer, (state, action) => {
+      state.currentOffer = action.payload;
+    })
+    .addCase(setFetchStatus, (state, action) => {
+      state.fetchStatus = action.payload;
+    })
+    .addCase(setCommentsList, (state, action) => {
+      state.commentsList = action.payload;
+    })
+    .addCase(setNearbyOffersList, (state, action) => {
+      state.nearbyOffers = action.payload;
+    });
+});

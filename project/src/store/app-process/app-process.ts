@@ -1,7 +1,13 @@
-import {ActionType, Actions} from '../../types/action';
 import {AppProcess} from '../../types/state';
 
 import {DEFAULT_ID, DEFAULT_SORT_TYPE, INITIAL_CITY} from '../../const';
+import {createReducer} from '@reduxjs/toolkit';
+import {
+  selectActiveCity,
+  fillOffersList,
+  changeActiveSortType,
+  setActiveId
+} from '../actions/action';
 
 
 const initialState: AppProcess = {
@@ -12,19 +18,18 @@ const initialState: AppProcess = {
 };
 
 
-const appProcess = (state = initialState, action: Actions): AppProcess => {
-  switch (action.type) {
-    case ActionType.SelectActiveCity:
-      return {...state, selectedCity: action.payload};
-    case ActionType.FillOffersList:
-      return {...state, sortedOffers: action.payload};
-    case ActionType.ChangeActiveSortType:
-      return {...state, activeSortType: action.payload};
-    case ActionType.SetActiveId:
-      return {...state, id: action.payload};
-    default:
-      return state;
-  }
-};
-
-export {appProcess};
+export const appProcess = createReducer(initialState, (builder) => {
+  builder
+    .addCase(selectActiveCity, (state, action) => {
+      state.selectedCity = action.payload;
+    })
+    .addCase(fillOffersList, (state, action) => {
+      state.sortedOffers = action.payload;
+    })
+    .addCase(changeActiveSortType, (state, action) => {
+      state.activeSortType = action.payload;
+    })
+    .addCase(setActiveId, (state, action) => {
+      state.id = action.payload;
+    });
+});
