@@ -9,6 +9,7 @@ import type {State} from '../../types/state';
 import useMap from '../../hooks/useMap';
 
 import {defaultIcon, currentIcon} from '../../const';
+import {getId} from '../../store/app-process/selectors';
 
 
 let prevActiveCity: string | undefined;
@@ -16,9 +17,9 @@ const defaultCustomIcon = new Icon(defaultIcon);
 const currentCustomIcon = new Icon(currentIcon);
 
 
-function mapStateToProps({APP}: State) {
+function mapStateToProps(state: State) {
   return ({
-    activeId: APP.id,
+    activeId: getId(state),
   });
 }
 

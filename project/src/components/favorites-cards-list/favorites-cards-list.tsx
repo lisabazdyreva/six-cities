@@ -9,6 +9,7 @@ import FavoriteCards from '../favorite-cards/favorite-cards';
 import {getFavoriteCitiesList} from '../../utils/utils';
 
 import {AppRoute} from '../../const';
+import {getOffers} from '../../store/app-data/selectors';
 
 
 type FavoriteCardsByCities = {
@@ -23,9 +24,9 @@ function getFavoriteCardsByCities(cards: Offers): FavoriteCardsByCities {
 }
 
 
-function mapStateToProps ({DATA}: State) {
+function mapStateToProps (state: State) {
   return ({
-    offers: DATA.offers,
+    offers: getOffers(state),
   });
 }
 const connector = connect(mapStateToProps);

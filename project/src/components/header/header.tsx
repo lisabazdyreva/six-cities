@@ -9,12 +9,13 @@ import {AppRoute, AuthorizationStatus} from '../../const';
 import {ThunkAppDispatch} from '../../types/action';
 
 import {logoutAction} from '../../store/actions/api-actions';
+import {getAuthorizationStatus, getLogin} from '../../store/app-user/selectors';
 
 
-function mapStateToProps({USER}: State) {
+function mapStateToProps(state: State) {
   return ({
-    authorizationStatus: USER.authorizationStatus,
-    login: USER.login,
+    authorizationStatus: getAuthorizationStatus(state),
+    login: getLogin(state),
   });
 }
 

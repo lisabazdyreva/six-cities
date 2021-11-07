@@ -4,11 +4,12 @@ import {connect, ConnectedProps} from 'react-redux';
 import {State} from '../../types/state';
 
 import {AppRoute, AuthorizationStatus} from '../../const';
+import {getAuthorizationStatus} from '../../store/app-user/selectors';
 
 
-function mapStateToProps({USER}: State) {
+function mapStateToProps(state: State) {
   return ({
-    authorizationStatus: USER.authorizationStatus,
+    authorizationStatus: getAuthorizationStatus(state),
   });
 }
 

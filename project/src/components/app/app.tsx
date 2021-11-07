@@ -14,13 +14,15 @@ import Spinner from '../spinner/spinner';
 import browserHistory from '../../browser-history';
 
 import {AppRoute, FetchStatus} from '../../const';
+import {getFetchStatus, getIsDataLoaded} from '../../store/app-data/selectors';
+import {getAuthorizationStatus} from '../../store/app-user/selectors';
 
 
-function mapStateToProps({DATA, USER}: State) {
+function mapStateToProps(state: State) {
   return ({
-    isDataLoaded: DATA.isDataLoaded,
-    authorizationStatus: USER.authorizationStatus,
-    fetchStatus: DATA.fetchStatus,
+    isDataLoaded: getIsDataLoaded(state),
+    authorizationStatus: getAuthorizationStatus(state),
+    fetchStatus: getFetchStatus(state),
   });
 }
 

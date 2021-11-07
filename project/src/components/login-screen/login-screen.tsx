@@ -10,10 +10,11 @@ import {State} from '../../types/state';
 import {Dispatch} from 'redux';
 
 import {redirectTo} from '../../store/actions/action';
+import {getAuthorizationStatus} from '../../store/app-user/selectors';
 
-function mapStateToProps({USER}: State) {
+function mapStateToProps(state: State) {
   return ({
-    authorizationStatus: USER.authorizationStatus,
+    authorizationStatus: getAuthorizationStatus(state),
   });
 }
 

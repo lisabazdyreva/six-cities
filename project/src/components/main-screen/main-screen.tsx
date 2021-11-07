@@ -12,13 +12,15 @@ import LocationsList from '../locations-list/locations-list';
 import SortingForm from '../sorting-form/sorting-form';
 
 import {FetchStatus, MapStylesProperties} from '../../const';
+import {getSelectedCity, getSortedOffers} from '../../store/app-process/selectors';
+import {getFetchStatus} from '../../store/app-data/selectors';
 
 
-function mapStateToProps({DATA, APP}: State) {
+function mapStateToProps(state: State) {
   return ({
-    cards: APP.sortedOffers,
-    selectedCity: APP.selectedCity,
-    fetchStatus: DATA.fetchStatus,
+    cards: getSortedOffers(state),
+    selectedCity: getSelectedCity(state),
+    fetchStatus: getFetchStatus(state),
   });
 }
 

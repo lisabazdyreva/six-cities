@@ -11,14 +11,15 @@ import {changeActiveSortType, fillOffersList} from '../../store/actions/action';
 
 import {getSortedOffers} from '../../utils/utils';
 import {SortTypes} from '../../const';
+import {getActiveSortType, getSortedOffers as getOffers} from '../../store/app-process/selectors'; // !TODO нейминг
 
 
 const sortTypesList = Object.values(SortTypes);
 
-function mapStateToProps ({APP}: State) {
+function mapStateToProps (state: State) {
   return ({
-    sortedOffers: APP.sortedOffers,
-    activeSortType: APP.activeSortType,
+    sortedOffers: getOffers(state),
+    activeSortType: getActiveSortType(state),
   });
 }
 

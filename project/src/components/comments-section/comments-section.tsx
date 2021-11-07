@@ -9,13 +9,16 @@ import CommentForm from '../comment-form/comment-form';
 import {AuthorizationStatus} from '../../const';
 import {ThunkAppDispatch} from '../../types/action';
 import {fetchOfferComments} from '../../store/actions/api-actions';
+import {getId} from '../../store/app-process/selectors';
+import {getAuthorizationStatus} from '../../store/app-user/selectors';
+import {getCommentsList} from '../../store/app-data/selectors';
 
 
-function mapStateToProps({USER, DATA, APP}: State) {
+function mapStateToProps(state: State) {
   return ({
-    id: APP.id,
-    authorizationStatus: USER.authorizationStatus,
-    commentsList: DATA.commentsList,
+    id: getId(state),
+    authorizationStatus: getAuthorizationStatus(state),
+    commentsList: getCommentsList(state),
   });
 }
 

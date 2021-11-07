@@ -12,12 +12,14 @@ import {changeActiveSortType, fillOffersList, selectActiveCity} from '../../stor
 import {filterOffers} from '../../utils/utils';
 
 import {AppRoute, DEFAULT_SORT_TYPE} from '../../const';
+import {getSelectedCity} from '../../store/app-process/selectors';
+import {getOffers} from '../../store/app-data/selectors';
 
 
-function mapStateToProps({DATA, APP}: State) {
+function mapStateToProps(state: State) {
   return ({
-    selectedCity: APP.selectedCity,
-    offers: DATA.offers,
+    selectedCity: getSelectedCity(state),
+    offers: getOffers(state),
   });
 }
 

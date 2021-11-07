@@ -18,13 +18,14 @@ import {fetchCurrentOffer, fetchNearbyOffers} from '../../store/actions/api-acti
 import {ThunkAppDispatch} from '../../types/action';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Spinner from '../spinner/spinner';
+import {getCurrentOffer, getFetchStatus, getNearbyOffers} from '../../store/app-data/selectors';
 
 
-function mapStateToProps({DATA}: State) {
+function mapStateToProps(state: State) {
   return ({
-    currentOffer: DATA.currentOffer,
-    nearbyData: DATA.nearbyOffers,
-    fetchStatus: DATA.fetchStatus,
+    currentOffer: getCurrentOffer(state),
+    nearbyData: getNearbyOffers(state),
+    fetchStatus: getFetchStatus(state),
   });
 }
 
