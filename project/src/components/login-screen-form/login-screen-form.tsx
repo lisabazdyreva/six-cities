@@ -9,22 +9,17 @@ import {loginAction} from '../../store/actions/api-actions';
 
 function mapDispatchToProps(dispatch: ThunkAppDispatch) {
   return({
-    onSubmit(authorizationData: AuthorizationData, openMainPage: () => void) {
+    onSubmit(authorizationData: AuthorizationData) {
       dispatch(loginAction(authorizationData));
-      openMainPage();
     },
   });
 }
 const connector = connect(null, mapDispatchToProps);
 
-type LoginScreenFormProps = {
-  onAuth: () => void;
-};
 type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedComponentProps = PropsFromRedux & LoginScreenFormProps;
 
 
-function LoginScreenForm({onAuth, onSubmit}:ConnectedComponentProps): JSX.Element {
+function LoginScreenForm({onSubmit}:PropsFromRedux): JSX.Element {
 
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
@@ -35,7 +30,7 @@ function LoginScreenForm({onAuth, onSubmit}:ConnectedComponentProps): JSX.Elemen
       onSubmit({
         login: login,
         password: password,
-      }, onAuth,
+      },
       );
     }
   }

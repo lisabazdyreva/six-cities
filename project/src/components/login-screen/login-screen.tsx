@@ -17,14 +17,11 @@ function mapStateToProps({USER}: State) {
 
 const connector = connect(mapStateToProps);
 
-type LoginScreenProps = {
-  onAuth: () => void;
-}
+
 type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedComponentProps = LoginScreenProps & PropsFromRedux;
 
 
-function LoginScreen({onAuth, authorizationStatus}: ConnectedComponentProps): JSX.Element {
+function LoginScreen({authorizationStatus}: PropsFromRedux): JSX.Element {
   if (authorizationStatus === AuthorizationStatus.Auth) {
     return <Redirect to={AppRoute.Main} />;
   }
@@ -44,7 +41,7 @@ function LoginScreen({onAuth, authorizationStatus}: ConnectedComponentProps): JS
           <div className="page__login-container container">
             <section className="login">
               <h1 className="login__title">Sign in</h1>
-              <LoginScreenForm onAuth={onAuth}/>
+              <LoginScreenForm />
             </section>
             <section className="locations locations--login locations--current">
               <div className="locations__item">

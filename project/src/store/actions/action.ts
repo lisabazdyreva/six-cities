@@ -3,7 +3,7 @@ import {ActionType} from '../../types/action';
 import type {Offer, Offers} from '../../types/offer';
 import type {Reviews} from '../../types/review';
 
-import {AuthorizationStatus, FetchStatus} from '../../const';
+import {AppRoute, AuthorizationStatus, FetchStatus} from '../../const';
 
 
 function selectActiveCity(city: string) {
@@ -89,6 +89,13 @@ function setFetchStatus(status: FetchStatus) {
   } as const);
 }
 
+function redirectTo(url: AppRoute) {
+  return ({
+    type: ActionType.RedirectTo,
+    payload: url,
+  } as const);
+}
+
 export {
   selectActiveCity,
   fillOffersList,
@@ -101,5 +108,6 @@ export {
   setCurrentOffer,
   setNearbyOffersList,
   setFetchStatus,
-  setCommentsList
+  setCommentsList,
+  redirectTo
 };

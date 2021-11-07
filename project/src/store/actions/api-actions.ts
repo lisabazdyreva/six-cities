@@ -4,6 +4,7 @@ import {AuthorizationData} from '../../types/authorization-data';
 import {
   fillOffersList,
   getOffers,
+  redirectTo,
   requireAuthorization,
   requireLogout,
   setCommentsList,
@@ -15,7 +16,7 @@ import {
 
 import {filterOffers} from '../../utils/utils';
 import {adaptCommentsToClient, adaptToClient} from '../../utils/adapt-utils';
-import {APIRoute, AuthorizationStatus, FetchStatus, INITIAL_CITY, INITIAL_LOGIN} from '../../const';
+import {APIRoute, AppRoute, AuthorizationStatus, FetchStatus, INITIAL_CITY, INITIAL_LOGIN} from '../../const';
 
 import {deleteToken, saveToken, Token} from '../../services/token';
 import {CommentData} from '../../types/comment-data';
@@ -93,6 +94,7 @@ function loginAction({login: email, password}: AuthorizationData): ThunkActionRe
     saveToken(token);
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
     dispatch(setLogin(email));
+    dispatch(redirectTo(AppRoute.Main));
   };
 }
 

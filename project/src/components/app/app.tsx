@@ -51,7 +51,7 @@ function App(props: ConnectedComponentProps): JSX.Element {
         <Route
           path={AppRoute.Login}
           exact
-          render={({history}) => <LoginScreen onAuth={() => history.push(AppRoute.Main)}/>}
+          render={() => <LoginScreen/>}
         />
         <PrivateRoute
           exact

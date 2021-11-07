@@ -2,23 +2,7 @@ import {Offers, Offer} from './offer';
 import {AuthorizationStatus, FetchStatus, SortTypes} from '../const';
 import {Reviews} from './review';
 
-import {RootState} from '../store/reducers/root-reducer';
-
-// export type State = {
-//   selectedCity: string,
-//   offers: Offers,
-//   sortedOffers: Offers,
-//   activeSortType: string | SortTypes,
-//   id: number,
-//   isDataLoaded: boolean,
-//   authorizationStatus: AuthorizationStatus,
-//   login: string,
-//   currentOffer: Offer,
-//   nearbyOffers: Offers,
-//   fetchStatus: FetchStatus,
-//   commentsList: Reviews,
-// };
-
+import {RootState} from '../store/root-reducer';
 
 export type AppData = {
   offers: Offers,
