@@ -28,7 +28,7 @@ function LoginScreen(): JSX.Element {
             <section className="locations locations--login locations--current">
               <div className="locations__item">
                 <Link className="locations__item-link" to={AppRoute.Main}>
-                  <span>Amsterdam</span> {/*TODO должен ли быть захордкожен город*/}
+                  <span>Amsterdam</span> {/*TODO расхардкодить город*/}
                 </Link>
               </div>
             </section>
@@ -41,4 +41,3 @@ function LoginScreen(): JSX.Element {
 
 export {LoginScreen};
 export default LoginScreen;
-

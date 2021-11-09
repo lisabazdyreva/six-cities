@@ -12,13 +12,13 @@ function LocationsListTabs({city, onClick, selectedCity}: LocationsListTabsProps
     <li
       className="locations__item"
       key={city}
-      onClick={() => onClick(city)}
     >
       <a
         className={classNames(
           'locations__item-link tabs__item',
           {'tabs__item--active': city === selectedCity},
         )}
+        onClick={() => onClick(city)}
       >
         <span>{city}</span>
       </a>
