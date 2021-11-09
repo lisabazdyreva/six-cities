@@ -8,7 +8,9 @@ export type AppData = {
   offers: Offers,
   isDataLoaded: boolean,
   currentOffer: Offer,
-  fetchStatus: FetchStatus,
+  fetchStatusOffers: FetchStatus,
+  fetchStatusNearbyOffers: FetchStatus,
+  fetchStatusComments: FetchStatus,
   commentsList: Reviews,
   nearbyOffers: Offers,
 };

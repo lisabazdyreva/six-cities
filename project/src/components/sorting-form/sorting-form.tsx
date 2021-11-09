@@ -11,7 +11,6 @@ import {getActiveSortType, getSortedOffers as getOffers} from '../../store/app-p
 
 const sortTypesList = Object.values(SortTypes);
 
-// TODO мемоизировать сортировку
 function SortingForm(): JSX.Element {
   const sortedOffers = useSelector(getOffers);
   const activeSortType = useSelector(getActiveSortType);

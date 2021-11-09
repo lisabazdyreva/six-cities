@@ -1,6 +1,6 @@
 import {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
-import {useSelector, useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 import Icons from '../icons/icons';
 import Header from '../header/header';
@@ -15,14 +15,20 @@ import {FetchStatus, MapStylesProperties} from '../../const';
 import {fetchCurrentOffer, fetchNearbyOffers} from '../../store/actions/api-actions';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Spinner from '../spinner/spinner';
-import {getCurrentOffer, getFetchStatus, getNearbyOffers} from '../../store/app-data/selectors';
+import {
+  getCurrentOffer,
+  getFetchStatusNearbyOffers,
+  getFetchStatusOffers,
+  getNearbyOffers
+} from '../../store/app-data/selectors';
 
 
 function OfferScreen(): JSX.Element {
 
   const currentOffer = useSelector(getCurrentOffer);
   const nearbyData = useSelector(getNearbyOffers);
-  const fetchStatus = useSelector(getFetchStatus);
+  const fetchStatusOffer = useSelector(getFetchStatusOffers);
+  const fetchStatusNearbyOffer = useSelector(getFetchStatusNearbyOffers);
 
   const dispatch = useDispatch();
 
@@ -41,7 +47,7 @@ function OfferScreen(): JSX.Element {
   }, [idNum]);
 
 
-  switch (fetchStatus) {
+  switch (fetchStatusOffer) {
     case (FetchStatus.Error):
       return <NotFoundScreen />;
 
@@ -64,9 +70,7 @@ function OfferScreen(): JSX.Element {
               <div className="container">
                 <section className="near-places places">
                   <h2 className="near-places__title">Other places in the neighbourhood</h2>
-                  <NearbyCardsList
-                    cards={nearbyData}
-                  />
+                  {fetchStatusNearbyOffer === FetchStatus.Error ? 'Nothing foung. Try later.' : <NearbyCardsList cards={nearbyData}/>}
                 </section>
               </div>
             </main>

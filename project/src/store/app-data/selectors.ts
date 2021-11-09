@@ -16,8 +16,16 @@ export function getCurrentOffer(state: State): Offer {
   return state[NameSpace.data].currentOffer;
 }
 
-export function getFetchStatus(state: State): FetchStatus {
-  return state[NameSpace.data].fetchStatus;
+export function getFetchStatusOffers(state: State): FetchStatus {
+  return state[NameSpace.data].fetchStatusOffers;
+}
+
+export function getFetchStatusNearbyOffers(state: State): FetchStatus {
+  return state[NameSpace.data].fetchStatusNearbyOffers;
+}
+
+export function getFetchStatusComments(state: State): FetchStatus {
+  return state[NameSpace.data].fetchStatusComments;
 }
 
 export function getCommentsList(state: State): Reviews {

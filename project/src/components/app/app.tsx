@@ -13,7 +13,7 @@ import browserHistory from '../../browser-history';
 
 import {AppRoute, AuthorizationStatus, FetchStatus} from '../../const';
 import {
-  getFetchStatus,
+  getFetchStatusOffers,
   getIsDataLoaded
 } from '../../store/app-data/selectors';
 import {getAuthorizationStatus} from '../../store/app-user/selectors';
@@ -22,7 +22,7 @@ import {getAuthorizationStatus} from '../../store/app-user/selectors';
 function App(): JSX.Element {
 
   const isDataLoaded = useSelector(getIsDataLoaded);
-  const fetchStatus = useSelector(getFetchStatus);
+  const fetchStatus = useSelector(getFetchStatusOffers);
 
   const authorizationStatus = useSelector(getAuthorizationStatus);
 

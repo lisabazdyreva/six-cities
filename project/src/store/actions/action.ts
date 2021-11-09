@@ -79,8 +79,22 @@ export const setCommentsList = createAction(
   }),
 );
 
-export const setFetchStatus = createAction(
-  ActionType.SetFetchStatus,
+export const setFetchStatusOffers = createAction(
+  ActionType.SetFetchStatusOffers,
+  (status: FetchStatus) => ({
+    payload: status,
+  }),
+);
+
+export const setFetchStatusNearbyOffers = createAction(
+  ActionType.SetFetchStatusNearbyOffers,
+  (status: FetchStatus) => ({
+    payload: status,
+  }),
+);
+
+export const setFetchStatusComments = createAction(
+  ActionType.SetFetchStatusComments,
   (status: FetchStatus) => ({
     payload: status,
   }),

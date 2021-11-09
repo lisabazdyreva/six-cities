@@ -1,5 +1,5 @@
 import {Action} from 'redux';
-import { ThunkAction} from 'redux-thunk';
+import {ThunkAction} from 'redux-thunk';
 import {AxiosInstance} from 'axios';
 import {State} from './state';
 
@@ -11,7 +11,9 @@ export enum ActionType {
   SetActiveId = 'main/setActiveId',
   GetOffers = 'data/getOffers',
   SetCurrentOffer = 'data/setCurrentOffer',
-  SetFetchStatus = 'data/setFetchStatus',
+  SetFetchStatusOffers = 'data/setFetchStatusOffers',
+  SetFetchStatusNearbyOffers = 'data/setFetchStatusNearbyOffers',
+  SetFetchStatusComments = 'data/setFetchStatusComments',
   SetCommentsList = 'data/setCommentsList',
   SetNearbyOffersList = 'data/setNearbyOffersList',
   RequireAuthorization = 'user/requireAuthorization',

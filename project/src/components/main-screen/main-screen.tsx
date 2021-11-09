@@ -11,14 +11,14 @@ import SortingForm from '../sorting-form/sorting-form';
 
 import {FetchStatus, MapStylesProperties} from '../../const';
 import {getSelectedCity, getSortedOffers} from '../../store/app-process/selectors';
-import {getFetchStatus} from '../../store/app-data/selectors';
+import {getFetchStatusOffers} from '../../store/app-data/selectors';
 
 
 function MainScreen(): JSX.Element {
 
   const cards = useSelector(getSortedOffers);
   const selectedCity = useSelector(getSelectedCity);
-  const fetchStatus = useSelector(getFetchStatus);
+  const fetchStatus = useSelector(getFetchStatusOffers);
 
   const cardsLength = cards.length;
 
