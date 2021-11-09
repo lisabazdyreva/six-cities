@@ -2,14 +2,13 @@ import {Link} from 'react-router-dom';
 import {connect, ConnectedProps} from 'react-redux';
 import {Dispatch} from 'redux';
 
-import type {Actions} from '../../types/action';
 
 import {setActiveId} from '../../store/actions/action';
 
 import {AppRoute, DEFAULT_ID} from '../../const';
 
 
-function mapDispatchToProps (dispatch: Dispatch<Actions>) {
+function mapDispatchToProps (dispatch: Dispatch) {
   return({
     onResetId(){
       dispatch(setActiveId(DEFAULT_ID));

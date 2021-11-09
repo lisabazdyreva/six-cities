@@ -1,105 +1,108 @@
+import {createAction} from '@reduxjs/toolkit';
 import {ActionType} from '../../types/action';
 
 import type {Offer, Offers} from '../../types/offer';
 import type {Reviews} from '../../types/review';
 
-import {AuthorizationStatus, FetchStatus} from '../../const';
+import {AppRoute, AuthorizationStatus, FetchStatus, Locations} from '../../const';
 
 
-function selectActiveCity(city: string) {
-  return ({
-    type: ActionType.SelectActiveCity,
+export const selectActiveCity = createAction(
+  ActionType.SelectActiveCity,
+  (city: Locations) => ({
     payload: city,
-  } as const);
-}
+  }),
+);
 
-function fillOffersList(offers: Offers) {
-  return ({
-    type: ActionType.FillOffersList,
+export const fillOffersList = createAction(
+  ActionType.FillOffersList,
+  (offers: Offers) => ({
     payload: offers,
-  } as const);
-}
+  }),
+);
 
-function changeActiveSortType(sortingValue: string) {
-  return ({
-    type: ActionType.ChangeActiveSortType,
+export const changeActiveSortType = createAction(
+  ActionType.ChangeActiveSortType,
+  (sortingValue: string) => ({
     payload: sortingValue,
-  } as const);
-}
+  }),
+);
 
-function setActiveId(id: number) {
-  return ({
-    type: ActionType.SetActiveId,
+export const setActiveId = createAction(
+  ActionType.SetActiveId,
+  (id: number) => ({
     payload: id,
-  } as const);
-}
+  }),
+);
 
-function getOffers(offers: Offers) {
-  return ({
-    type: ActionType.GetOffers,
+export const getOffers = createAction(
+  ActionType.GetOffers,
+  (offers: Offers) => ({
     payload: offers,
-  } as const);
-}
+  }),
+);
 
-function requireAuthorization(authorizationStatus: AuthorizationStatus) {
-  return ({
-    type: ActionType.RequireAuthorization,
+export const requireAuthorization = createAction(
+  ActionType.RequireAuthorization,
+  (authorizationStatus: AuthorizationStatus) => ({
     payload: authorizationStatus,
-  } as const);
-}
+  }),
+);
 
-function requireLogout() {
-  return ({
-    type: ActionType.RequireLogout,
-  } as const);
-}
+export const requireLogout = createAction(ActionType.RequireLogout);
 
-function setLogin(login: string) {
-  return ({
-    type: ActionType.SetLogin,
+export const setLogin = createAction(
+  ActionType.SetLogin,
+  (login: string) => ({
     payload: login,
-  } as const);
-}
+  }),
+);
 
-function setCurrentOffer(offer: Offer) {
-  return ({
-    type: ActionType.SetCurrentOffer,
+export const setCurrentOffer = createAction(
+  ActionType.SetCurrentOffer,
+  (offer: Offer) => ({
     payload: offer,
-  } as const);
-}
+  }),
+);
 
-function setNearbyOffersList(offers: Offers) {
-  return ({
-    type: ActionType.SetNearbyOffersList,
+export const setNearbyOffersList = createAction(
+  ActionType.SetNearbyOffersList,
+  (offers: Offers) => ({
     payload: offers,
-  } as const);
-}
+  }),
+);
 
-function setCommentsList(commentsList: Reviews) {
-  return ({
-    type: ActionType.SetCommentsList,
+export const setCommentsList = createAction(
+  ActionType.SetCommentsList,
+  (commentsList: Reviews) => ({
     payload: commentsList,
-  } as const);
-}
+  }),
+);
 
-function setFetchStatus(status: FetchStatus) {
-  return ({
-    type: ActionType.SetFetchStatus,
+export const setFetchStatusOffers = createAction(
+  ActionType.SetFetchStatusOffers,
+  (status: FetchStatus) => ({
     payload: status,
-  } as const);
-}
+  }),
+);
 
-export {
-  selectActiveCity,
-  fillOffersList,
-  changeActiveSortType,
-  setActiveId,
-  getOffers,
-  requireAuthorization,
-  requireLogout,
-  setLogin,
-  setCurrentOffer,
-  setNearbyOffersList,
-  setFetchStatus,
-  setCommentsList
-};
+export const setFetchStatusNearbyOffers = createAction(
+  ActionType.SetFetchStatusNearbyOffers,
+  (status: FetchStatus) => ({
+    payload: status,
+  }),
+);
+
+export const setFetchStatusComments = createAction(
+  ActionType.SetFetchStatusComments,
+  (status: FetchStatus) => ({
+    payload: status,
+  }),
+);
+
+export const redirectTo = createAction(
+  ActionType.RedirectTo,
+  (url: AppRoute) => ({
+    payload: url,
+  }),
+);

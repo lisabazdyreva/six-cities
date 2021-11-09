@@ -1,20 +1,24 @@
+import {useCallback} from 'react';
+import {useDispatch} from 'react-redux';
 import {Link} from 'react-router-dom';
 import classNames from 'classnames';
 
 import type {Offer} from '../../types/offer';
 
 import {isMainPage, formatType, getRatingPercentValue} from '../../utils/utils';
-import {AppRoute, DEFAULT_ID} from '../../const';
+import {AppRoute, CardTypes, DEFAULT_ID} from '../../const';
+
+import {setActiveId} from '../../store/actions/action';
 
 
 type CardProps = {
   card: Offer;
   typeCard: string;
-  onCardHover: ((id: number) => void) | null;
 }
 
 
-function Card({card, typeCard, onCardHover}: CardProps): JSX.Element {
+function Card({card, typeCard}: CardProps): JSX.Element {
+  const dispatch = useDispatch();
 
   const {
     price,
@@ -30,18 +34,28 @@ function Card({card, typeCard, onCardHover}: CardProps): JSX.Element {
   const typeText = formatType(type);
   const ratingPercentValue = getRatingPercentValue(rating);
 
-
-  const handleCardEnter = () => {
-    if(onCardHover) {
-      onCardHover(id);
+  const setId = () => {
+    if (typeCard === CardTypes.Main) {
+      dispatch(setActiveId(id));
     }
   };
 
-  const handleCardLeave = () => {
-    if(onCardHover) {
-      onCardHover(DEFAULT_ID);
+  const setDefaultId = () => {
+    if (typeCard === CardTypes.Main) {
+      dispatch(setActiveId(DEFAULT_ID));
     }
   };
+
+
+  const handleEnter = useCallback(
+    setId,
+    [],
+  );
+
+  const handleLeave = useCallback(
+    setDefaultId,
+    [],
+  );
 
 
   return (
@@ -51,8 +65,8 @@ function Card({card, typeCard, onCardHover}: CardProps): JSX.Element {
         {'cities__place-card': isMainPage(typeCard)},
         {'near-places__card': !isMainPage(typeCard)},
       )}
-      onMouseEnter={handleCardEnter}
-      onMouseLeave={handleCardLeave}
+      onMouseEnter={handleEnter}
+      onMouseLeave={handleLeave}
     >
 
       {isPremium && isMainPage(typeCard) ? <div className="place-card__mark"><span>Premium</span></div> : ''}
@@ -99,4 +113,5 @@ function Card({card, typeCard, onCardHover}: CardProps): JSX.Element {
 }
 
 
+export {Card};
 export default Card;

@@ -4,18 +4,20 @@ import {AuthorizationData} from '../../types/authorization-data';
 import {
   fillOffersList,
   getOffers,
+  redirectTo,
   requireAuthorization,
   requireLogout,
   setCommentsList,
-  setCurrentOffer,
-  setFetchStatus,
+  setCurrentOffer, setFetchStatusNearbyOffers,
+  setFetchStatusOffers,
   setLogin,
-  setNearbyOffersList
+  setNearbyOffersList,
+  setFetchStatusComments
 } from './action';
 
 import {filterOffers} from '../../utils/utils';
 import {adaptCommentsToClient, adaptToClient} from '../../utils/adapt-utils';
-import {AuthorizationStatus, FetchStatus, INITIAL_CITY, INITIAL_LOGIN, APIRoute} from '../../const';
+import {APIRoute, AppRoute, AuthorizationStatus, FetchStatus, INITIAL_CITY, INITIAL_LOGIN} from '../../const';
 
 import {deleteToken, saveToken, Token} from '../../services/token';
 import {CommentData} from '../../types/comment-data';
@@ -23,63 +25,68 @@ import {CommentData} from '../../types/comment-data';
 
 function fetchOffersList(): ThunkActionResult {
   return async (dispatch, _getState, api):Promise<void> => {
-    dispatch(setFetchStatus(FetchStatus.Trying));
+    dispatch(setFetchStatusOffers(FetchStatus.Trying));
     await api.get(APIRoute.Hotels)
       .then(({data}) => adaptToClient(data))
       .then((data) => {
         dispatch(getOffers(data));
         dispatch(fillOffersList(filterOffers(INITIAL_CITY, data)));
       })
-      .then(() => dispatch(setFetchStatus(FetchStatus.Ok)))
+      .then(() => dispatch(setFetchStatusOffers(FetchStatus.Ok)))
 
-      .catch(() => dispatch(setFetchStatus(FetchStatus.Error)));
+      .catch(() => dispatch(setFetchStatusOffers(FetchStatus.Error)));
   };
 }
 
 function fetchCurrentOffer(id: number): ThunkActionResult {
   return async (dispatch, _getState, api): Promise<void> => {
-    dispatch(setFetchStatus(FetchStatus.Trying));
+    dispatch(setFetchStatusOffers(FetchStatus.Trying));
     await api.get(`/hotels/${id}`)
       .then(({data}) => adaptToClient([data]))
       .then(([data]) => dispatch(setCurrentOffer(data)))
-      .then(() => dispatch(setFetchStatus(FetchStatus.Ok)))
+      .then(() => dispatch(setFetchStatusOffers(FetchStatus.Ok)))
 
-      .catch(() => dispatch(setFetchStatus(FetchStatus.Error)));
+      .catch(() => dispatch(setFetchStatusOffers(FetchStatus.Error)));
   };
 }
 
 function fetchNearbyOffers(id: number): ThunkActionResult {
   return async(dispatch, _getState, api): Promise<void> => {
-    dispatch(setFetchStatus(FetchStatus.Trying));
+    dispatch(setFetchStatusNearbyOffers(FetchStatus.Trying));
     await api.get(`/hotels/${id}/nearby`)
       .then(({data}) => dispatch(setNearbyOffersList(adaptToClient(data))))
-      .then(() => dispatch(setFetchStatus(FetchStatus.Ok)))
+      .then(() => dispatch(setFetchStatusNearbyOffers(FetchStatus.Ok)))
 
-      .catch(() => dispatch(setFetchStatus(FetchStatus.Error)));
-  }; // TODO как обработать отдельно от карточки ошибку
+      .catch(() => dispatch(setFetchStatusNearbyOffers(FetchStatus.Error)));
+  };
 }
 
 function fetchOfferComments(id: number): ThunkActionResult {
   return async (dispatch, _getState, api): Promise<void> => {
+    dispatch(setFetchStatusComments(FetchStatus.Trying));
     await api.get(`/comments/${id}`)
       .then(({data}) => adaptCommentsToClient(data))
       .then((data) => dispatch(setCommentsList(data)))
+      .then(() => setFetchStatusComments(FetchStatus.Ok))
 
-      .catch(() => dispatch(setFetchStatus(FetchStatus.Error)));
+      .catch(() => dispatch(setFetchStatusComments(FetchStatus.Error)));
   };
 }
 
 function postComment({id, comment, rating}: CommentData): ThunkActionResult {
   return async(dispatch, _getState, api): Promise<void> => {
     await api.post(`/comments/${id}`, {comment, rating})
-      .then(({data}) => dispatch(setCommentsList(adaptCommentsToClient(data))))
-      .catch(() => dispatch(setFetchStatus(FetchStatus.Error)));
+      .then(({data}) => dispatch(setCommentsList(adaptCommentsToClient(data))));
   };
 }
 
 function checkAuthorization(): ThunkActionResult {
   return async(dispatch, _getState, api): Promise<void> => {
-    await api.get(APIRoute.Login).then(() => dispatch(requireAuthorization(AuthorizationStatus.NoAuth)));
+    await api.get(APIRoute.Login)
+      .then(({data}) => dispatch(setLogin(data.email)))
+      .then(() => dispatch(requireAuthorization(AuthorizationStatus.Auth)))
+
+      .catch(() => dispatch(requireAuthorization(AuthorizationStatus.NoAuth)));
   };
 }
 
@@ -89,6 +96,7 @@ function loginAction({login: email, password}: AuthorizationData): ThunkActionRe
     saveToken(token);
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
     dispatch(setLogin(email));
+    dispatch(redirectTo(AppRoute.Main));
   };
 }
 

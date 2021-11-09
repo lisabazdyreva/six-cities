@@ -1,18 +1,31 @@
 import {Offers, Offer} from './offer';
-import {AuthorizationStatus, FetchStatus, SortTypes} from '../const';
+import {AuthorizationStatus, FetchStatus, Locations, SortTypes} from '../const';
 import {Reviews} from './review';
 
-export type State = {
-  selectedCity: string,
+import {RootState} from '../store/root-reducer';
+
+export type AppData = {
   offers: Offers,
+  isDataLoaded: boolean,
+  currentOffer: Offer,
+  fetchStatusOffers: FetchStatus,
+  fetchStatusNearbyOffers: FetchStatus,
+  fetchStatusComments: FetchStatus,
+  commentsList: Reviews,
+  nearbyOffers: Offers,
+};
+
+export type AppUser = {
+  authorizationStatus: AuthorizationStatus,
+  login: string,
+};
+
+export type AppProcess = {
+  selectedCity: Locations,
   sortedOffers: Offers,
   activeSortType: string | SortTypes,
   id: number,
-  isDataLoaded: boolean,
-  authorizationStatus: AuthorizationStatus,
-  login: string,
-  currentOffer: Offer,
-  nearbyOffers: Offers,
-  fetchStatus: FetchStatus,
-  commentsList: Reviews,
 };
+
+
+export type State = RootState;

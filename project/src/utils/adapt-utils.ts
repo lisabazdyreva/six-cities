@@ -31,7 +31,7 @@ const adaptCommentsToClient = (items: ReviewsServer): Reviews => items.map((item
     {},
     item,
     {
-      user: Object.assign({}, item.user, {isPro: item.user.is_pro, avatarUrl: item.user.avatar_url}),
+      user: Object.assign({}, item.user, {isPro: item.user.is_pro, avatarUrl: item.user.avatar_url}),// не стала на спред менять, так как ругается
     },
   );
 

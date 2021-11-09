@@ -1,19 +1,20 @@
 import {Link} from 'react-router-dom';
-import {connect, ConnectedProps} from 'react-redux';
+import {useSelector} from 'react-redux';
 
 import type {Offers} from '../../types/offer';
-import type {State} from '../../types/state';
 
 import FavoriteCards from '../favorite-cards/favorite-cards';
 
 import {getFavoriteCitiesList} from '../../utils/utils';
 
 import {AppRoute} from '../../const';
+import {getOffers} from '../../store/app-data/selectors';
 
 
 type FavoriteCardsByCities = {
   [propertyName: string] : Offers,
 }[];
+
 
 function getFavoriteCardsByCities(cards: Offers): FavoriteCardsByCities {
   const favoriteCards = cards.filter((card) => !card.isFavorite); // TODO пока для отладки так
@@ -22,18 +23,8 @@ function getFavoriteCardsByCities(cards: Offers): FavoriteCardsByCities {
   return favoriteCities.map((city) => Object.assign({}, {[city]: favoriteCards.filter((card) => card.city.name === city)}));
 }
 
-
-function mapStateToProps ({offers}: State) {
-  return ({
-    offers,
-  });
-}
-const connector = connect(mapStateToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-
-function FavoritesCardsList({offers}: PropsFromRedux): JSX.Element {
+function FavoritesCardsList(): JSX.Element {
+  const offers = useSelector(getOffers);
   const favoriteCardsByCities = getFavoriteCardsByCities(offers.slice());
 
   return (
@@ -57,4 +48,4 @@ function FavoritesCardsList({offers}: PropsFromRedux): JSX.Element {
 }
 
 export {FavoritesCardsList};
-export default connector(FavoritesCardsList);
+export default FavoritesCardsList;

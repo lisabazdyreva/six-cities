@@ -1,46 +1,22 @@
-import {useEffect} from 'react';
-import {connect, ConnectedProps} from 'react-redux';
-
-import {State} from '../../types/state';
-import {ThunkAppDispatch} from '../../types/action';
-
 import CommentMessage from '../comment-message/comment-message';
+import {Reviews} from '../../types/review';
 
-import {fetchOfferComments} from '../../store/actions/api-actions';
+import {getFetchStatusComments} from '../../store/app-data/selectors';
+import {useSelector} from 'react-redux';
+import {FetchStatus} from '../../const';
 
-
-function mapStateToProps({commentsList, id}: State) {
-  return ({
-    commentsList,
-    id,
-  });
-}
-
-function mapDispatchToProps(dispatch : ThunkAppDispatch) {
-  return ({
-    getData(id: number) {
-      dispatch(fetchOfferComments(id));
-    },
-  });
-}
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type CommentsListProps = {
-  onCommentsCount: (length: number) => void;
+  commentsList: Reviews,
 }
-type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedComponentProps = CommentsListProps & PropsFromRedux;
 
 
-function CommentsList({commentsList, getData, id, onCommentsCount}: ConnectedComponentProps ):JSX.Element {
+function CommentsList({commentsList}: CommentsListProps):JSX.Element {
+  const fetchStatus = useSelector(getFetchStatusComments);
 
-  useEffect(() => {
-    getData(id);
-  }, [id]);
-
-  onCommentsCount(commentsList.length);
-
+  if (fetchStatus === FetchStatus.Error) {
+    return <span>Comments did not found. Try later</span>;
+  }
   return (
     <ul className="reviews__list">
       {
@@ -55,5 +31,5 @@ function CommentsList({commentsList, getData, id, onCommentsCount}: ConnectedCom
   );
 }
 
-export {CommentsList};
-export default connector(CommentsList);
+export default CommentsList;
+

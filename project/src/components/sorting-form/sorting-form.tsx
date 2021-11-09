@@ -1,53 +1,33 @@
 import {useState} from 'react';
-import {connect, ConnectedProps} from 'react-redux';
-import {Dispatch} from 'redux';
+import {useDispatch, useSelector} from 'react-redux';
 import classNames from 'classnames';
-
-import type {State} from '../../types/state';
-import type {Actions} from '../../types/action';
-import type {Offers} from '../../types/offer';
 
 import {changeActiveSortType, fillOffersList} from '../../store/actions/action';
 
 import {getSortedOffers} from '../../utils/utils';
 import {SortTypes} from '../../const';
+import {getActiveSortType, getSortedOffers as getOffers} from '../../store/app-process/selectors'; // !TODO нейминг
 
 
 const sortTypesList = Object.values(SortTypes);
 
-function mapStateToProps ({sortedOffers, activeSortType}: State) {
-  return ({
-    sortedOffers,
-    activeSortType,
-  });
-}
+function SortingForm(): JSX.Element {
+  const sortedOffers = useSelector(getOffers);
+  const activeSortType = useSelector(getActiveSortType);
 
-function mapDispatchToProps(dispatch: Dispatch<Actions>) {
-  return ({
-    onOffersSort(offers: Offers) {
-      dispatch(fillOffersList(offers));
-    },
-    onSortChange(sortingValue: string) {
-      dispatch(changeActiveSortType(sortingValue));
-    },
-  });
-}
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
+  const dispatch = useDispatch();
 
 
-function SortingForm({sortedOffers, activeSortType, onOffersSort, onSortChange}: PropsFromRedux): JSX.Element {
   const [isOpenSorting, setOpenSorting] = useState(false);
 
   function sortOffers(type: string) {
     const sortingOffers = getSortedOffers(type, sortedOffers);
-    onOffersSort(sortingOffers);
+
+    dispatch(fillOffersList(sortingOffers));
   }
 
   function changeSortType(type: string) {
-    onSortChange(type);
+    dispatch(changeActiveSortType(type));
     sortOffers(type);
   }
 
@@ -91,4 +71,4 @@ function SortingForm({sortedOffers, activeSortType, onOffersSort, onSortChange}:
 }
 
 export {SortingForm};
-export default connector(SortingForm);
+export default SortingForm;

@@ -1,36 +1,22 @@
 import {Link} from 'react-router-dom';
-import {connect, ConnectedProps} from 'react-redux';
-
-import {State} from '../../types/state';
+import {memo} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 
 import Logo from '../logo/logo';
 
 import {AppRoute, AuthorizationStatus} from '../../const';
-import {ThunkAppDispatch} from '../../types/action';
 
 import {logoutAction} from '../../store/actions/api-actions';
+import {getAuthorizationStatus, getLogin} from '../../store/app-user/selectors';
 
 
-function mapStateToProps({authorizationStatus, login}: State) {
-  return ({
-    authorizationStatus,
-    login,
-  });
-}
+function Header(): JSX.Element {
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const login = useSelector(getLogin);
 
-function mapDispatchToProps(dispatch: ThunkAppDispatch) {
-  return({
-    onLogout() {
-      dispatch(logoutAction());
-    },
-  });
-}
+  const dispatch = useDispatch();
+  const onLogout = () => dispatch(logoutAction());
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-
-function Header({authorizationStatus, login,  onLogout}: PropsFromRedux): JSX.Element {
   return (
     <header className="header">
       <div className="container">
@@ -48,9 +34,9 @@ function Header({authorizationStatus, login,  onLogout}: PropsFromRedux): JSX.El
                       </Link>
                     </li>
                     <li className="header__nav-item" onClick={onLogout}>
-                      <Link className="header__nav-link" to={AppRoute.Main}> {/*TODO возможно потом убрать, так как в тз нет перехода на страницу авторизации*/}
+                      <a className="header__nav-link" >
                         <span className="header__signout">Sign out</span>
-                      </Link>
+                      </a>
                     </li>
                   </>
                 ) : (
@@ -77,4 +63,4 @@ function Header({authorizationStatus, login,  onLogout}: PropsFromRedux): JSX.El
 }
 
 export {Header};
-export default connector(Header);
+export default memo(Header);

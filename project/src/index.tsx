@@ -1,44 +1,40 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {applyMiddleware, createStore} from 'redux';
-import {Provider} from 'react-redux';
-import {composeWithDevTools} from 'redux-devtools-extension';
-import thunk from 'redux-thunk';
 
-import {ThunkAppDispatch} from './types/action';
+import {Provider} from 'react-redux';
+import {configureStore} from '@reduxjs/toolkit';
 
 import {createAPI} from './api';
-import {reducer} from './store/reducers/reducer';
+import {rootReducer} from './store/root-reducer';
 
 import App from './components/app/app';
 
-import {AuthorizationStatus, citiesList} from './const';
+import {AuthorizationStatus} from './const';
 
 import {checkAuthorization, fetchOffersList} from './store/actions/api-actions';
-
 import {requireAuthorization} from './store/actions/action';
 
 
 const api = createAPI(() => store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth)));
 
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      thunk: {
+        extraArgument: api,
+      },
+    }),
+});
 
-const store = createStore(
-  reducer,
-  composeWithDevTools(
-    applyMiddleware(thunk.withExtraArgument(api)),
-  ),
-);
-
-(store.dispatch as ThunkAppDispatch)(checkAuthorization());
-(store.dispatch as ThunkAppDispatch)(fetchOffersList());
+store.dispatch(checkAuthorization());
+store.dispatch(fetchOffersList());
 
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App
-        cities={citiesList}
-      />
+      <App/>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'));

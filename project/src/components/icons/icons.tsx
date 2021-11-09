@@ -1,3 +1,5 @@
+import {memo} from 'react';
+
 function Icons(): JSX.Element {
   return (
     <div style={{display: 'none'}}>
@@ -26,4 +28,4 @@ function Icons(): JSX.Element {
   );
 }
 
-export default Icons;
+export default memo(Icons);

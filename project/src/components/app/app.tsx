@@ -1,7 +1,5 @@
-import {Router as BrowserRouter, Route, Switch} from 'react-router-dom';
-import {connect, ConnectedProps} from 'react-redux';
-
-import {State} from '../../types/state';
+import {Router as BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
+import {useSelector} from 'react-redux';
 
 import MainScreen from '../main-screen/main-screen';
 import LoginScreen from '../login-screen/login-screen';
@@ -13,47 +11,36 @@ import Spinner from '../spinner/spinner';
 
 import browserHistory from '../../browser-history';
 
-import {AppRoute, FetchStatus} from '../../const';
+import {AppRoute, AuthorizationStatus, FetchStatus} from '../../const';
+import {
+  getFetchStatusOffers,
+  getIsDataLoaded
+} from '../../store/app-data/selectors';
+import {getAuthorizationStatus} from '../../store/app-user/selectors';
 
 
-function mapStateToProps({isDataLoaded, authorizationStatus, fetchStatus}: State) {
-  return ({
-    isDataLoaded,
-    authorizationStatus,
-    fetchStatus,
-  });
-}
+function App(): JSX.Element {
 
-const connector = connect(mapStateToProps);
+  const isDataLoaded = useSelector(getIsDataLoaded);
+  const fetchStatus = useSelector(getFetchStatusOffers);
 
-type AppScreenProps = {
-  cities: string[];
-};
-type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedComponentProps = AppScreenProps & PropsFromRedux;
+  const authorizationStatus = useSelector(getAuthorizationStatus);
 
-
-function App(props: ConnectedComponentProps): JSX.Element {
-  const {cities, isDataLoaded, fetchStatus} = props;
 
   if (!isDataLoaded && fetchStatus === FetchStatus.Trying) {
     return <Spinner />;
   }
 
-  // TODO Если пользователь авторизован, то при переходе на страницу Sign In выполняется перенаправление на главную страницу. пока непонятно, потом сделать
-  // TODO авторизация сохраняется при обновлении?
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>
         <Route path={AppRoute.Main} exact>
-          <MainScreen
-            cities={cities}
-          />
+          <MainScreen />
         </Route>
         <Route
           path={AppRoute.Login}
           exact
-          render={({history}) => <LoginScreen onAuth={() => history.push(AppRoute.Main)}/>}
+          render={() => (authorizationStatus === AuthorizationStatus.Auth) ? <Redirect to={AppRoute.Main} /> : <LoginScreen/>}
         />
         <PrivateRoute
           exact
@@ -73,4 +60,4 @@ function App(props: ConnectedComponentProps): JSX.Element {
 }
 
 export {App};
-export default connector(App);
+export default App;

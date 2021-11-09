@@ -1,6 +1,4 @@
-import {connect, ConnectedProps} from 'react-redux';
-
-import type {State} from '../../types/state';
+import {useSelector} from 'react-redux';
 
 import Icons from '../icons/icons';
 import MainCardsList from '../main-cards-list/main-cards-list';
@@ -12,26 +10,16 @@ import LocationsList from '../locations-list/locations-list';
 import SortingForm from '../sorting-form/sorting-form';
 
 import {FetchStatus, MapStylesProperties} from '../../const';
+import {getSelectedCity, getSortedOffers} from '../../store/app-process/selectors';
+import {getFetchStatusOffers} from '../../store/app-data/selectors';
 
 
-function mapStateToProps({sortedOffers, selectedCity, fetchStatus}: State) {
-  return ({
-    cards: sortedOffers,
-    selectedCity,
-    fetchStatus,
-  });
-}
+function MainScreen(): JSX.Element {
 
-const connector = connect(mapStateToProps);
+  const cards = useSelector(getSortedOffers);
+  const selectedCity = useSelector(getSelectedCity);
+  const fetchStatus = useSelector(getFetchStatusOffers);
 
-type PropsFromRedux = ConnectedProps<typeof connector>;
-type MainScreenProps = {
-  cities: string[];
-};
-type ConnectedComponentProps = PropsFromRedux & MainScreenProps;
-
-
-function MainScreen({cards, selectedCity, cities, fetchStatus}: ConnectedComponentProps): JSX.Element {
   const cardsLength = cards.length;
 
   if (fetchStatus === FetchStatus.Error) {
@@ -46,9 +34,7 @@ function MainScreen({cards, selectedCity, cities, fetchStatus}: ConnectedCompone
           <h1 className="visually-hidden">Cities</h1>
           <div className="tabs">
             <section className="locations container">
-              <LocationsList
-                cities={cities}
-              />
+              <LocationsList />
             </section>
           </div>
           {cards.length ?
@@ -79,4 +65,4 @@ function MainScreen({cards, selectedCity, cities, fetchStatus}: ConnectedCompone
 }
 
 export {MainScreen};
-export default connector(MainScreen);
+export default MainScreen;
