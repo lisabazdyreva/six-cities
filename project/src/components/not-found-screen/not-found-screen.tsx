@@ -23,7 +23,7 @@ function NotFoundScreen(): JSX.Element {
         </header>
         <main className="page__main page__main--not-found" style={{textAlign: 'center'}}>
           <h1>404. Page not found.</h1>
-          <Link to={AppRoute.Main}>Вернуться на главную</Link>
+          <Link to={AppRoute.Main}>Вернуться на главную</Link> {/* TODO При переходе на несуществующую карточку нельзя вернуться на главную*/}
         </main>
       </div>
     </>
