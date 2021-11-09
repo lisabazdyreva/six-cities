@@ -14,12 +14,7 @@ import {getSelectedCity, getSortedOffers} from '../../store/app-process/selector
 import {getFetchStatus} from '../../store/app-data/selectors';
 
 
-type MainScreenProps = {
-  cities: string[];
-};
-
-
-function MainScreen({cities}: MainScreenProps): JSX.Element {
+function MainScreen(): JSX.Element {
 
   const cards = useSelector(getSortedOffers);
   const selectedCity = useSelector(getSelectedCity);
@@ -39,9 +34,7 @@ function MainScreen({cities}: MainScreenProps): JSX.Element {
           <h1 className="visually-hidden">Cities</h1>
           <div className="tabs">
             <section className="locations container">
-              <LocationsList
-                cities={cities}
-              />
+              <LocationsList />
             </section>
           </div>
           {cards.length ?

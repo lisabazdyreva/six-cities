@@ -5,6 +5,7 @@ type CommentFormMessageProps = {
   handleMessage: (evt:ChangeEvent<HTMLTextAreaElement>) => void;
 };
 
+
 function CommentFormMessage({handleMessage, comment}: CommentFormMessageProps): JSX.Element {
   return (
     <textarea

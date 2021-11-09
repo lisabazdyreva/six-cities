@@ -1,4 +1,5 @@
 import {Link} from 'react-router-dom';
+import {memo} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
 import Logo from '../logo/logo';
@@ -14,7 +15,7 @@ function Header(): JSX.Element {
   const login = useSelector(getLogin);
 
   const dispatch = useDispatch();
-  const onLogout = dispatch(logoutAction);
+  const onLogout = () => dispatch(logoutAction());
 
   return (
     <header className="header">
@@ -33,9 +34,9 @@ function Header(): JSX.Element {
                       </Link>
                     </li>
                     <li className="header__nav-item" onClick={onLogout}>
-                      <Link className="header__nav-link" to={AppRoute.Main}> {/*TODO возможно потом убрать, так как в тз нет перехода на страницу авторизации*/}
+                      <a className="header__nav-link" >
                         <span className="header__signout">Sign out</span>
-                      </Link>
+                      </a>
                     </li>
                   </>
                 ) : (
@@ -62,4 +63,4 @@ function Header(): JSX.Element {
 }
 
 export {Header};
-export default Header;
+export default memo(Header);

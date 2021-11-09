@@ -1,4 +1,4 @@
-import {Router as BrowserRouter, Route, Switch} from 'react-router-dom';
+import {Router as BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 
 import MainScreen from '../main-screen/main-screen';
@@ -11,21 +11,20 @@ import Spinner from '../spinner/spinner';
 
 import browserHistory from '../../browser-history';
 
-import {AppRoute, FetchStatus} from '../../const';
+import {AppRoute, AuthorizationStatus, FetchStatus} from '../../const';
 import {
   getFetchStatus,
   getIsDataLoaded
 } from '../../store/app-data/selectors';
-
-type AppScreenProps = {
-  cities: string[];
-};
+import {getAuthorizationStatus} from '../../store/app-user/selectors';
 
 
-function App({cities}: AppScreenProps): JSX.Element {
+function App(): JSX.Element {
 
   const isDataLoaded = useSelector(getIsDataLoaded);
   const fetchStatus = useSelector(getFetchStatus);
+
+  const authorizationStatus = useSelector(getAuthorizationStatus);
 
 
   if (!isDataLoaded && fetchStatus === FetchStatus.Trying) {
@@ -36,14 +35,12 @@ function App({cities}: AppScreenProps): JSX.Element {
     <BrowserRouter history={browserHistory}>
       <Switch>
         <Route path={AppRoute.Main} exact>
-          <MainScreen
-            cities={cities}
-          />
+          <MainScreen />
         </Route>
         <Route
           path={AppRoute.Login}
           exact
-          render={() => <LoginScreen/>}
+          render={() => (authorizationStatus === AuthorizationStatus.Auth) ? <Redirect to={AppRoute.Main} /> : <LoginScreen/>}
         />
         <PrivateRoute
           exact

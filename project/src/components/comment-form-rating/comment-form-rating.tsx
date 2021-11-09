@@ -7,6 +7,7 @@ type CommentFormRatingProps = {
   handleRating: (evt: ChangeEvent<HTMLInputElement>) => void;
 };
 
+
 function CommentFormRating({rating, handleRating}: CommentFormRatingProps): JSX.Element {
   return (
     <div className="reviews__rating-form form__rating">

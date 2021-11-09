@@ -4,12 +4,12 @@ import {ActionType} from '../../types/action';
 import type {Offer, Offers} from '../../types/offer';
 import type {Reviews} from '../../types/review';
 
-import {AppRoute, AuthorizationStatus, FetchStatus} from '../../const';
+import {AppRoute, AuthorizationStatus, FetchStatus, Locations} from '../../const';
 
 
 export const selectActiveCity = createAction(
   ActionType.SelectActiveCity,
-  (city: string) => ({
+  (city: Locations) => ({
     payload: city,
   }),
 );

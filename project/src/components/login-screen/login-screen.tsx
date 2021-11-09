@@ -1,25 +1,13 @@
 import {Link} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
 
 import Icons from '../icons/icons';
 import Logo from '../logo/logo';
 import LoginScreenForm from '../login-screen-form/login-screen-form';
 
-import {AppRoute, AuthorizationStatus} from '../../const';
-
-import {redirectTo} from '../../store/actions/action';
-import {getAuthorizationStatus} from '../../store/app-user/selectors';
+import {AppRoute} from '../../const';
 
 
 function LoginScreen(): JSX.Element {
-  const authorizationStatus = useSelector(getAuthorizationStatus);
-
-  const dispatch = useDispatch();
-
-  if (authorizationStatus === AuthorizationStatus.Auth) {
-    dispatch(redirectTo(AppRoute.Main));
-  }
-
   return (
     <>
       <Icons />
