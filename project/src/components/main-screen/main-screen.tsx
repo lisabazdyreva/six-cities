@@ -38,10 +38,6 @@ function MainScreen(): JSX.Element {
     const status = isFavorite ? FavoriteStatus.RemoveFromFavorite : FavoriteStatus.AddToFavorite;
     dispatch(postFavorite({id, status}));
     dispatch(fetchFavoriteOffers());
-    //eslint-disable-next-line
-    console.log(offers);
-
-
   }
 
   const cardsLength = cards.length;

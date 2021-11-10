@@ -6,7 +6,7 @@ import Logo from '../logo/logo';
 
 import {AppRoute, AuthorizationStatus} from '../../const';
 
-import {logoutAction} from '../../store/actions/api-actions';
+import {checkAuthorization, fetchOffersList, logoutAction} from '../../store/actions/api-actions';
 import {getAuthorizationStatus, getLogin} from '../../store/app-user/selectors';
 
 
@@ -15,7 +15,11 @@ function Header(): JSX.Element {
   const login = useSelector(getLogin);
 
   const dispatch = useDispatch();
-  const onLogout = () => dispatch(logoutAction());
+  const onLogout = () => {
+    dispatch(logoutAction());
+    dispatch(checkAuthorization());
+    dispatch(fetchOffersList());
+  };
 
   return (
     <header className="header">

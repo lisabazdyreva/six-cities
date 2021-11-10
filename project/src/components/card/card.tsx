@@ -1,14 +1,15 @@
 import {useCallback} from 'react';
-import {useDispatch} from 'react-redux';
-import {Link} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {Link, useHistory} from 'react-router-dom';
 import classNames from 'classnames';
 
 import type {Offer} from '../../types/offer';
 
-import {isMainPage, formatType, getRatingPercentValue} from '../../utils/utils';
-import {AppRoute, CardTypes, DEFAULT_ID} from '../../const';
+import {formatType, getRatingPercentValue, isMainPage} from '../../utils/utils';
+import {AppRoute, AuthorizationStatus, CardTypes, DEFAULT_ID} from '../../const';
 
 import {setActiveId} from '../../store/actions/action';
+import {getAuthorizationStatus} from '../../store/app-user/selectors';
 
 
 type CardProps = {
@@ -20,6 +21,9 @@ type CardProps = {
 
 function Card({card, typeCard, onFavoriteClick}: CardProps): JSX.Element {
   const dispatch = useDispatch();
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+
+  const history = useHistory();
 
   const {
     price,
@@ -60,7 +64,11 @@ function Card({card, typeCard, onFavoriteClick}: CardProps): JSX.Element {
   );
 
   const onFavoriteChange = () => {
-    onFavoriteClick(isFavorite, id);
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      onFavoriteClick(isFavorite, id);
+    } else {
+      history.push(AppRoute.Login);
+    }
   };
 
   return (
