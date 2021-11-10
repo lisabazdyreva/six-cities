@@ -73,6 +73,17 @@ function fetchOfferComments(id: number): ThunkActionResult {
   };
 }
 
+function fetchFavoriteOffers(): ThunkActionResult {
+  return async (dispatch, _getState, api): Promise<void> => {
+    await api.get('/favorite')
+      .then(({data}) => adaptToClient(data))
+      .catch(() => {
+        //eslint-disable-next-line
+        console.log('error fav');
+      });
+  };
+}
+
 function postComment({id, comment, rating}: CommentData): ThunkActionResult {
   return async(dispatch, _getState, api): Promise<void> => {
     await api.post(`/comments/${id}`, {comment, rating})
@@ -117,6 +128,7 @@ export {
   logoutAction,
   fetchNearbyOffers,
   fetchOfferComments,
-  postComment
+  postComment,
+  fetchFavoriteOffers
 };
 
