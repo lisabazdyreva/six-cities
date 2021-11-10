@@ -16,6 +16,7 @@ export enum ActionType {
   SetFetchStatusComments = 'data/setFetchStatusComments',
   SetCommentsList = 'data/setCommentsList',
   SetNearbyOffersList = 'data/setNearbyOffersList',
+  SetFavoriteOffers = 'data/setFavoriteOffers',
   RequireAuthorization = 'user/requireAuthorization',
   RequireLogout = 'user/requireLogout',
   SetLogin = 'user/setLogin',

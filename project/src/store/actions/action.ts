@@ -79,6 +79,13 @@ export const setCommentsList = createAction(
   }),
 );
 
+export const setFavoriteOffers = createAction(
+  ActionType.SetFavoriteOffers,
+  (offers: Offers) => ({
+    payload: offers,
+  }),
+);
+
 export const setFetchStatusOffers = createAction(
   ActionType.SetFetchStatusOffers,
   (status: FetchStatus) => ({

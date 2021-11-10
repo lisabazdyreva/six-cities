@@ -12,7 +12,7 @@ import {
   setFetchStatusOffers,
   setLogin,
   setNearbyOffersList,
-  setFetchStatusComments
+  setFetchStatusComments, setFavoriteOffers
 } from './action';
 
 import {filterOffers} from '../../utils/utils';
@@ -77,6 +77,7 @@ function fetchFavoriteOffers(): ThunkActionResult {
   return async (dispatch, _getState, api): Promise<void> => {
     await api.get('/favorite')
       .then(({data}) => adaptToClient(data))
+      .then((data) => dispatch(setFavoriteOffers(data)))
       .catch(() => {
         //eslint-disable-next-line
         console.log('error fav');

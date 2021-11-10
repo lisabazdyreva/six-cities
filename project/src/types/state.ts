@@ -13,6 +13,7 @@ export type AppData = {
   fetchStatusComments: FetchStatus,
   commentsList: Reviews,
   nearbyOffers: Offers,
+  favoriteOffers: Offers,
 };
 
 export type AppUser = {

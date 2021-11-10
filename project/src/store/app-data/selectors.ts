@@ -36,3 +36,6 @@ export function getNearbyOffers(state: State): Offers {
   return state[NameSpace.data].nearbyOffers;
 }
 
+export function getFavoriteOffers(state: State): Offers {
+  return state[NameSpace.data].favoriteOffers;
+}
