@@ -4,10 +4,11 @@ import {useSelector, useDispatch} from 'react-redux';
 
 import Logo from '../logo/logo';
 
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute, AuthorizationStatus, INITIAL_CITY} from '../../const';
 
-import {checkAuthorization, fetchOffersList, logoutAction} from '../../store/actions/api-actions';
+import {checkAuthorization, logoutAction} from '../../store/actions/api-actions';
 import {getAuthorizationStatus, getLogin} from '../../store/app-user/selectors';
+import {selectActiveCity} from '../../store/actions/action';
 
 
 function Header(): JSX.Element {
@@ -18,7 +19,7 @@ function Header(): JSX.Element {
   const onLogout = () => {
     dispatch(logoutAction());
     dispatch(checkAuthorization());
-    dispatch(fetchOffersList());
+    dispatch(selectActiveCity(INITIAL_CITY));
   };
 
   return (

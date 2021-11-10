@@ -134,6 +134,7 @@ function logoutAction(): ThunkActionResult {
     deleteToken();
     dispatch(requireLogout());
     dispatch(setLogin(INITIAL_LOGIN));
+    await dispatch(fetchOffersList());
   };
 }
 
