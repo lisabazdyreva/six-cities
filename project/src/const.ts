@@ -22,6 +22,11 @@ export enum APIRoute {
   Logout = '/logout',
 }
 
+export enum FavoriteStatus {
+  AddToFavorite = 1,
+  RemoveFromFavorite = 0,
+}
+
 
 export enum AuthorizationStatus {
   Auth = 'AUTH',

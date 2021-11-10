@@ -20,7 +20,9 @@ import {adaptCommentsToClient, adaptToClient} from '../../utils/adapt-utils';
 import {APIRoute, AppRoute, AuthorizationStatus, FetchStatus, INITIAL_CITY, INITIAL_LOGIN} from '../../const';
 
 import {deleteToken, saveToken, Token} from '../../services/token';
+
 import {CommentData} from '../../types/comment-data';
+import {FavoriteData} from '../../types/favorite-data';
 
 
 function fetchOffersList(): ThunkActionResult {
@@ -85,6 +87,17 @@ function fetchFavoriteOffers(): ThunkActionResult {
   };
 }
 
+function postFavorite({id, status}: FavoriteData): ThunkActionResult {
+  return async (dispatch, _getState, api): Promise<void> => {
+    await api.post( `/favorite/${id}/${status}`)
+      .then(({data}) => adaptToClient([data]))
+      .catch(() => {
+        //eslint-disable-next-line
+        console.log('error post fav');
+      })
+  }
+}
+
 function postComment({id, comment, rating}: CommentData): ThunkActionResult {
   return async(dispatch, _getState, api): Promise<void> => {
     await api.post(`/comments/${id}`, {comment, rating})
@@ -130,6 +143,7 @@ export {
   fetchNearbyOffers,
   fetchOfferComments,
   postComment,
-  fetchFavoriteOffers
+  fetchFavoriteOffers,
+  postFavorite
 };
 
