@@ -7,12 +7,13 @@ import {CardTypes} from '../../const';
 
 type NearbyCardsListProps = {
   cards: Offers;
+  onFavoriteClick: (isFavorite: boolean, id: number) => void;
 };
 
 
-function NearbyCardsList({cards}: NearbyCardsListProps): JSX.Element {
+function NearbyCardsList({cards, onFavoriteClick}: NearbyCardsListProps): JSX.Element {
   return (
-    <CardsList cards={cards} type={CardTypes.Offer} />
+    <CardsList cards={cards} type={CardTypes.Offer} onFavoriteClick={onFavoriteClick}/>
   );
 }
 

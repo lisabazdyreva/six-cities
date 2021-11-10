@@ -11,7 +11,8 @@ import {
   setFetchStatusOffers,
   setNearbyOffersList,
   setFetchStatusComments,
-  setFavoriteOffers
+  setFavoriteOffers,
+  updateOffer
 } from '../actions/action';
 
 
@@ -53,5 +54,12 @@ export const appData = createReducer(initialState, (builder) => {
     })
     .addCase(setFavoriteOffers, (state, action) => {
       state.favoriteOffers = action.payload;
+    })
+    .addCase(updateOffer, (state, action) => {
+      state.offers.map((offer) => {
+        if (offer.id === action.payload.id) {
+          offer.isFavorite = !offer.isFavorite;
+        }
+      });
     });
 });

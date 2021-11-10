@@ -6,14 +6,15 @@ import {CardTypes} from '../../const';
 
 
 type MainCardsListProps = {
-  cards: Offers
+  cards: Offers,
+  onFavoriteClick: (isFavorite: boolean, id: number) => void;
 };
 
 
 function MainCardsList (props: MainCardsListProps): JSX.Element {
-  const {cards} = props;
+  const {cards, onFavoriteClick} = props;
   return (
-    <CardsList cards={cards} type={CardTypes.Main} />
+    <CardsList cards={cards} type={CardTypes.Main} onFavoriteClick={onFavoriteClick}/>
   );
 }
 

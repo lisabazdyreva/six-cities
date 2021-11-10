@@ -1,4 +1,4 @@
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 import Icons from '../icons/icons';
 import MainCardsList from '../main-cards-list/main-cards-list';
@@ -9,22 +9,47 @@ import Map from '../map/map';
 import LocationsList from '../locations-list/locations-list';
 import SortingForm from '../sorting-form/sorting-form';
 
-import {FetchStatus, MapStylesProperties} from '../../const';
+import {DEFAULT_SORT_TYPE, FavoriteStatus, FetchStatus, Locations, MapStylesProperties} from '../../const';
 import {getSelectedCity, getSortedOffers} from '../../store/app-process/selectors';
-import {getFetchStatusOffers} from '../../store/app-data/selectors';
+import {getFetchStatusOffers, getOffers} from '../../store/app-data/selectors';
+import {filterOffers} from '../../utils/utils';
+import {changeActiveSortType, fillOffersList, selectActiveCity} from '../../store/actions/action';
+import {fetchFavoriteOffers, postFavorite} from '../../store/actions/api-actions';
 
 
 function MainScreen(): JSX.Element {
+  const dispatch = useDispatch();
 
   const cards = useSelector(getSortedOffers);
   const selectedCity = useSelector(getSelectedCity);
   const fetchStatus = useSelector(getFetchStatusOffers);
+
+  const offers = useSelector(getOffers);
+
+  function onLocationClick(city: Locations) {
+    const updatedOffers = filterOffers(city, offers);
+
+    dispatch(selectActiveCity(city));
+    dispatch(changeActiveSortType(DEFAULT_SORT_TYPE));
+    dispatch(fillOffersList(updatedOffers));
+  }
+
+  function onFavoriteClick(isFavorite: boolean, id: number) {
+    const status = isFavorite ? FavoriteStatus.RemoveFromFavorite : FavoriteStatus.AddToFavorite;
+    dispatch(postFavorite({id, status}));
+    dispatch(fetchFavoriteOffers());
+    //eslint-disable-next-line
+    console.log(offers);
+
+
+  }
 
   const cardsLength = cards.length;
 
   if (fetchStatus === FetchStatus.Error) {
     return <NotFoundScreen />;
   }
+
   return (
     <>
       <Icons />
@@ -34,7 +59,7 @@ function MainScreen(): JSX.Element {
           <h1 className="visually-hidden">Cities</h1>
           <div className="tabs">
             <section className="locations container">
-              <LocationsList />
+              <LocationsList onLocationClick={onLocationClick} selectedCity={selectedCity}/>
             </section>
           </div>
           {cards.length ?
@@ -44,7 +69,7 @@ function MainScreen(): JSX.Element {
                   <h2 className="visually-hidden">Places</h2>
                   <b className="places__found">{cardsLength} {cardsLength === 1 ? 'place' : 'places'} to stay in {selectedCity}</b>
                   <SortingForm />
-                  <MainCardsList cards={cards}/>
+                  <MainCardsList cards={cards} onFavoriteClick={onFavoriteClick}/>
                 </section>
                 <div className="cities__right-section">
                   <section className="cities__map map">

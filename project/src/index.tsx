@@ -11,7 +11,7 @@ import App from './components/app/app';
 
 import {AuthorizationStatus} from './const';
 
-import {checkAuthorization, fetchOffersList} from './store/actions/api-actions';
+import {checkAuthorization, fetchFavoriteOffers, fetchOffersList} from './store/actions/api-actions';
 import {requireAuthorization} from './store/actions/action';
 
 
@@ -29,6 +29,7 @@ const store = configureStore({
 
 store.dispatch(checkAuthorization());
 store.dispatch(fetchOffersList());
+store.dispatch(fetchFavoriteOffers());
 
 
 ReactDOM.render(

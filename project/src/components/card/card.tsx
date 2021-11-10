@@ -14,10 +14,11 @@ import {setActiveId} from '../../store/actions/action';
 type CardProps = {
   card: Offer;
   typeCard: string;
+  onFavoriteClick : (isFavorite: boolean, id: number) => void;
 }
 
 
-function Card({card, typeCard}: CardProps): JSX.Element {
+function Card({card, typeCard, onFavoriteClick}: CardProps): JSX.Element {
   const dispatch = useDispatch();
 
   const {
@@ -27,9 +28,10 @@ function Card({card, typeCard}: CardProps): JSX.Element {
     rating,
     type,
     previewImage,
-    isFavorite,
     id,
   } = card;
+
+  const {isFavorite} = card;
 
   const typeText = formatType(type);
   const ratingPercentValue = getRatingPercentValue(rating);
@@ -57,6 +59,9 @@ function Card({card, typeCard}: CardProps): JSX.Element {
     [],
   );
 
+  const onFavoriteChange = () => {
+    onFavoriteClick(isFavorite, id);
+  };
 
   return (
     <article
@@ -90,7 +95,11 @@ function Card({card, typeCard}: CardProps): JSX.Element {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={isFavorite ? 'place-card__bookmark-button button place-card__bookmark-button--active' : 'place-card__bookmark-button button'} type="button">
+          <button
+            className={isFavorite ? 'place-card__bookmark-button button place-card__bookmark-button--active' : 'place-card__bookmark-button button'}
+            type="button"
+            onClick={onFavoriteChange}
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"/>
             </svg>

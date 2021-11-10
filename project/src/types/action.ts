@@ -20,7 +20,8 @@ export enum ActionType {
   RequireAuthorization = 'user/requireAuthorization',
   RequireLogout = 'user/requireLogout',
   SetLogin = 'user/setLogin',
-  RedirectTo = 'main/redirectTo'
+  RedirectTo = 'main/redirectTo',
+  UpdateOffer = 'main/updateOffer',
 }
 
 export type ThunkActionResult<P = Promise<void>> = ThunkAction<P, State, AxiosInstance, Action>;

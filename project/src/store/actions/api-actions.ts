@@ -12,7 +12,7 @@ import {
   setFetchStatusOffers,
   setLogin,
   setNearbyOffersList,
-  setFetchStatusComments, setFavoriteOffers
+  setFetchStatusComments, setFavoriteOffers, updateOffer
 } from './action';
 
 import {filterOffers} from '../../utils/utils';
@@ -91,11 +91,12 @@ function postFavorite({id, status}: FavoriteData): ThunkActionResult {
   return async (dispatch, _getState, api): Promise<void> => {
     await api.post( `/favorite/${id}/${status}`)
       .then(({data}) => adaptToClient([data]))
+      .then(([data]) => dispatch(updateOffer(id, data)))
       .catch(() => {
         //eslint-disable-next-line
         console.log('error post fav');
-      })
-  }
+      });
+  };
 }
 
 function postComment({id, comment, rating}: CommentData): ThunkActionResult {

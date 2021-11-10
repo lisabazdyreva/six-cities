@@ -10,9 +10,9 @@ import NearbyCardsList from '../nearby-cards-list/nearby-cards-list';
 
 import {setActiveId} from '../../store/actions/action';
 
-import {FetchStatus, MapStylesProperties} from '../../const';
+import {FavoriteStatus, FetchStatus, MapStylesProperties} from '../../const';
 
-import {fetchCurrentOffer, fetchNearbyOffers} from '../../store/actions/api-actions';
+import {fetchCurrentOffer, fetchFavoriteOffers, fetchNearbyOffers, postFavorite} from '../../store/actions/api-actions';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Spinner from '../spinner/spinner';
 import {
@@ -46,6 +46,12 @@ function OfferScreen(): JSX.Element {
     dispatch(fetchNearbyOffers(idNum));
   }, [idNum]);
 
+  function onFavoriteClick(isFavorite: boolean, idEl: number) {
+    const status = isFavorite ? FavoriteStatus.RemoveFromFavorite: FavoriteStatus.AddToFavorite;
+    dispatch(postFavorite({idEl, status}));
+    dispatch(fetchFavoriteOffers());
+  }
+
 
   switch (fetchStatusOffer) {
     case (FetchStatus.Error):
@@ -70,7 +76,7 @@ function OfferScreen(): JSX.Element {
               <div className="container">
                 <section className="near-places places">
                   <h2 className="near-places__title">Other places in the neighbourhood</h2>
-                  {fetchStatusNearbyOffer === FetchStatus.Error ? 'Nothing foung. Try later.' : <NearbyCardsList cards={nearbyData}/>}
+                  {fetchStatusNearbyOffer === FetchStatus.Error ? 'Nothing foung. Try later.' : <NearbyCardsList cards={nearbyData} onFavoriteClick={onFavoriteClick}/>}
                 </section>
               </div>
             </main>

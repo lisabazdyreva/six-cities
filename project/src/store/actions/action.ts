@@ -35,6 +35,16 @@ export const setActiveId = createAction(
   }),
 );
 
+export const updateOffer = createAction(
+  ActionType.UpdateOffer,
+  (id, card) => ({
+    payload: {
+      id,
+      card,
+    },
+  }),
+);
+
 export const getOffers = createAction(
   ActionType.GetOffers,
   (offers: Offers) => ({

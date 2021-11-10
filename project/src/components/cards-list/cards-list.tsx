@@ -10,10 +10,11 @@ import {isMainPage} from '../../utils/utils';
 type CardsListProps = {
   cards: Offers;
   type: string;
+  onFavoriteClick: (isFavorite: boolean, id: number) => void;
 }
 
 
-function CardsList({cards, type}: CardsListProps): JSX.Element {
+function CardsList({cards, type, onFavoriteClick}: CardsListProps): JSX.Element {
   return (
     <div
       className={classNames(
@@ -27,6 +28,7 @@ function CardsList({cards, type}: CardsListProps): JSX.Element {
             card={card}
             key={card.id}
             typeCard={type}
+            onFavoriteClick={onFavoriteClick}
           />
         ))
       }

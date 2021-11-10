@@ -6,7 +6,7 @@ import {
   selectActiveCity,
   fillOffersList,
   changeActiveSortType,
-  setActiveId
+  setActiveId, updateOffer
 } from '../actions/action';
 
 
@@ -31,5 +31,12 @@ export const appProcess = createReducer(initialState, (builder) => {
     })
     .addCase(setActiveId, (state, action) => {
       state.id = action.payload;
+    })
+    .addCase(updateOffer, (state, action) => {
+      state.sortedOffers.map((offer) => {
+        if (offer.id === action.payload.id) {
+          offer.isFavorite = !offer.isFavorite;
+        }
+      });
     });
 });
