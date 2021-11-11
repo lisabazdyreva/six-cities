@@ -78,6 +78,7 @@ export const MapStylesProperties: MapStylesPropertiesTypes = {
 export enum CardTypes {
   Main = 'Main',
   Offer = 'Offer',
+  Nearby = 'Nearby', // TODO оптимизировать нейминг
 }
 
 

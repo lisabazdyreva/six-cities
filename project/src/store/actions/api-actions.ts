@@ -16,7 +16,8 @@ import {
   setLogin,
   setNearbyOffersList,
   updateOffer,
-  updateRoom
+  updateRoom,
+  updateNearby
 } from './action';
 
 import {filterOffers} from '../../utils/utils';
@@ -107,6 +108,9 @@ function postFavorite({id, status, page}: FavoriteData): ThunkActionResult {
         dispatch(updateOffer(id));
         if (page === CardTypes.Offer) {
           dispatch(updateRoom(id));
+        }
+        if (page === CardTypes.Nearby) {
+          dispatch(updateNearby(id));
         }
 
       })

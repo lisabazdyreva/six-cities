@@ -49,6 +49,13 @@ export const updateRoom = createAction(
   }),
 );
 
+export const updateNearby = createAction(
+  ActionType.UpdateNearby,
+  (id) => ({
+    payload: id,
+  }),
+);
+
 export const getOffers = createAction(
   ActionType.GetOffers,
   (offers: Offers) => ({

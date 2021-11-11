@@ -47,11 +47,21 @@ function OfferScreen(): JSX.Element {
   }, [idNum]);
 
 
-  function onFavoriteClick(isFavorite: boolean) {
+  function onFavoriteClickCard(isFavorite: boolean) {
     const status = isFavorite ? FavoriteStatus.RemoveFromFavorite: FavoriteStatus.AddToFavorite;
     const page = CardTypes.Offer;
     //eslint-disable-next-line
     const id = idNum;
+    //TODO нейминг
+    dispatch(postFavorite({id, status, page}));
+    dispatch(fetchFavoriteOffers());
+  }
+
+  function onFavoriteClickNearby(isFavorite: boolean, idNearby: number) {
+    const status = isFavorite ? FavoriteStatus.RemoveFromFavorite: FavoriteStatus.AddToFavorite;
+    const page = CardTypes.Nearby;
+    //eslint-disable-next-line
+    const id = idNearby;
     //TODO нейминг
     dispatch(postFavorite({id, status, page}));
     dispatch(fetchFavoriteOffers());
@@ -73,7 +83,7 @@ function OfferScreen(): JSX.Element {
             <Header />
             <main className="page__main page__main--property">
               <section className="property">
-                <OfferCard card={currentOffer} onFavoriteClick={onFavoriteClick}/>
+                <OfferCard card={currentOffer} onFavoriteClick={onFavoriteClickCard}/>
                 <section className="property__map map">
                   <Map cards={cardsForMap} styles={MapStylesProperties.OfferPage}/>
                 </section>
@@ -81,7 +91,7 @@ function OfferScreen(): JSX.Element {
               <div className="container">
                 <section className="near-places places">
                   <h2 className="near-places__title">Other places in the neighbourhood</h2>
-                  {fetchStatusNearbyOffer === FetchStatus.Error ? 'Nothing foung. Try later.' : <NearbyCardsList cards={nearbyData} onFavoriteClick={onFavoriteClick}/>}
+                  {fetchStatusNearbyOffer === FetchStatus.Error ? 'Nothing found. Try later.' : <NearbyCardsList cards={nearbyData} onFavoriteClick={onFavoriteClickNearby}/>}
                 </section>
               </div>
             </main>

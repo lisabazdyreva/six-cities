@@ -23,6 +23,7 @@ export enum ActionType {
   RedirectTo = 'main/redirectTo',
   UpdateOffer = 'main/updateOffer',
   UpdateRoom = 'main/updateRoom',
+  UpdateNearby = 'main/updateNearby',
 }
 
 export type ThunkActionResult<P = Promise<void>> = ThunkAction<P, State, AxiosInstance, Action>;
