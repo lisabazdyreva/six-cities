@@ -7,9 +7,9 @@ import FavoriteCards from '../favorite-cards/favorite-cards';
 
 import {getFavoriteCitiesList} from '../../utils/utils';
 
-import {AppRoute} from '../../const';
+import {AppRoute, CardTypes, FavoriteStatus} from '../../const';
 import {getFavoriteOffers} from '../../store/app-data/selectors';
-import {fetchFavoriteOffers} from '../../store/actions/api-actions';
+import {fetchFavoriteOffers, postFavorite} from '../../store/actions/api-actions';
 import {useEffect} from 'react';
 
 
@@ -34,6 +34,13 @@ function FavoritesCardsList(): JSX.Element {
 
   const favoriteCardsByCities = getFavoriteCardsByCities(offers.slice());
 
+  function onFavoriteDelete(id: number) {
+    const status = FavoriteStatus.RemoveFromFavorite;
+    const page = CardTypes.Favorite;
+    dispatch(postFavorite({id, status, page}));
+    dispatch(fetchFavoriteOffers());
+  }
+
 
   if (offers.length) {
     return (
@@ -48,7 +55,7 @@ function FavoritesCardsList(): JSX.Element {
               </div>
             </div>
             <div className="favorites__places">
-              {Object.values(city).map((cardsByCity) => <FavoriteCards cardsByCity={cardsByCity} key={cardsByCity[0].id}/>)}
+              {Object.values(city).map((cardsByCity) => <FavoriteCards onFavoriteClick={onFavoriteDelete} cardsByCity={cardsByCity} key={cardsByCity[0].id}/>)}
             </div>
           </li>
         ))}
