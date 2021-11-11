@@ -18,7 +18,7 @@ export enum FetchStatus {
 
 export enum APIRoute {
   Login = '/login',
-  Hotels = '/hotels',
+  Hotels = '/hotls',
   Logout = '/logout',
 }
 

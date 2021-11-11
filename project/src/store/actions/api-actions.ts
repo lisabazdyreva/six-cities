@@ -1,5 +1,6 @@
 import {ThunkActionResult} from '../../types/action';
 import {AuthorizationData} from '../../types/authorization-data';
+import {toast} from 'react-toastify';
 
 import {
   fillOffersList,
@@ -15,9 +16,9 @@ import {
   setFetchStatusOffers,
   setLogin,
   setNearbyOffersList,
+  updateNearby,
   updateOffer,
-  updateRoom,
-  updateNearby
+  updateRoom
 } from './action';
 
 import {filterOffers} from '../../utils/utils';
@@ -49,7 +50,7 @@ function fetchOffersList(): ThunkActionResult {
       })
       .then(() => dispatch(setFetchStatusOffers(FetchStatus.Ok)))
 
-      .catch(() => dispatch(setFetchStatusOffers(FetchStatus.Error)));
+      .catch(() => dispatch(setFetchStatusOffers(FetchStatus.Error))); // надо сделать периодичную загрузку, если не вернулись
   };
 }
 
@@ -61,7 +62,7 @@ function fetchCurrentOffer(id: number): ThunkActionResult {
       .then(([data]) => dispatch(setCurrentOffer(data)))
       .then(() => dispatch(setFetchStatusOffers(FetchStatus.Ok)))
 
-      .catch(() => dispatch(setFetchStatusOffers(FetchStatus.Error)));
+      .catch(() => dispatch(setFetchStatusOffers(FetchStatus.Error))); // 404 срабатывает
   };
 }
 
@@ -88,14 +89,15 @@ function fetchOfferComments(id: number): ThunkActionResult {
   };
 }
 
-function fetchFavoriteOffers(): ThunkActionResult {
+function fetchFavoriteOffers(authorizationStatus: AuthorizationStatus | null): ThunkActionResult {
   return async (dispatch, _getState, api): Promise<void> => {
     await api.get('/favorite')
       .then(({data}) => adaptToClient(data))
       .then((data) => dispatch(setFavoriteOffers(data)))
       .catch(() => {
-        //eslint-disable-next-line
-        console.log('error fav');
+        if (authorizationStatus === AuthorizationStatus.Auth) {
+          toast.warning('Sorry we could not show your favorites right now. Please try later.');
+        }
       });
   };
 }
@@ -114,17 +116,15 @@ function postFavorite({id, status, page}: FavoriteData): ThunkActionResult {
         }
 
       })
-      .catch(() => {
-        //eslint-disable-next-line
-        console.log('error post fav');
-      });
+      .catch(() => toast.warning('Sorry we could not add the offer to favorite right now. Please try later.'));
   };
 }
 
 function postComment({id, comment, rating}: CommentData): ThunkActionResult {
   return async(dispatch, _getState, api): Promise<void> => {
     await api.post(`/comments/${id}`, {comment, rating})
-      .then(({data}) => dispatch(setCommentsList(adaptCommentsToClient(data))));
+      .then(({data}) => dispatch(setCommentsList(adaptCommentsToClient(data))))
+      .catch(() => toast.warning('Sorry we could not post your comment right now. Please try later.'));
   };
 }
 
@@ -132,9 +132,13 @@ function checkAuthorization(): ThunkActionResult {
   return async(dispatch, _getState, api): Promise<void> => {
     await api.get(APIRoute.Login)
       .then(({data}) => dispatch(setLogin(data.email)))
-      .then(() => dispatch(requireAuthorization(AuthorizationStatus.Auth)))
-
-      .catch(() => dispatch(requireAuthorization(AuthorizationStatus.NoAuth)));
+      .then(() => {
+        dispatch(requireAuthorization(AuthorizationStatus.Auth));
+      })
+      .catch(() => {
+        toast.info('Please login to get access to all functionality of the app');
+        dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+      });
   };
 }
 

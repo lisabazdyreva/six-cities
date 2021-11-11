@@ -14,6 +14,9 @@ import {AuthorizationStatus} from './const';
 import {checkAuthorization, fetchFavoriteOffers, fetchOffersList} from './store/actions/api-actions';
 import {requireAuthorization} from './store/actions/action';
 
+import {ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const api = createAPI(() => store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth)));
 
@@ -29,12 +32,13 @@ const store = configureStore({
 
 store.dispatch(checkAuthorization());
 store.dispatch(fetchOffersList());
-store.dispatch(fetchFavoriteOffers());
+store.dispatch(fetchFavoriteOffers(null));
 
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
+      <ToastContainer />
       <App/>
     </Provider>
   </React.StrictMode>,

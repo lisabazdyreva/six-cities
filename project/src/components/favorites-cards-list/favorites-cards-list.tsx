@@ -11,6 +11,7 @@ import {AppRoute, CardTypes, FavoriteStatus} from '../../const';
 import {getFavoriteOffers} from '../../store/app-data/selectors';
 import {fetchFavoriteOffers, postFavorite} from '../../store/actions/api-actions';
 import {useEffect} from 'react';
+import {getAuthorizationStatus} from '../../store/app-user/selectors';
 
 
 type FavoriteCardsByCities = {
@@ -26,10 +27,12 @@ function getFavoriteCardsByCities(cards: Offers): FavoriteCardsByCities {
 
 function FavoritesCardsList(): JSX.Element {
   const offers = useSelector(getFavoriteOffers);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchFavoriteOffers());
+    dispatch(fetchFavoriteOffers(authorizationStatus));
   }, [offers]);
 
   const favoriteCardsByCities = getFavoriteCardsByCities(offers.slice());
@@ -38,7 +41,7 @@ function FavoritesCardsList(): JSX.Element {
     const status = FavoriteStatus.RemoveFromFavorite;
     const page = CardTypes.Favorite;
     dispatch(postFavorite({id, status, page}));
-    dispatch(fetchFavoriteOffers());
+    dispatch(fetchFavoriteOffers(authorizationStatus));
   }
 
 

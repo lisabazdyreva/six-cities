@@ -21,6 +21,7 @@ import {
   getFetchStatusOffers,
   getNearbyOffers
 } from '../../store/app-data/selectors';
+import {getAuthorizationStatus} from '../../store/app-user/selectors';
 
 
 function OfferScreen(): JSX.Element {
@@ -29,6 +30,7 @@ function OfferScreen(): JSX.Element {
   const nearbyData = useSelector(getNearbyOffers);
   const fetchStatusOffer = useSelector(getFetchStatusOffers);
   const fetchStatusNearbyOffer = useSelector(getFetchStatusNearbyOffers);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
 
   const dispatch = useDispatch();
 
@@ -54,7 +56,7 @@ function OfferScreen(): JSX.Element {
     const id = idNum;
     //TODO нейминг
     dispatch(postFavorite({id, status, page}));
-    dispatch(fetchFavoriteOffers());
+    dispatch(fetchFavoriteOffers(authorizationStatus));
   }
 
   function onFavoriteClickNearby(isFavorite: boolean, idNearby: number) {
@@ -64,7 +66,7 @@ function OfferScreen(): JSX.Element {
     const id = idNearby;
     //TODO нейминг
     dispatch(postFavorite({id, status, page}));
-    dispatch(fetchFavoriteOffers());
+    dispatch(fetchFavoriteOffers(authorizationStatus));
   }
 
 
