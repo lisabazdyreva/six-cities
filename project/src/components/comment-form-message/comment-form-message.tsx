@@ -16,6 +16,7 @@ function CommentFormMessage({handleMessage, comment}: CommentFormMessageProps): 
       onChange={handleMessage}
       value={comment}
       minLength={50}
+      maxLength={300}
     />
   );
 }

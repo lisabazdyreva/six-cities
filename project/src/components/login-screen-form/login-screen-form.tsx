@@ -1,4 +1,4 @@
-import {SyntheticEvent, useState} from 'react';
+import {ChangeEvent, SyntheticEvent, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {loginAction} from '../../store/actions/api-actions';
 
@@ -18,6 +18,16 @@ function LoginScreenForm(): JSX.Element {
         password: password,
       }));
     }
+  }
+
+  function onPasswordChange(evt: ChangeEvent<HTMLInputElement>) {
+    if (!evt.target.value.match(/(?=.*[0-9])(?=.*[A-Za-z])[0-9A-Za-z]{2,}/)) {
+      evt.target.setCustomValidity('The password must be at least 1 letter and 1 number.');
+    } else {
+      evt.target.setCustomValidity('');
+    }
+
+    setPassword(evt.target.value);
   }
 
   return (
@@ -41,7 +51,7 @@ function LoginScreenForm(): JSX.Element {
           type="password"
           name="password"
           placeholder="Password"
-          onChange={(evt) => setPassword(evt.target.value)}
+          onChange={onPasswordChange}
           value={password}
           required
         />

@@ -23,6 +23,8 @@ import {filterOffers} from '../../utils/utils';
 import {changeActiveSortType, fillOffersList, selectActiveCity} from '../../store/actions/action';
 import {postFavorite} from '../../store/actions/api-actions';
 
+import classNames from 'classnames';
+
 
 function MainScreen(): JSX.Element {
   const dispatch = useDispatch();
@@ -58,7 +60,10 @@ function MainScreen(): JSX.Element {
       <Icons />
       <div className="page page--gray page--main">
         <Header />
-        <main className="page__main page__main--index">
+        <main className={classNames(
+          'page__main page__main--index',
+          {'page__main--index-empty' : !cards.length})}
+        >
           <h1 className="visually-hidden">Cities</h1>
           <div className="tabs">
             <section className="locations container">
