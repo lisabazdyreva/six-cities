@@ -5,9 +5,12 @@ import Logo from '../logo/logo';
 import LoginScreenForm from '../login-screen-form/login-screen-form';
 
 import {AppRoute} from '../../const';
+import {useSelector} from 'react-redux';
+import {getSelectedCity} from '../../store/app-process/selectors';
 
 
 function LoginScreen(): JSX.Element {
+  const selectedCity = useSelector(getSelectedCity);
   return (
     <>
       <Icons />
@@ -28,7 +31,7 @@ function LoginScreen(): JSX.Element {
             <section className="locations locations--login locations--current">
               <div className="locations__item">
                 <Link className="locations__item-link" to={AppRoute.Main}>
-                  <span>Amsterdam</span> {/*TODO расхардкодить город*/}
+                  <span>{selectedCity}</span>
                 </Link>
               </div>
             </section>
