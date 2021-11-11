@@ -33,8 +33,6 @@ function fetchOffersList(): ThunkActionResult {
       .then((data) => {
         dispatch(getOffers(data));
         dispatch(fillOffersList(filterOffers(INITIAL_CITY, data)));
-        //eslint-disable-next-line
-        console.log(data);
       })
       .then(() => dispatch(setFetchStatusOffers(FetchStatus.Ok)))
 

@@ -68,7 +68,7 @@ function OfferScreen(): JSX.Element {
             <Header />
             <main className="page__main page__main--property">
               <section className="property">
-                <OfferCard card={currentOffer} />
+                <OfferCard card={currentOffer} onFavoriteClick={onFavoriteClick}/>
                 <section className="property__map map">
                   <Map cards={cardsForMap} styles={MapStylesProperties.OfferPage}/>
                 </section>

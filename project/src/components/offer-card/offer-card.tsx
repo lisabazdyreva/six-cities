@@ -1,16 +1,24 @@
 import type {Offer} from '../../types/offer';
 
+import {useHistory} from 'react-router-dom';
+
 import CommentsSection from '../comments-section/comments-section';
 
 import {getRatingPercentValue, formatType} from '../../utils/utils';
+import {useSelector} from 'react-redux';
+import {getAuthorizationStatus} from '../../store/app-user/selectors';
+import {AppRoute, AuthorizationStatus} from '../../const';
 
 
 type OfferCardProps = {
   card: Offer;
+  onFavoriteClick: (isFavorite: boolean, id: number) => void;
 };
 
 
-function OfferCard({card}: OfferCardProps): JSX.Element {
+function OfferCard({card, onFavoriteClick}: OfferCardProps): JSX.Element {
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const history = useHistory();
   const {
     title,
     rating,
@@ -24,12 +32,23 @@ function OfferCard({card}: OfferCardProps): JSX.Element {
     isPremium,
     isFavorite,
     images,
+    id,
   } = card;
 
   const ratingPercentValue = getRatingPercentValue(rating);
   const typeText = formatType(type);
 
   const checkedImagesOverflow = (images.length > 5) ? images.slice(0, 6) : images;
+
+
+  function onFavoriteChange() {
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      onFavoriteClick(isFavorite, id);
+    } else {
+      history.push(AppRoute.Login);
+    }
+
+  }
 
   return(
     <>
@@ -47,7 +66,11 @@ function OfferCard({card}: OfferCardProps): JSX.Element {
           {isPremium && <div className="property__mark"><span>Premium</span></div>}
           <div className="property__name-wrapper">
             <h1 className="property__name">{title}</h1>
-            <button className={isFavorite ? 'property__bookmark-button button property__bookmark-button--active' : 'property__bookmark-button button'} type="button">
+            <button
+              className={isFavorite ? 'property__bookmark-button button property__bookmark-button--active' : 'property__bookmark-button button'}
+              type="button"
+              onClick={onFavoriteChange}
+            >
               <svg className="property__bookmark-icon" width="31" height="33">
                 <use xlinkHref="#icon-bookmark"/>
               </svg>
