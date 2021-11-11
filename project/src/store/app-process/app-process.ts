@@ -34,7 +34,7 @@ export const appProcess = createReducer(initialState, (builder) => {
     })
     .addCase(updateOffer, (state, action) => {
       state.sortedOffers.map((offer) => {
-        if (offer.id === action.payload.id) {
+        if (offer.id === action.payload) {
           offer.isFavorite = !offer.isFavorite;
         }
       });

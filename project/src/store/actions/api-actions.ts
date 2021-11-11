@@ -8,16 +8,28 @@ import {
   requireAuthorization,
   requireLogout,
   setCommentsList,
-  setCurrentOffer, setFetchStatusNearbyOffers,
+  setCurrentOffer,
+  setFavoriteOffers,
+  setFetchStatusComments,
+  setFetchStatusNearbyOffers,
   setFetchStatusOffers,
   setLogin,
   setNearbyOffersList,
-  setFetchStatusComments, setFavoriteOffers, updateOffer
+  updateOffer,
+  updateRoom
 } from './action';
 
 import {filterOffers} from '../../utils/utils';
 import {adaptCommentsToClient, adaptToClient} from '../../utils/adapt-utils';
-import {APIRoute, AppRoute, AuthorizationStatus, FetchStatus, INITIAL_CITY, INITIAL_LOGIN} from '../../const';
+import {
+  APIRoute,
+  AppRoute,
+  AuthorizationStatus,
+  CardTypes,
+  FetchStatus,
+  INITIAL_CITY,
+  INITIAL_LOGIN
+} from '../../const';
 
 import {deleteToken, saveToken, Token} from '../../services/token';
 
@@ -87,11 +99,17 @@ function fetchFavoriteOffers(): ThunkActionResult {
   };
 }
 
-function postFavorite({id, status}: FavoriteData): ThunkActionResult {
+function postFavorite({id, status, page}: FavoriteData): ThunkActionResult {
   return async (dispatch, _getState, api): Promise<void> => {
     await api.post( `/favorite/${id}/${status}`)
       .then(({data}) => adaptToClient([data]))
-      .then(([data]) => dispatch(updateOffer(id, data)))
+      .then(() => {
+        dispatch(updateOffer(id));
+        if (page === CardTypes.Offer) {
+          dispatch(updateRoom(id));
+        }
+
+      })
       .catch(() => {
         //eslint-disable-next-line
         console.log('error post fav');

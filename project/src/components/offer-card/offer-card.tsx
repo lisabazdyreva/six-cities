@@ -12,13 +12,14 @@ import {AppRoute, AuthorizationStatus} from '../../const';
 
 type OfferCardProps = {
   card: Offer;
-  onFavoriteClick: (isFavorite: boolean, id: number) => void;
+  onFavoriteClick: (isFavorite: boolean) => void;
 };
 
 
 function OfferCard({card, onFavoriteClick}: OfferCardProps): JSX.Element {
   const authorizationStatus = useSelector(getAuthorizationStatus);
   const history = useHistory();
+
   const {
     title,
     rating,
@@ -32,7 +33,6 @@ function OfferCard({card, onFavoriteClick}: OfferCardProps): JSX.Element {
     isPremium,
     isFavorite,
     images,
-    id,
   } = card;
 
   const ratingPercentValue = getRatingPercentValue(rating);
@@ -43,7 +43,7 @@ function OfferCard({card, onFavoriteClick}: OfferCardProps): JSX.Element {
 
   function onFavoriteChange() {
     if (authorizationStatus === AuthorizationStatus.Auth) {
-      onFavoriteClick(isFavorite, id);
+      onFavoriteClick(isFavorite);
     } else {
       history.push(AppRoute.Login);
     }

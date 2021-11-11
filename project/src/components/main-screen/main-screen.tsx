@@ -9,7 +9,14 @@ import Map from '../map/map';
 import LocationsList from '../locations-list/locations-list';
 import SortingForm from '../sorting-form/sorting-form';
 
-import {DEFAULT_SORT_TYPE, FavoriteStatus, FetchStatus, Locations, MapStylesProperties} from '../../const';
+import {
+  CardTypes,
+  DEFAULT_SORT_TYPE,
+  FavoriteStatus,
+  FetchStatus,
+  Locations,
+  MapStylesProperties
+} from '../../const';
 import {getSelectedCity, getSortedOffers} from '../../store/app-process/selectors';
 import {getFetchStatusOffers, getOffers} from '../../store/app-data/selectors';
 import {filterOffers} from '../../utils/utils';
@@ -36,7 +43,8 @@ function MainScreen(): JSX.Element {
 
   function onFavoriteClick(isFavorite: boolean, id: number) {
     const status = isFavorite ? FavoriteStatus.RemoveFromFavorite : FavoriteStatus.AddToFavorite;
-    dispatch(postFavorite({id, status}));
+    const page = CardTypes.Main;
+    dispatch(postFavorite({id, status, page}));
   }
 
   const cardsLength = cards.length;

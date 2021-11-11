@@ -22,6 +22,7 @@ export enum ActionType {
   SetLogin = 'user/setLogin',
   RedirectTo = 'main/redirectTo',
   UpdateOffer = 'main/updateOffer',
+  UpdateRoom = 'main/updateRoom',
 }
 
 export type ThunkActionResult<P = Promise<void>> = ThunkAction<P, State, AxiosInstance, Action>;

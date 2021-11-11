@@ -10,7 +10,7 @@ import NearbyCardsList from '../nearby-cards-list/nearby-cards-list';
 
 import {setActiveId} from '../../store/actions/action';
 
-import {FavoriteStatus, FetchStatus, MapStylesProperties} from '../../const';
+import {CardTypes, FavoriteStatus, FetchStatus, MapStylesProperties} from '../../const';
 
 import {fetchCurrentOffer, fetchFavoriteOffers, fetchNearbyOffers, postFavorite} from '../../store/actions/api-actions';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
@@ -46,9 +46,14 @@ function OfferScreen(): JSX.Element {
     dispatch(fetchNearbyOffers(idNum));
   }, [idNum]);
 
-  function onFavoriteClick(isFavorite: boolean, idEl: number) {
+
+  function onFavoriteClick(isFavorite: boolean) {
     const status = isFavorite ? FavoriteStatus.RemoveFromFavorite: FavoriteStatus.AddToFavorite;
-    dispatch(postFavorite({idEl, status}));
+    const page = CardTypes.Offer;
+    //eslint-disable-next-line
+    const id = idNum;
+    //TODO нейминг
+    dispatch(postFavorite({id, status, page}));
     dispatch(fetchFavoriteOffers());
   }
 

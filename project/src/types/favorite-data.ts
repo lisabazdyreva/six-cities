@@ -1,7 +1,7 @@
-import {FavoriteStatus} from '../const';
+import {CardTypes, FavoriteStatus} from '../const';
 
 export type FavoriteData = {
-  id?: number,
-  idEl ?: number
-  status: FavoriteStatus
+  id: number,
+  status: FavoriteStatus,
+  page: CardTypes,
 };

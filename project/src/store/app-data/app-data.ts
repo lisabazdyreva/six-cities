@@ -12,7 +12,7 @@ import {
   setNearbyOffersList,
   setFetchStatusComments,
   setFavoriteOffers,
-  updateOffer
+  updateOffer, updateRoom
 } from '../actions/action';
 
 
@@ -57,9 +57,12 @@ export const appData = createReducer(initialState, (builder) => {
     })
     .addCase(updateOffer, (state, action) => {
       state.offers.map((offer) => {
-        if (offer.id === action.payload.id) {
+        if (offer.id === action.payload) {
           offer.isFavorite = !offer.isFavorite;
         }
       });
+    })
+    .addCase(updateRoom, (state, action) => {
+      state.currentOffer.isFavorite = !state.currentOffer.isFavorite;
     });
 });
