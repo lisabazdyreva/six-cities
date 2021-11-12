@@ -1,6 +1,6 @@
 import {ChangeEvent, SyntheticEvent, useState} from 'react';
 import {useDispatch} from 'react-redux';
-import {loginAction} from '../../store/actions/api-actions';
+import {loginAction} from '../../store/actions/api-actions/api-actions-user';
 
 
 function LoginScreenForm(): JSX.Element {

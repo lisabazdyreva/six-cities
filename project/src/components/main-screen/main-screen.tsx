@@ -20,7 +20,8 @@ import {getSelectedCity, getSortedOffers} from '../../store/app-process/selector
 import {getFetchStatusOffers, getOffers} from '../../store/app-data/selectors';
 import {filterOffers} from '../../utils/utils';
 import {changeActiveSortType, fillOffersList, selectActiveCity} from '../../store/actions/action';
-import {postFavorite} from '../../store/actions/api-actions';
+
+import {postFavorite} from '../../store/actions/api-actions/api-actions-favorite';
 
 import classNames from 'classnames';
 
@@ -44,8 +45,8 @@ function MainScreen(): JSX.Element {
 
   function onFavoriteClick(isFavorite: boolean, id: number) {
     const status = isFavorite ? FavoriteStatus.RemoveFromFavorite : FavoriteStatus.AddToFavorite;
-    const page = CardTypes.Main;
-    dispatch(postFavorite({id, status, page}));
+    const cardType = CardTypes.Main;
+    dispatch(postFavorite({id, status, cardType}));
   }
 
   const cardsLength = cards.length;

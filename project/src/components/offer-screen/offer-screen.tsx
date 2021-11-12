@@ -12,7 +12,9 @@ import {setActiveId} from '../../store/actions/action';
 
 import {CardTypes, FavoriteStatus, FetchStatus, MapStylesProperties} from '../../const';
 
-import {fetchCurrentOffer, fetchFavoriteOffers, fetchNearbyOffers, postFavorite} from '../../store/actions/api-actions';
+import {fetchCurrentOffer, fetchNearbyOffers} from '../../store/actions/api-actions/api-actions-offers';
+import {postFavorite, fetchFavoriteOffers} from '../../store/actions/api-actions/api-actions-favorite';
+
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Spinner from '../spinner/spinner';
 import {
@@ -51,21 +53,21 @@ function OfferScreen(): JSX.Element {
 
   function onFavoriteClickCard(isFavorite: boolean) {
     const status = isFavorite ? FavoriteStatus.RemoveFromFavorite: FavoriteStatus.AddToFavorite;
-    const page = CardTypes.Offer;
+    const cardType = CardTypes.Offer;
     //eslint-disable-next-line
     const id = idNum;
     //TODO нейминг
-    dispatch(postFavorite({id, status, page}));
+    dispatch(postFavorite({id, status, cardType}));
     dispatch(fetchFavoriteOffers(authorizationStatus));
   }
 
   function onFavoriteClickNearby(isFavorite: boolean, idNearby: number) {
     const status = isFavorite ? FavoriteStatus.RemoveFromFavorite: FavoriteStatus.AddToFavorite;
-    const page = CardTypes.Nearby;
+    const cardType = CardTypes.Nearby;
     //eslint-disable-next-line
     const id = idNearby;
     //TODO нейминг
-    dispatch(postFavorite({id, status, page}));
+    dispatch(postFavorite({id, status, cardType}));
     dispatch(fetchFavoriteOffers(authorizationStatus));
   }
 

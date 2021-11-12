@@ -1,7 +1,7 @@
 import {ChangeEvent, FormEvent, useCallback, useState} from 'react';
 import {useDispatch} from 'react-redux';
 
-import {postComment} from '../../store/actions/api-actions';
+import {postComment} from '../../store/actions/api-actions/api-actions-comments';
 
 import CommentFormRating from '../comment-form-rating/comment-form-rating';
 import CommentFormMessage from '../comment-form-message/comment-form-message';

@@ -161,3 +161,10 @@ export const OfferRatingValues = {
   [OfferRatingTitles.Badly]: 2,
   [OfferRatingTitles.Terribly]: 1,
 };
+
+export const enum WarningMessage {
+  FetchFavorite = 'Sorry we could not show your favorites right now. Please try later.',
+  PostFavorite = 'Sorry we could not add the offer to favorite right now. Please try later.',
+  PostComment = 'Sorry we could not post your comment right now. Please try later.',
+  CheckAuthorization = 'Please login to get access to all functionality of the app',
+}

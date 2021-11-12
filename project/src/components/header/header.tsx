@@ -6,7 +6,9 @@ import Logo from '../logo/logo';
 
 import {AppRoute, AuthorizationStatus, INITIAL_CITY} from '../../const';
 
-import {checkAuthorization, logoutAction} from '../../store/actions/api-actions';
+import {logoutAction} from '../../store/actions/api-actions/api-actions-user';
+import {checkAuthorization} from '../../store/actions/api-actions/api-actions-user';
+
 import {getAuthorizationStatus, getLogin} from '../../store/app-user/selectors';
 import {selectActiveCity} from '../../store/actions/action';
 

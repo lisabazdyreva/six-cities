@@ -6,7 +6,7 @@ import CommentForm from '../comment-form/comment-form';
 
 import {AuthorizationStatus} from '../../const';
 
-import {fetchOfferComments} from '../../store/actions/api-actions';
+import {fetchOfferComments} from '../../store/actions/api-actions/api-actions-comments';
 import {getId} from '../../store/app-process/selectors';
 import {getAuthorizationStatus} from '../../store/app-user/selectors';
 import {getCommentsList} from '../../store/app-data/selectors';

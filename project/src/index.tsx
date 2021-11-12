@@ -11,7 +11,10 @@ import App from './components/app/app';
 
 import {AuthorizationStatus} from './const';
 
-import {checkAuthorization, fetchFavoriteOffers, fetchOffersList} from './store/actions/api-actions';
+import {fetchOffersList} from './store/actions/api-actions/api-actions-offers';
+import {checkAuthorization} from './store/actions/api-actions/api-actions-user';
+import {fetchFavoriteOffers} from './store/actions/api-actions/api-actions-favorite';
+
 import {requireAuthorization} from './store/actions/action';
 
 import {ToastContainer} from 'react-toastify';

@@ -9,7 +9,10 @@ import {getFavoriteCitiesList} from '../../utils/utils';
 
 import {AppRoute, CardTypes, FavoriteStatus} from '../../const';
 import {getFavoriteOffers} from '../../store/app-data/selectors';
-import {fetchFavoriteOffers, postFavorite} from '../../store/actions/api-actions';
+
+import {postFavorite, fetchFavoriteOffers} from '../../store/actions/api-actions/api-actions-favorite';
+
+
 import {useEffect} from 'react';
 import {getAuthorizationStatus} from '../../store/app-user/selectors';
 
@@ -39,8 +42,8 @@ function FavoritesCardsList(): JSX.Element {
 
   function onFavoriteDelete(id: number) {
     const status = FavoriteStatus.RemoveFromFavorite;
-    const page = CardTypes.Favorite;
-    dispatch(postFavorite({id, status, page}));
+    const cardType = CardTypes.Favorite;
+    dispatch(postFavorite({id, status, cardType}));
     dispatch(fetchFavoriteOffers(authorizationStatus));
   }
 
