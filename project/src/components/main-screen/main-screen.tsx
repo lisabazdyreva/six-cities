@@ -2,7 +2,6 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import Icons from '../icons/icons';
 import MainCardsList from '../main-cards-list/main-cards-list';
-import NotFoundScreen from '../not-found-screen/not-found-screen';
 import NoOffers from '../no-offers/no-offers';
 import Header from '../header/header';
 import Map from '../map/map';
@@ -51,10 +50,6 @@ function MainScreen(): JSX.Element {
 
   const cardsLength = cards.length;
 
-  if (fetchStatus === FetchStatus.Error) {
-    return <NotFoundScreen />;
-  }
-
   return (
     <>
       <Icons />
@@ -70,7 +65,7 @@ function MainScreen(): JSX.Element {
               <LocationsList onLocationClick={onLocationClick} selectedCity={selectedCity}/>
             </section>
           </div>
-          {cards.length ?
+          {(cards.length && fetchStatus === FetchStatus.Ok) ?
             <div className="cities">
               <div className="cities__places-container container">
                 <section className="cities__places places">
@@ -89,8 +84,7 @@ function MainScreen(): JSX.Element {
                   </section>
                 </div>
               </div>
-            </div> :
-            <NoOffers city={selectedCity}/>}
+            </div> : <NoOffers city={selectedCity} fetchStatus={fetchStatus}/>}
         </main>
       </div>
     </>

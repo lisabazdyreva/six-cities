@@ -12,6 +12,7 @@ export enum ActionType {
   GetOffers = 'data/getOffers',
   SetCurrentOffer = 'data/setCurrentOffer',
   SetFetchStatusOffers = 'data/setFetchStatusOffers',
+  SetFetchStatusOffer = 'data/setFetchStatusOffer',
   SetFetchStatusNearbyOffers = 'data/setFetchStatusNearbyOffers',
   SetFetchStatusComments = 'data/setFetchStatusComments',
   SetCommentsList = 'data/setCommentsList',

@@ -20,6 +20,11 @@ export function getFetchStatusOffers(state: State): FetchStatus {
   return state[NameSpace.data].fetchStatusOffers;
 }
 
+export function getFetchStatusOffer(state: State): FetchStatus {
+  return state[NameSpace.data].fetchStatusOffer;
+}
+
+
 export function getFetchStatusNearbyOffers(state: State): FetchStatus {
   return state[NameSpace.data].fetchStatusNearbyOffers;
 }

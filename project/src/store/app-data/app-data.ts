@@ -9,6 +9,7 @@ import {
   setCurrentOffer,
   setFetchStatusNearbyOffers,
   setFetchStatusOffers,
+  setFetchStatusOffer,
   setNearbyOffersList,
   setFetchStatusComments,
   setFavoriteOffers,
@@ -22,6 +23,7 @@ const initialState: AppData = {
   isDataLoaded: false,
   currentOffer: DEFAULT_CURRENT_OFFER,
   fetchStatusOffers: FetchStatus.Trying,
+  fetchStatusOffer: FetchStatus.Trying,
   fetchStatusNearbyOffers: FetchStatus.Trying,
   fetchStatusComments: FetchStatus.Trying,
   commentsList: [],
@@ -40,6 +42,9 @@ export const appData = createReducer(initialState, (builder) => {
     })
     .addCase(setFetchStatusOffers, (state, action) => {
       state.fetchStatusOffers = action.payload;
+    })
+    .addCase(setFetchStatusOffer, (state, action) => {
+      state.fetchStatusOffer = action.payload;
     })
     .addCase(setFetchStatusNearbyOffers, (state, action) => {
       state.fetchStatusNearbyOffers = action.payload;

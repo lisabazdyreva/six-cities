@@ -18,7 +18,7 @@ import Spinner from '../spinner/spinner';
 import {
   getCurrentOffer,
   getFetchStatusNearbyOffers,
-  getFetchStatusOffers,
+  getFetchStatusOffer,
   getNearbyOffers
 } from '../../store/app-data/selectors';
 import {getAuthorizationStatus} from '../../store/app-user/selectors';
@@ -28,7 +28,7 @@ function OfferScreen(): JSX.Element {
 
   const currentOffer = useSelector(getCurrentOffer);
   const nearbyData = useSelector(getNearbyOffers);
-  const fetchStatusOffer = useSelector(getFetchStatusOffers);
+  const fetchStatusOffer = useSelector(getFetchStatusOffer);
   const fetchStatusNearbyOffer = useSelector(getFetchStatusNearbyOffers);
   const authorizationStatus = useSelector(getAuthorizationStatus);
 

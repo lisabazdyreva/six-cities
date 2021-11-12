@@ -9,6 +9,7 @@ export type AppData = {
   isDataLoaded: boolean,
   currentOffer: Offer,
   fetchStatusOffers: FetchStatus,
+  fetchStatusOffer: FetchStatus,
   fetchStatusNearbyOffers: FetchStatus,
   fetchStatusComments: FetchStatus,
   commentsList: Reviews,

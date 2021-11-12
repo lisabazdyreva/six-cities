@@ -14,6 +14,7 @@ import {
   setFetchStatusComments,
   setFetchStatusNearbyOffers,
   setFetchStatusOffers,
+  setFetchStatusOffer,
   setLogin,
   setNearbyOffersList,
   updateNearby,
@@ -56,13 +57,13 @@ function fetchOffersList(): ThunkActionResult {
 
 function fetchCurrentOffer(id: number): ThunkActionResult {
   return async (dispatch, _getState, api): Promise<void> => {
-    dispatch(setFetchStatusOffers(FetchStatus.Trying));
+    dispatch(setFetchStatusOffer(FetchStatus.Trying));
     await api.get(`/hotels/${id}`)
       .then(({data}) => adaptToClient([data]))
       .then(([data]) => dispatch(setCurrentOffer(data)))
-      .then(() => dispatch(setFetchStatusOffers(FetchStatus.Ok)))
+      .then(() => dispatch(setFetchStatusOffer(FetchStatus.Ok)))
 
-      .catch(() => dispatch(setFetchStatusOffers(FetchStatus.Error))); // 404 срабатывает
+      .catch(() => dispatch(setFetchStatusOffer(FetchStatus.Error))); // 404 срабатывает
   };
 }
 

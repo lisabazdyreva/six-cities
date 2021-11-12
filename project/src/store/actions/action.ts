@@ -114,6 +114,13 @@ export const setFetchStatusOffers = createAction(
   }),
 );
 
+export const setFetchStatusOffer = createAction(
+  ActionType.SetFetchStatusOffer,
+  (status: FetchStatus) => ({
+    payload: status,
+  }),
+);
+
 export const setFetchStatusNearbyOffers = createAction(
   ActionType.SetFetchStatusNearbyOffers,
   (status: FetchStatus) => ({
