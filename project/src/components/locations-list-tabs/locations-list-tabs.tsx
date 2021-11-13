@@ -3,9 +3,9 @@ import {Locations} from '../../const';
 
 
 type LocationsListTabsProps = {
-  city: Locations,
-  onClick: (city: Locations) => void,
-  selectedCity: Locations,
+  city: Locations;
+  onClick: (city: Locations) => void;
+  selectedCity: Locations;
 };
 
 

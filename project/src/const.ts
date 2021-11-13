@@ -78,7 +78,7 @@ export const MapStylesProperties: MapStylesPropertiesTypes = {
 export enum CardTypes {
   Main = 'Main',
   Offer = 'Offer',
-  Nearby = 'Nearby', // TODO оптимизировать нейминг
+  Nearby = 'Nearby',
   Favorite = 'Favorite',
 }
 
@@ -90,6 +90,7 @@ export enum SortTypes {
   Rating = 'Top rated first',
 }
 
+export const sortTypesList = Object.values(SortTypes);
 
 export const defaultIcon = {
   iconUrl: IconsURL.Default,

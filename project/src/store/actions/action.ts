@@ -4,7 +4,7 @@ import {ActionType} from '../../types/action';
 import type {Offer, Offers} from '../../types/offer';
 import type {Reviews} from '../../types/review';
 
-import {AppRoute, AuthorizationStatus, FetchStatus, Locations} from '../../const';
+import {AppRoute, AuthorizationStatus, FetchStatus, Locations, SortTypes} from '../../const';
 
 
 export const selectActiveCity = createAction(
@@ -23,7 +23,7 @@ export const fillOffersList = createAction(
 
 export const changeActiveSortType = createAction(
   ActionType.ChangeActiveSortType,
-  (sortingValue: string) => ({
+  (sortingValue: SortTypes) => ({
     payload: sortingValue,
   }),
 );

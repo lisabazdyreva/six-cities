@@ -13,7 +13,7 @@ type FavoriteCardsByCities = {
 
 type FavoritesCardsListProps = {
   onFavoriteDelete: (id: number) => void;
-  favoriteCardsByCities: FavoriteCardsByCities
+  favoriteCardsByCities: FavoriteCardsByCities;
 };
 
 

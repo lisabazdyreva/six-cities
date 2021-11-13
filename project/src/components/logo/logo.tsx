@@ -8,7 +8,6 @@ import {setActiveId} from '../../store/actions/action';
 
 function Logo():JSX.Element {
   const dispatch = useDispatch();
-
   return (
     <div className="header__left">
       <Link className="header__logo-link header__logo-link--active" to={AppRoute.Main} onClick={() => dispatch(setActiveId(DEFAULT_ID))}>
@@ -19,4 +18,4 @@ function Logo():JSX.Element {
 }
 
 export {Logo};
-export default {Logo};
+export default Logo;

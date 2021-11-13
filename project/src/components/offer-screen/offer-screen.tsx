@@ -15,12 +15,8 @@ import {CardTypes, FavoriteStatus, FetchStatus, MapStylesProperties, ERROR_NEARB
 import {setActiveId} from '../../store/actions/action';
 import {fetchCurrentOffer, fetchNearbyOffers} from '../../store/actions/api-actions/api-actions-offers';
 import {postFavorite, fetchFavoriteOffers} from '../../store/actions/api-actions/api-actions-favorite';
-import {
-  getCurrentOffer,
-  getFetchStatusNearbyOffers,
-  getFetchStatusOffer,
-  getNearbyOffers
-} from '../../store/app-data/selectors';
+import {getCurrentOffer, getNearbyOffers} from '../../store/app-data/selectors';
+import {getFetchStatusNearbyOffers, getFetchStatusOffer} from '../../store/app-status/selectors';
 import {getAuthorizationStatus} from '../../store/app-user/selectors';
 
 
@@ -47,7 +43,7 @@ function OfferScreen(): JSX.Element {
   useEffect(() => {
     dispatch(fetchCurrentOffer(idNum));
     dispatch(fetchNearbyOffers(idNum));
-  }, [idNum]);
+  }, [idNum, dispatch]);
 
 
   function onFavoriteClickCard(isFavorite: boolean) {

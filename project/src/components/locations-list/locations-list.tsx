@@ -3,7 +3,7 @@ import {citiesList as cities, Locations} from '../../const';
 
 
 type LocationsListProps = {
-  onLocationClick: (city: Locations) => void,
+  onLocationClick: (city: Locations) => void;
   selectedCity: Locations;
 };
 

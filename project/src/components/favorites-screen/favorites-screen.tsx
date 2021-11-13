@@ -6,7 +6,7 @@ import FavoritesCardsList from '../favorites-cards-list/favorites-cards-list';
 import Header from '../header/header';
 
 import {CardTypes, FavoriteStatus, NO_FAVORITES_MESSAGE} from '../../const';
-import {getFavoriteCardsByCities} from '../../utils/utils';
+import {getFavoriteCardsByCities} from '../../utils/sort-utils';
 
 import {getFavoriteOffers} from '../../store/app-data/selectors';
 import {getAuthorizationStatus} from '../../store/app-user/selectors';
@@ -31,7 +31,7 @@ function FavoritesScreen(): JSX.Element {
 
   useEffect(() => {
     dispatch(fetchFavoriteOffers(authorizationStatus));
-  }, [offers]);
+  }, [offers, authorizationStatus, dispatch]);
 
   return (
     <>

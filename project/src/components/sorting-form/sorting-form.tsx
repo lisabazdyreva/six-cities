@@ -4,13 +4,11 @@ import classNames from 'classnames';
 
 import {changeActiveSortType, fillOffersList} from '../../store/actions/action';
 
-import {getSortedOffers} from '../../utils/utils';
-import {SortTypes} from '../../const';
+import {getSortedOffers} from '../../utils/sort-utils';
+import {SortTypes, sortTypesList} from '../../const';
 
 import {getActiveSortType, getSortedOffers as getOffers} from '../../store/app-process/selectors'; // !TODO нейминг
 
-
-const sortTypesList = Object.values(SortTypes); // TODO вынести
 
 function SortingForm(): JSX.Element {
   const dispatch = useDispatch();
@@ -20,19 +18,19 @@ function SortingForm(): JSX.Element {
 
   const [isOpenSorting, setOpenSorting] = useState(false);
 
-  function sortOffers(type: string) {
+  function sortOffers(type: SortTypes) {
     const sortingOffers = getSortedOffers(type, sortedOffers);
-
     dispatch(fillOffersList(sortingOffers));
   }
 
-  function changeSortType(type: string) {
+  function changeSortType(type: SortTypes) {
     dispatch(changeActiveSortType(type));
     sortOffers(type);
   }
 
   function onSortTypeClick (type: string) {
-    changeSortType(type);
+    const [sortType] = Object.values(SortTypes).filter((key) => key === type);
+    changeSortType(sortType);
     setOpenSorting(!isOpenSorting);
   }
 

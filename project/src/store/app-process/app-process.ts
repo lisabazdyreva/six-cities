@@ -37,6 +37,7 @@ export const appProcess = createReducer(initialState, (builder) => {
         if (offer.id === action.payload) {
           offer.isFavorite = !offer.isFavorite;
         }
+        return state.sortedOffers;
       });
     });
 });

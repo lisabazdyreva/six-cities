@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import type {Offer} from '../../types/offer';
 
 import {formatType, getRatingPercentValue, isMainPage} from '../../utils/utils';
-import {AppRoute, AuthorizationStatus, CardTypes, DEFAULT_ID} from '../../const';
+import {AppRoute, AuthorizationStatus, DEFAULT_ID} from '../../const';
 
 import {setActiveId} from '../../store/actions/action';
 import {getAuthorizationStatus} from '../../store/app-user/selectors';
@@ -22,26 +22,27 @@ type CardProps = {
 function Card({card, typeCard, onFavoriteClick}: CardProps): JSX.Element {
   const {price, title, isPremium, rating, type, previewImage, id, isFavorite} = card;
 
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+
   const typeValue = formatType(type);
   const ratingPercentValue = getRatingPercentValue(rating);
   const priceValue = `€ ${price}`;
   const linkValue = `${AppRoute.Room}/${ id }`;
 
-  const dispatch = useDispatch();
-  const history = useHistory();
-
-  const authorizationStatus = useSelector(getAuthorizationStatus);
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
 
 
   const setId = () => {
-    if (typeCard === CardTypes.Main) {
+    if (isMainPage(typeCard)) {
       dispatch(setActiveId(id));
     }
   };
 
   const setDefaultId = () => {
-    if (typeCard === CardTypes.Main) {
+    if (isMainPage(typeCard)) {
       dispatch(setActiveId(DEFAULT_ID));
     }
   };
@@ -49,12 +50,12 @@ function Card({card, typeCard, onFavoriteClick}: CardProps): JSX.Element {
 
   const handleEnter = useCallback(
     setId,
-    [],
+    [id, dispatch, typeCard],
   );
 
   const handleLeave = useCallback(
     setDefaultId,
-    [],
+    [dispatch, typeCard],
   );
 
   const onFavoriteChange = () => {

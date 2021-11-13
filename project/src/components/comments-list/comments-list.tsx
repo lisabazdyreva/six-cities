@@ -5,9 +5,9 @@ import {Reviews} from '../../types/review';
 import CommentMessage from '../comment-message/comment-message';
 
 import {FetchStatus, COMMENTS_MAX_LENGTH, ERROR_COMMENTS_MESSAGE} from '../../const';
-import {getSortedComments} from '../../utils/utils';
+import {getSortedComments} from '../../utils/sort-utils';
 
-import {getFetchStatusComments} from '../../store/app-data/selectors';
+import {getFetchStatusComments} from '../../store/app-status/selectors';
 
 
 type CommentsListProps = {
@@ -16,11 +16,11 @@ type CommentsListProps = {
 
 
 function CommentsList({commentsList}: CommentsListProps):JSX.Element {
+  const fetchStatus = useSelector(getFetchStatusComments);
 
   const getComments = (comments: Reviews) => getSortedComments(comments).slice(0, COMMENTS_MAX_LENGTH - 1);
   const comments = getComments(commentsList);
 
-  const fetchStatus = useSelector(getFetchStatusComments);
   const isFetchError = fetchStatus === FetchStatus.Error;
 
 

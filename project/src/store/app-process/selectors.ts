@@ -11,7 +11,7 @@ export function getSelectedCity(state: State): Locations {
   return state[NameSpace.app].selectedCity;
 }
 
-export function getActiveSortType(state: State): SortTypes | string {
+export function getActiveSortType(state: State): SortTypes {
   return state[NameSpace.app].activeSortType;
 }
 

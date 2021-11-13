@@ -25,7 +25,7 @@ function CommentsSection(): JSX.Element {
 
   useEffect(() => {
     dispatch(fetchOfferComments(id));
-  }, [id]);
+  }, [id, dispatch]);
 
 
   return (

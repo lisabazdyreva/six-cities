@@ -10,7 +10,7 @@ import {
   setNearbyOffersList
 } from '../action';
 
-import {filterOffers} from '../../../utils/utils';
+import {filterOffers} from '../../../utils/sort-utils';
 import {adaptToClient} from '../../../utils/adapt-utils';
 import {
   APIRoute,

@@ -17,10 +17,11 @@ import {
   Locations,
   MapStylesProperties
 } from '../../const';
-import {filterOffers} from '../../utils/utils';
+import {filterOffers} from '../../utils/sort-utils';
 
 import {getSelectedCity, getSortedOffers} from '../../store/app-process/selectors';
-import {getFetchStatusOffers, getOffers} from '../../store/app-data/selectors';
+import {getOffers} from '../../store/app-data/selectors';
+import {getFetchStatusOffers} from '../../store/app-status/selectors';
 import {changeActiveSortType, fillOffersList, selectActiveCity} from '../../store/actions/action';
 import {postFavorite} from '../../store/actions/api-actions/api-actions-favorite';
 
@@ -52,8 +53,6 @@ function MainScreen(): JSX.Element {
     dispatch(postFavorite({id, status, cardType}));
   }
 
-
-
   return (
     <>
       <Icons />
@@ -61,7 +60,7 @@ function MainScreen(): JSX.Element {
         <Header />
         <main className={classNames(
           'page__main page__main--index',
-          {'page__main--index-empty' : !Boolean(cardsLength)})}
+          {'page__main--index-empty' : cardsLength})}
         >
           <h1 className="visually-hidden">Cities</h1>
           <div className="tabs">

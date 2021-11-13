@@ -44,9 +44,9 @@ function Header(): JSX.Element {
                       </Link>
                     </li>
                     <li className="header__nav-item">
-                      <a className="header__nav-link" onClick={onLogout}>
+                      <Link className="header__nav-link" onClick={onLogout} to={AppRoute.Main}>
                         <span className="header__signout">Sign out</span>
-                      </a>
+                      </Link>
                     </li>
                   </>
                 ) : (

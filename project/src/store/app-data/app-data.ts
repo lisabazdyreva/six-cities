@@ -1,17 +1,13 @@
 import {AppData} from '../../types/state';
 
-import {DEFAULT_CURRENT_OFFER, FetchStatus} from '../../const';
+import {DEFAULT_CURRENT_OFFER} from '../../const';
 import {createReducer} from '@reduxjs/toolkit';
 
 import {
   getOffers,
   setCommentsList,
   setCurrentOffer,
-  setFetchStatusNearbyOffers,
-  setFetchStatusOffers,
-  setFetchStatusOffer,
   setNearbyOffersList,
-  setFetchStatusComments,
   setFavoriteOffers,
   updateOffer, updateRoom,
   updateNearby
@@ -22,10 +18,6 @@ const initialState: AppData = {
   offers: [],
   isDataLoaded: false,
   currentOffer: DEFAULT_CURRENT_OFFER,
-  fetchStatusOffers: FetchStatus.Trying,
-  fetchStatusOffer: FetchStatus.Trying,
-  fetchStatusNearbyOffers: FetchStatus.Trying,
-  fetchStatusComments: FetchStatus.Trying,
   commentsList: [],
   nearbyOffers: [],
   favoriteOffers: [],
@@ -39,18 +31,6 @@ export const appData = createReducer(initialState, (builder) => {
     })
     .addCase(setCurrentOffer, (state, action) => {
       state.currentOffer = action.payload;
-    })
-    .addCase(setFetchStatusOffers, (state, action) => {
-      state.fetchStatusOffers = action.payload;
-    })
-    .addCase(setFetchStatusOffer, (state, action) => {
-      state.fetchStatusOffer = action.payload;
-    })
-    .addCase(setFetchStatusNearbyOffers, (state, action) => {
-      state.fetchStatusNearbyOffers = action.payload;
-    })
-    .addCase(setFetchStatusComments, (state, action) => {
-      state.fetchStatusComments = action.payload;
     })
     .addCase(setCommentsList, (state, action) => {
       state.commentsList = action.payload;
@@ -66,9 +46,10 @@ export const appData = createReducer(initialState, (builder) => {
         if (offer.id === action.payload) {
           offer.isFavorite = !offer.isFavorite;
         }
+        return state.offers;
       });
     })
-    .addCase(updateRoom, (state, action) => {
+    .addCase(updateRoom, (state) => {
       state.currentOffer.isFavorite = !state.currentOffer.isFavorite;
     })
     .addCase(updateNearby, (state, action) => {
@@ -76,6 +57,7 @@ export const appData = createReducer(initialState, (builder) => {
         if (offer.id === action.payload) {
           offer.isFavorite = !offer.isFavorite;
         }
+        return state.nearbyOffers;
       });
     });
 });
