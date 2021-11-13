@@ -1,27 +1,30 @@
 import {useHistory} from 'react-router-dom';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import classNames from 'classnames';
 
 import type {Offer} from '../../types/offer';
 
 import CommentsSection from '../comments-section/comments-section';
 
-import {getRatingPercentValue, formatType} from '../../utils/utils';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {formatType, getRatingPercentValue} from '../../utils/utils';
+import {AppRoute, AuthorizationStatus, CardTypes, FavoriteStatus} from '../../const';
 
 import {getAuthorizationStatus} from '../../store/app-user/selectors';
-import classNames from 'classnames';
+
+import {fetchFavoriteOffers, postFavorite} from '../../store/actions/api-actions/api-actions-favorite';
 
 
 type OfferCardProps = {
   card: Offer;
-  onFavoriteClick: (isFavorite: boolean) => void;
+  typeCard: CardTypes;
 };
 
 
-function OfferCard({card, onFavoriteClick}: OfferCardProps): JSX.Element {
-  const {title, rating, type, bedrooms, maxAdults, price, goods, host, description, isPremium, isFavorite, images} = card;
+function OfferCard({card, typeCard}: OfferCardProps): JSX.Element {
+  const {title, rating, type, bedrooms, maxAdults, price, goods, host, description, isPremium, isFavorite, images, id} = card;
 
   const history = useHistory();
+  const dispatch = useDispatch();
   const authorizationStatus = useSelector(getAuthorizationStatus);
 
   const ratingPercentValue = getRatingPercentValue(rating);
@@ -38,9 +41,11 @@ function OfferCard({card, onFavoriteClick}: OfferCardProps): JSX.Element {
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
 
 
-  function onFavoriteChange() {
+  function onFavoriteClick() {
     if (isAuth) {
-      onFavoriteClick(isFavorite);
+      const status = isFavorite ? FavoriteStatus.RemoveFromFavorite: FavoriteStatus.AddToFavorite;
+      dispatch(postFavorite({id, status, typeCard}));
+      dispatch(fetchFavoriteOffers(authorizationStatus));
     } else {
       history.push(AppRoute.Login);
     }
@@ -64,7 +69,7 @@ function OfferCard({card, onFavoriteClick}: OfferCardProps): JSX.Element {
                 {'property__bookmark-button--active' : isFavorite},
               )}
               type="button"
-              onClick={onFavoriteChange}
+              onClick={onFavoriteClick}
             >
               <svg className="property__bookmark-icon" width="31" height="33">
                 <use xlinkHref="#icon-bookmark"/>

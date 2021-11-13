@@ -6,20 +6,20 @@ import classNames from 'classnames';
 import type {Offer} from '../../types/offer';
 
 import {formatType, getRatingPercentValue, isMainPage} from '../../utils/utils';
-import {AppRoute, AuthorizationStatus, DEFAULT_ID} from '../../const';
+import {AppRoute, AuthorizationStatus, CardTypes, DEFAULT_ID, FavoriteStatus} from '../../const';
 
 import {setActiveId} from '../../store/actions/action';
 import {getAuthorizationStatus} from '../../store/app-user/selectors';
+import {fetchFavoriteOffers, postFavorite} from '../../store/actions/api-actions/api-actions-favorite';
 
 
 type CardProps = {
   card: Offer;
-  typeCard: string;
-  onFavoriteClick: (isFavorite: boolean, id: number) => void;
+  typeCard: CardTypes;
 };
 
 
-function Card({card, typeCard, onFavoriteClick}: CardProps): JSX.Element {
+function Card({card, typeCard}: CardProps): JSX.Element {
   const {price, title, isPremium, rating, type, previewImage, id, isFavorite} = card;
 
   const dispatch = useDispatch();
@@ -60,7 +60,9 @@ function Card({card, typeCard, onFavoriteClick}: CardProps): JSX.Element {
 
   const onFavoriteChange = () => {
     if (isAuth) {
-      onFavoriteClick(isFavorite, id);
+      const status = isFavorite ? FavoriteStatus.RemoveFromFavorite: FavoriteStatus.AddToFavorite;
+      dispatch(postFavorite({id, status, typeCard}));
+      dispatch(fetchFavoriteOffers(authorizationStatus));
     } else {
       history.push(AppRoute.Login);
     }

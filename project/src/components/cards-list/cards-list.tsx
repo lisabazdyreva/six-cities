@@ -2,16 +2,16 @@ import classNames from 'classnames';
 import type {Offers} from '../../types/offer';
 import Card from '../card/card';
 import {isMainPage} from '../../utils/utils';
+import {CardTypes} from '../../const';
 
 
 type CardsListProps = {
   cards: Offers;
-  type: string;
-  onFavoriteClick: (isFavorite: boolean, id: number) => void;
+  type: CardTypes;
 };
 
 
-function CardsList({cards, type, onFavoriteClick}: CardsListProps): JSX.Element {
+function CardsList({cards, type}: CardsListProps): JSX.Element {
   return (
     <div
       className={classNames(
@@ -25,7 +25,6 @@ function CardsList({cards, type, onFavoriteClick}: CardsListProps): JSX.Element 
             card={card}
             key={card.id}
             typeCard={type}
-            onFavoriteClick={onFavoriteClick}
           />
         ))
       }

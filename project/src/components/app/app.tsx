@@ -1,5 +1,5 @@
 import {Router as BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 
 import MainScreen from '../main-screen/main-screen';
 import LoginScreen from '../login-screen/login-screen';
@@ -16,9 +16,11 @@ import {AppRoute, AuthorizationStatus, FetchStatus} from '../../const';
 import {getIsDataLoaded} from '../../store/app-data/selectors';
 import {getFetchStatusOffers} from '../../store/app-status/selectors';
 import {getAuthorizationStatus} from '../../store/app-user/selectors';
+import {fetchOffersList} from '../../store/actions/api-actions/api-actions-offers';
 
 
 function App(): JSX.Element {
+  const dispatch = useDispatch();
 
   const isDataLoaded = useSelector(getIsDataLoaded);
   const fetchStatus = useSelector(getFetchStatusOffers);
@@ -30,6 +32,12 @@ function App(): JSX.Element {
 
   if (!isDataLoaded && isFetchTrying) {
     return <Spinner />;
+  }
+
+  if (fetchStatus === FetchStatus.Error) {
+    setTimeout(() => {
+      dispatch(fetchOffersList()); // оставить ли?
+    }, 10000);
   }
 
   return (

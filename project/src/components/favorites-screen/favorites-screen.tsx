@@ -5,12 +5,12 @@ import Icons from '../icons/icons';
 import FavoritesCardsList from '../favorites-cards-list/favorites-cards-list';
 import Header from '../header/header';
 
-import {CardTypes, FavoriteStatus, NO_FAVORITES_MESSAGE} from '../../const';
+import {ErrorMessage} from '../../const';
 import {getFavoriteCardsByCities} from '../../utils/sort-utils';
 
 import {getFavoriteOffers} from '../../store/app-data/selectors';
 import {getAuthorizationStatus} from '../../store/app-user/selectors';
-import {fetchFavoriteOffers, postFavorite} from '../../store/actions/api-actions/api-actions-favorite';
+import {fetchFavoriteOffers} from '../../store/actions/api-actions/api-actions-favorite';
 
 
 function FavoritesScreen(): JSX.Element {
@@ -21,13 +21,6 @@ function FavoritesScreen(): JSX.Element {
 
   const isOffers = offers.length;
   const favoriteCardsByCities = getFavoriteCardsByCities(offers.slice());
-
-  function onFavoriteDelete(id: number) {
-    const status = FavoriteStatus.RemoveFromFavorite;
-    const cardType = CardTypes.Favorite;
-    dispatch(postFavorite({id, status, cardType}));
-    dispatch(fetchFavoriteOffers(authorizationStatus));
-  }
 
   useEffect(() => {
     dispatch(fetchFavoriteOffers(authorizationStatus));
@@ -43,8 +36,8 @@ function FavoritesScreen(): JSX.Element {
             <section className="favorites">
               <h1 className="favorites__title">Saved listing</h1>
               {isOffers ?
-                <FavoritesCardsList onFavoriteDelete={onFavoriteDelete} favoriteCardsByCities={favoriteCardsByCities} /> :
-                <span>{NO_FAVORITES_MESSAGE}</span>}
+                <FavoritesCardsList favoriteCardsByCities={favoriteCardsByCities} /> :
+                <span>{ErrorMessage.NoFavorites}</span>}
             </section>
           </div>
         </main>

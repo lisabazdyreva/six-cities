@@ -105,11 +105,8 @@ export const currentIcon = {
 };
 
 export const INITIAL_CITY = Locations.Paris;
-
 export const INITIAL_LOGIN= '';
-
 export const DEFAULT_SORT_TYPE =  SortTypes.Popular;
-
 export const DEFAULT_ID = 0;
 
 export const DEFAULT_CURRENT_OFFER = {
@@ -173,17 +170,18 @@ export const enum WarningMessage {
 export const enum CommentLength {
   MaxLength = 300,
   MinLength= 50,
+  ListLength = 10,
 }
 
-export const COMMENTS_MAX_LENGTH = 10;
-export const ERROR_COMMENTS_MESSAGE = 'Comments did not found. Try later';
-export const NO_FAVORITES_MESSAGE = 'There are no favorite offers. Add some offers to favorite.';
-export const ERROR_NO_OFFERS_MESSAGE = 'Sorry, server is not respond'; //TODO загуглить на английском
-export const ERROR_PASSWORD_INPUT_MESSAGE = 'The password must be at least 1 letter and 1 number.';
-export const ERROR_NEARBY_MESSAGE = 'Nothing found. Try later.';
+export const enum ErrorMessage {
+  Comments = 'Comments did not found. Try later',
+  NoOffers = 'Sorry, server is not respond right now.',
+  PasswordInput = 'The password must be at least 1 letter and 1 number.',
+  Nearby = 'Nothing found. Try later.',
+  NoFavorites = 'There are no favorite offers. Add some offers to favorite.',
+}
 
 export const regExpPassword = /(?=.*[0-9])(?=.*[A-Za-z])[0-9A-Za-z]{2,}/;
-
 
 export const BASE_URL = 'https://8.react.pages.academy/six-cities';
 export const TIMEOUT = 5000;

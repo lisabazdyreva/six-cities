@@ -1,16 +1,30 @@
+import {useDispatch, useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import type {Offers, Offer} from '../../types/offer';
 import {formatType, getRatingPercentValue} from '../../utils/utils';
-import {AppRoute} from '../../const';
+import {AppRoute, CardTypes, FavoriteStatus} from '../../const';
+import {fetchFavoriteOffers, postFavorite} from '../../store/actions/api-actions/api-actions-favorite';
+import {getAuthorizationStatus} from '../../store/app-user/selectors';
 
 
 type FavoriteCardsProps = {
   cardsByCity: Offers;
-  onFavoriteClick: (id: number) => void;
+  typeCard: CardTypes;
 };
 
 
-function FavoriteCards({cardsByCity, onFavoriteClick}: FavoriteCardsProps): JSX.Element {
+function FavoriteCards({cardsByCity, typeCard}: FavoriteCardsProps): JSX.Element {
+  const dispatch = useDispatch();
+
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+
+  function onFavoriteDelete(id: number) {
+    const status = FavoriteStatus.RemoveFromFavorite;
+
+    dispatch(postFavorite({id, status, typeCard}));
+    dispatch(fetchFavoriteOffers(authorizationStatus));
+  }
+
   return (
     <>
       {cardsByCity.map((card: Offer): JSX.Element  => {
@@ -37,7 +51,7 @@ function FavoriteCards({cardsByCity, onFavoriteClick}: FavoriteCardsProps): JSX.
                 <button
                   className="place-card__bookmark-button place-card__bookmark-button--active button"
                   type="button"
-                  onClick={() => onFavoriteClick(id)}
+                  onClick={() => onFavoriteDelete(id)}
                 >
                   <svg className="place-card__bookmark-icon" width="18" height="19">
                     <use xlinkHref="#icon-bookmark"/>

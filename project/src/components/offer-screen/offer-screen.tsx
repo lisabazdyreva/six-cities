@@ -10,14 +10,13 @@ import NearbyCardsList from '../nearby-cards-list/nearby-cards-list';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Spinner from '../spinner/spinner';
 
-import {CardTypes, FavoriteStatus, FetchStatus, MapStylesProperties, ERROR_NEARBY_MESSAGE} from '../../const';
+import {CardTypes, FetchStatus, MapStylesProperties, ErrorMessage} from '../../const';
 
 import {setActiveId} from '../../store/actions/action';
 import {fetchCurrentOffer, fetchNearbyOffers} from '../../store/actions/api-actions/api-actions-offers';
-import {postFavorite, fetchFavoriteOffers} from '../../store/actions/api-actions/api-actions-favorite';
+
 import {getCurrentOffer, getNearbyOffers} from '../../store/app-data/selectors';
 import {getFetchStatusNearbyOffers, getFetchStatusOffer} from '../../store/app-status/selectors';
-import {getAuthorizationStatus} from '../../store/app-user/selectors';
 
 
 function OfferScreen(): JSX.Element {
@@ -27,7 +26,6 @@ function OfferScreen(): JSX.Element {
   const nearbyData = useSelector(getNearbyOffers);
   const fetchStatusOffer = useSelector(getFetchStatusOffer);
   const fetchStatusNearbyOffer = useSelector(getFetchStatusNearbyOffers);
-  const authorizationStatus = useSelector(getAuthorizationStatus);
 
   const isFetchNearbyError = fetchStatusNearbyOffer === FetchStatus.Error;
 
@@ -46,27 +44,6 @@ function OfferScreen(): JSX.Element {
   }, [idNum, dispatch]);
 
 
-  function onFavoriteClickCard(isFavorite: boolean) {
-    const status = isFavorite ? FavoriteStatus.RemoveFromFavorite: FavoriteStatus.AddToFavorite;
-    const cardType = CardTypes.Offer;
-    //eslint-disable-next-line
-    const id = idNum;
-    //TODO нейминг
-    dispatch(postFavorite({id, status, cardType}));
-    dispatch(fetchFavoriteOffers(authorizationStatus));
-  }
-
-  function onFavoriteClickNearby(isFavorite: boolean, idNearby: number) {
-    const status = isFavorite ? FavoriteStatus.RemoveFromFavorite: FavoriteStatus.AddToFavorite;
-    const cardType = CardTypes.Nearby;
-    //eslint-disable-next-line
-    const id = idNearby;
-    //TODO нейминг
-    dispatch(postFavorite({id, status, cardType}));
-    dispatch(fetchFavoriteOffers(authorizationStatus));
-  }
-
-
   switch (fetchStatusOffer) {
     case (FetchStatus.Error):
       return <NotFoundScreen />;
@@ -82,7 +59,7 @@ function OfferScreen(): JSX.Element {
             <Header />
             <main className="page__main page__main--property">
               <section className="property">
-                <OfferCard card={currentOffer} onFavoriteClick={onFavoriteClickCard}/>
+                <OfferCard card={currentOffer} typeCard={CardTypes.Offer}/>
                 <section className="property__map map">
                   <Map cards={cardsForMap} styles={MapStylesProperties.OfferPage}/>
                 </section>
@@ -90,7 +67,7 @@ function OfferScreen(): JSX.Element {
               <div className="container">
                 <section className="near-places places">
                   <h2 className="near-places__title">Other places in the neighbourhood</h2>
-                  {isFetchNearbyError ? ERROR_NEARBY_MESSAGE : <NearbyCardsList cards={nearbyData} onFavoriteClick={onFavoriteClickNearby}/>}
+                  {isFetchNearbyError ? ErrorMessage.Nearby : <NearbyCardsList cards={nearbyData}/>}
                 </section>
               </div>
             </main>

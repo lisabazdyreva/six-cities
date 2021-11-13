@@ -5,13 +5,12 @@ import {CardTypes} from '../../const';
 
 type MainCardsListProps = {
   cards: Offers;
-  onFavoriteClick: (isFavorite: boolean, id: number) => void;
 };
 
 
-function MainCardsList ({cards, onFavoriteClick}: MainCardsListProps): JSX.Element {
+function MainCardsList ({cards}: MainCardsListProps): JSX.Element {
   return (
-    <CardsList cards={cards} type={CardTypes.Main} onFavoriteClick={onFavoriteClick}/>
+    <CardsList cards={cards} type={CardTypes.Main} />
   );
 }
 

@@ -4,7 +4,7 @@ import type {Offers} from '../../types/offer';
 
 import FavoriteCards from '../favorite-cards/favorite-cards';
 
-import {AppRoute} from '../../const';
+import {AppRoute, CardTypes} from '../../const';
 
 
 type FavoriteCardsByCities = {
@@ -12,12 +12,11 @@ type FavoriteCardsByCities = {
 }[];
 
 type FavoritesCardsListProps = {
-  onFavoriteDelete: (id: number) => void;
   favoriteCardsByCities: FavoriteCardsByCities;
 };
 
 
-function FavoritesCardsList({onFavoriteDelete, favoriteCardsByCities}: FavoritesCardsListProps): JSX.Element {
+function FavoritesCardsList({favoriteCardsByCities}: FavoritesCardsListProps): JSX.Element {
 
   return (
     <ul className="favorites__list">
@@ -38,7 +37,7 @@ function FavoritesCardsList({onFavoriteDelete, favoriteCardsByCities}: Favorites
               {
                 Object.values(city).map((cardsByCity) => {
                   const keyCardValue = cardsByCity[0].id;
-                  return <FavoriteCards onFavoriteClick={onFavoriteDelete} cardsByCity={cardsByCity} key={keyCardValue}/>;
+                  return <FavoriteCards cardsByCity={cardsByCity} key={keyCardValue} typeCard={CardTypes.Favorite}/>;
                 })
               }
             </div>

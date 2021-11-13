@@ -10,9 +10,7 @@ import LocationsList from '../locations-list/locations-list';
 import SortingForm from '../sorting-form/sorting-form';
 
 import {
-  CardTypes,
   DEFAULT_SORT_TYPE,
-  FavoriteStatus,
   FetchStatus,
   Locations,
   MapStylesProperties
@@ -23,7 +21,6 @@ import {getSelectedCity, getSortedOffers} from '../../store/app-process/selector
 import {getOffers} from '../../store/app-data/selectors';
 import {getFetchStatusOffers} from '../../store/app-status/selectors';
 import {changeActiveSortType, fillOffersList, selectActiveCity} from '../../store/actions/action';
-import {postFavorite} from '../../store/actions/api-actions/api-actions-favorite';
 
 
 function MainScreen(): JSX.Element {
@@ -45,12 +42,6 @@ function MainScreen(): JSX.Element {
     dispatch(selectActiveCity(city));
     dispatch(changeActiveSortType(DEFAULT_SORT_TYPE));
     dispatch(fillOffersList(updatedOffers));
-  }
-
-  function onFavoriteClick(isFavorite: boolean, id: number) {
-    const status = isFavorite ? FavoriteStatus.RemoveFromFavorite : FavoriteStatus.AddToFavorite;
-    const cardType = CardTypes.Main;
-    dispatch(postFavorite({id, status, cardType}));
   }
 
   return (
@@ -75,7 +66,7 @@ function MainScreen(): JSX.Element {
                   <h2 className="visually-hidden">Places</h2>
                   <b className="places__found">{cardsLength} {placesValue} to stay in {selectedCity}</b>
                   <SortingForm />
-                  <MainCardsList cards={cards} onFavoriteClick={onFavoriteClick}/>
+                  <MainCardsList cards={cards}/>
                 </section>
                 <div className="cities__right-section">
                   <section className="cities__map map">

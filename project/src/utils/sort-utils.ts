@@ -6,7 +6,7 @@ import {SortTypes} from '../const';
 
 const filterOffers = (activeCity: string, offers: Offers): Offers => offers.filter((offer) => offer.city.name === activeCity);
 
-const getSortedOffers = (type: string, cards: Offers): Offers => {
+const sortOffers = (type: string, cards: Offers): Offers => {
   switch (type) {
     case (SortTypes.Popular):
       return cards.slice().sort((cardA, cardB) => {
@@ -42,4 +42,4 @@ const getFavoriteCardsByCities = (cards: Offers): FavoriteCardsByCities =>  {
 };
 
 
-export {filterOffers, getSortedOffers, getSortedComments, getFavoriteCardsByCities};
+export {filterOffers, sortOffers, getSortedComments, getFavoriteCardsByCities};

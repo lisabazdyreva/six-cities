@@ -1,7 +1,7 @@
 import {ChangeEvent, SyntheticEvent, useState} from 'react';
 import {useDispatch} from 'react-redux';
 
-import {regExpPassword, ERROR_PASSWORD_INPUT_MESSAGE} from '../../const';
+import {regExpPassword, ErrorMessage} from '../../const';
 
 import {loginAction} from '../../store/actions/api-actions/api-actions-user';
 
@@ -28,7 +28,7 @@ function LoginScreenForm(): JSX.Element {
 
   function onPasswordChange(evt: ChangeEvent<HTMLInputElement>) {
     if (!evt.target.value.match(regExpPassword)) {
-      evt.target.setCustomValidity(ERROR_PASSWORD_INPUT_MESSAGE);
+      evt.target.setCustomValidity(ErrorMessage.PasswordInput);
     } else {
       evt.target.setCustomValidity('');
     }

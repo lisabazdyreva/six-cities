@@ -30,7 +30,7 @@ function fetchOffersList(): ThunkActionResult {
       })
       .then(() => dispatch(setFetchStatusOffers(FetchStatus.Ok)))
 
-      .catch(() => dispatch(setFetchStatusOffers(FetchStatus.Error))); // TODO setTimeout пару раз
+      .catch(() => dispatch(setFetchStatusOffers(FetchStatus.Error)));
   };
 }
 

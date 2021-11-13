@@ -1,4 +1,4 @@
-import {FetchStatus, ERROR_NO_OFFERS_MESSAGE, Locations} from '../../const';
+import {FetchStatus, ErrorMessage, Locations} from '../../const';
 import {getNoOffersMessage} from '../../utils/utils';
 
 
@@ -18,7 +18,7 @@ function NoOffers({city, fetchStatus}: NoOffersProps): JSX.Element {
           <div className="cities__status-wrapper tabs__content">
             <b className="cities__status">No places to stay available</b>
             <p className="cities__status-description">
-              {isError ? ERROR_NO_OFFERS_MESSAGE: getNoOffersMessage(city)}
+              {isError ? ErrorMessage.NoOffers : getNoOffersMessage(city)}
             </p>
           </div>
         </section>

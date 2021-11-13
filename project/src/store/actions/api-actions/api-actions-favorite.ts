@@ -6,16 +6,16 @@ import {AuthorizationStatus, CardTypes, WarningMessage} from '../../../const';
 import {toast} from 'react-toastify';
 
 
-function postFavorite({id, status, cardType}: FavoriteData): ThunkActionResult {
+function postFavorite({id, status, typeCard}: FavoriteData): ThunkActionResult {
   return async (dispatch, _getState, api): Promise<void> => {
     await api.post( `/favorite/${id}/${status}`)
       .then(({data}) => adaptToClient([data]))
       .then(() => {
         dispatch(updateOffer(id));
-        if (cardType === CardTypes.Offer) {
+        if (typeCard === CardTypes.Offer) {
           dispatch(updateRoom(id));
         }
-        if (cardType === CardTypes.Nearby) {
+        if (typeCard === CardTypes.Nearby) {
           dispatch(updateNearby(id));
         }
 
