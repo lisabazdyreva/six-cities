@@ -1,5 +1,5 @@
-import {citiesList as cities, Locations} from '../../const';
 import LocationsListTabs from '../locations-list-tabs/locations-list-tabs';
+import {citiesList as cities, Locations} from '../../const';
 
 
 type LocationsListProps = {
@@ -7,8 +7,8 @@ type LocationsListProps = {
   selectedCity: Locations;
 };
 
-function LocationsList({onLocationClick, selectedCity}: LocationsListProps): JSX.Element {
 
+function LocationsList({onLocationClick, selectedCity}: LocationsListProps): JSX.Element {
   return (
     <ul className="locations__list tabs__list">
       {

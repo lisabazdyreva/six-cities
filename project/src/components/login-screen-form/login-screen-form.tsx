@@ -1,18 +1,24 @@
 import {ChangeEvent, SyntheticEvent, useState} from 'react';
 import {useDispatch} from 'react-redux';
+
+import {regExpPassword, ERROR_PASSWORD_INPUT_MESSAGE} from '../../const';
+
 import {loginAction} from '../../store/actions/api-actions/api-actions-user';
 
 
 function LoginScreenForm(): JSX.Element {
   const dispatch = useDispatch();
 
-  const [login, setLogin] = useState('');
-  const [password, setPassword] = useState('');
+  const [login, setLogin] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+
+  const isFieldsEmpty = login !== '' && password !== '';
+  const isDisabled = login === '' || password === '';
 
   function handleSubmit(evt: SyntheticEvent) {
     evt.preventDefault();
 
-    if (login !== '' && password !== '') {
+    if (isFieldsEmpty) {
       dispatch(loginAction({
         login: login,
         password: password,
@@ -21,12 +27,11 @@ function LoginScreenForm(): JSX.Element {
   }
 
   function onPasswordChange(evt: ChangeEvent<HTMLInputElement>) {
-    if (!evt.target.value.match(/(?=.*[0-9])(?=.*[A-Za-z])[0-9A-Za-z]{2,}/)) {
-      evt.target.setCustomValidity('The password must be at least 1 letter and 1 number.');
+    if (!evt.target.value.match(regExpPassword)) {
+      evt.target.setCustomValidity(ERROR_PASSWORD_INPUT_MESSAGE);
     } else {
       evt.target.setCustomValidity('');
     }
-
     setPassword(evt.target.value);
   }
 
@@ -59,7 +64,7 @@ function LoginScreenForm(): JSX.Element {
       <button
         className="login__submit form__submit button"
         type="submit"
-        disabled={login === '' || password === ''}
+        disabled={isDisabled}
       >
         Sign in
       </button>

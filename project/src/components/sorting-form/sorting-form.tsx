@@ -6,17 +6,17 @@ import {changeActiveSortType, fillOffersList} from '../../store/actions/action';
 
 import {getSortedOffers} from '../../utils/utils';
 import {SortTypes} from '../../const';
+
 import {getActiveSortType, getSortedOffers as getOffers} from '../../store/app-process/selectors'; // !TODO нейминг
 
 
-const sortTypesList = Object.values(SortTypes);
+const sortTypesList = Object.values(SortTypes); // TODO вынести
 
 function SortingForm(): JSX.Element {
-  const sortedOffers = useSelector(getOffers);
-  const activeSortType = useSelector(getActiveSortType);
-
   const dispatch = useDispatch();
 
+  const sortedOffers = useSelector(getOffers);
+  const activeSortType = useSelector(getActiveSortType);
 
   const [isOpenSorting, setOpenSorting] = useState(false);
 

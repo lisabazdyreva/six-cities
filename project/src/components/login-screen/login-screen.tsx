@@ -1,11 +1,12 @@
 import {Link} from 'react-router-dom';
+import {useSelector} from 'react-redux';
 
 import Icons from '../icons/icons';
 import Logo from '../logo/logo';
 import LoginScreenForm from '../login-screen-form/login-screen-form';
 
 import {AppRoute} from '../../const';
-import {useSelector} from 'react-redux';
+
 import {getSelectedCity} from '../../store/app-process/selectors';
 
 

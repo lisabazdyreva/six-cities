@@ -1,9 +1,6 @@
 import {Link} from 'react-router-dom';
-
 import type {Offers, Offer} from '../../types/offer';
-
 import {formatType, getRatingPercentValue} from '../../utils/utils';
-
 import {AppRoute} from '../../const';
 
 
@@ -14,26 +11,27 @@ type FavoriteCardsProps = {
 
 
 function FavoriteCards({cardsByCity, onFavoriteClick}: FavoriteCardsProps): JSX.Element {
-
   return (
     <>
       {cardsByCity.map((card: Offer): JSX.Element  => {
         const {price, id, rating, type, title, previewImage} = card;
 
         const ratingPercentValue = getRatingPercentValue(rating);
-        const typeText = formatType(type);
+        const typeValue = formatType(type);
+        const linkValue = `${AppRoute.Room}/${ id }`;
+        const priceValue = `€${price}`;
 
         return (
           <article className="favorites__card place-card" key={id}>
             <div className="favorites__image-wrapper place-card__image-wrapper">
-              <Link to={`${AppRoute.Room}/${ id }`}>
+              <Link to={linkValue}>
                 <img className="place-card__image" src={previewImage} width="150" height="110" alt={title} />
               </Link>
             </div>
             <div className="favorites__card-info place-card__info">
               <div className="place-card__price-wrapper">
                 <div className="place-card__price">
-                  <b className="place-card__price-value">&euro;{price}</b>
+                  <b className="place-card__price-value">{priceValue}</b>
                   <span className="place-card__price-text">&#47;&nbsp;night</span>
                 </div>
                 <button
@@ -54,9 +52,9 @@ function FavoriteCards({cardsByCity, onFavoriteClick}: FavoriteCardsProps): JSX.
                 </div>
               </div>
               <h2 className="place-card__name">
-                <Link to={`${AppRoute.Room}/${ id }`}>{title}</Link>
+                <Link to={linkValue}>{title}</Link>
               </h2>
-              <p className="place-card__type">{typeText}</p>
+              <p className="place-card__type">{typeValue}</p>
             </div>
           </article>
         );

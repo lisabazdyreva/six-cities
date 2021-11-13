@@ -7,16 +7,14 @@ import Header from '../header/header';
 import OfferCard from '../offer-card/offer-card';
 import Map from '../map/map';
 import NearbyCardsList from '../nearby-cards-list/nearby-cards-list';
-
-import {setActiveId} from '../../store/actions/action';
-
-import {CardTypes, FavoriteStatus, FetchStatus, MapStylesProperties} from '../../const';
-
-import {fetchCurrentOffer, fetchNearbyOffers} from '../../store/actions/api-actions/api-actions-offers';
-import {postFavorite, fetchFavoriteOffers} from '../../store/actions/api-actions/api-actions-favorite';
-
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Spinner from '../spinner/spinner';
+
+import {CardTypes, FavoriteStatus, FetchStatus, MapStylesProperties, ERROR_NEARBY_MESSAGE} from '../../const';
+
+import {setActiveId} from '../../store/actions/action';
+import {fetchCurrentOffer, fetchNearbyOffers} from '../../store/actions/api-actions/api-actions-offers';
+import {postFavorite, fetchFavoriteOffers} from '../../store/actions/api-actions/api-actions-favorite';
 import {
   getCurrentOffer,
   getFetchStatusNearbyOffers,
@@ -27,6 +25,7 @@ import {getAuthorizationStatus} from '../../store/app-user/selectors';
 
 
 function OfferScreen(): JSX.Element {
+  const dispatch = useDispatch();
 
   const currentOffer = useSelector(getCurrentOffer);
   const nearbyData = useSelector(getNearbyOffers);
@@ -34,7 +33,7 @@ function OfferScreen(): JSX.Element {
   const fetchStatusNearbyOffer = useSelector(getFetchStatusNearbyOffers);
   const authorizationStatus = useSelector(getAuthorizationStatus);
 
-  const dispatch = useDispatch();
+  const isFetchNearbyError = fetchStatusNearbyOffer === FetchStatus.Error;
 
   const params: {id: string} = useParams();
 
@@ -95,7 +94,7 @@ function OfferScreen(): JSX.Element {
               <div className="container">
                 <section className="near-places places">
                   <h2 className="near-places__title">Other places in the neighbourhood</h2>
-                  {fetchStatusNearbyOffer === FetchStatus.Error ? 'Nothing found. Try later.' : <NearbyCardsList cards={nearbyData} onFavoriteClick={onFavoriteClickNearby}/>}
+                  {isFetchNearbyError ? ERROR_NEARBY_MESSAGE : <NearbyCardsList cards={nearbyData} onFavoriteClick={onFavoriteClickNearby}/>}
                 </section>
               </div>
             </main>

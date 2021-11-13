@@ -1,4 +1,5 @@
 import {useDispatch, useSelector} from 'react-redux';
+import classNames from 'classnames';
 
 import Icons from '../icons/icons';
 import MainCardsList from '../main-cards-list/main-cards-list';
@@ -16,14 +17,12 @@ import {
   Locations,
   MapStylesProperties
 } from '../../const';
+import {filterOffers} from '../../utils/utils';
+
 import {getSelectedCity, getSortedOffers} from '../../store/app-process/selectors';
 import {getFetchStatusOffers, getOffers} from '../../store/app-data/selectors';
-import {filterOffers} from '../../utils/utils';
 import {changeActiveSortType, fillOffersList, selectActiveCity} from '../../store/actions/action';
-
 import {postFavorite} from '../../store/actions/api-actions/api-actions-favorite';
-
-import classNames from 'classnames';
 
 
 function MainScreen(): JSX.Element {
@@ -32,8 +31,12 @@ function MainScreen(): JSX.Element {
   const cards = useSelector(getSortedOffers);
   const selectedCity = useSelector(getSelectedCity);
   const fetchStatus = useSelector(getFetchStatusOffers);
-
   const offers = useSelector(getOffers);
+
+  const cardsLength = cards.length;
+  const placesValue = cardsLength === 1 ? 'place' : 'places';
+
+  const isFetchOk = fetchStatus === FetchStatus.Ok;
 
   function onLocationClick(city: Locations) {
     const updatedOffers = filterOffers(city, offers);
@@ -49,7 +52,7 @@ function MainScreen(): JSX.Element {
     dispatch(postFavorite({id, status, cardType}));
   }
 
-  const cardsLength = cards.length;
+
 
   return (
     <>
@@ -58,7 +61,7 @@ function MainScreen(): JSX.Element {
         <Header />
         <main className={classNames(
           'page__main page__main--index',
-          {'page__main--index-empty' : !cards.length})}
+          {'page__main--index-empty' : !Boolean(cardsLength)})}
         >
           <h1 className="visually-hidden">Cities</h1>
           <div className="tabs">
@@ -66,12 +69,12 @@ function MainScreen(): JSX.Element {
               <LocationsList onLocationClick={onLocationClick} selectedCity={selectedCity}/>
             </section>
           </div>
-          {(cards.length && fetchStatus === FetchStatus.Ok) ?
+          {(cardsLength && isFetchOk) ?
             <div className="cities">
               <div className="cities__places-container container">
                 <section className="cities__places places">
                   <h2 className="visually-hidden">Places</h2>
-                  <b className="places__found">{cardsLength} {cardsLength === 1 ? 'place' : 'places'} to stay in {selectedCity}</b>
+                  <b className="places__found">{cardsLength} {placesValue} to stay in {selectedCity}</b>
                   <SortingForm />
                   <MainCardsList cards={cards} onFavoriteClick={onFavoriteClick}/>
                 </section>

@@ -168,3 +168,21 @@ export const enum WarningMessage {
   PostComment = 'Sorry we could not post your comment right now. Please try later.',
   CheckAuthorization = 'Please login to get access to all functionality of the app',
 }
+
+export const enum CommentLength {
+  MaxLength = 300,
+  MinLength= 50,
+}
+
+export const COMMENTS_MAX_LENGTH = 10;
+export const ERROR_COMMENTS_MESSAGE = 'Comments did not found. Try later';
+export const NO_FAVORITES_MESSAGE = 'There are no favorite offers. Add some offers to favorite.';
+export const ERROR_NO_OFFERS_MESSAGE = 'Sorry, server is not respond'; //TODO загуглить на английском
+export const ERROR_PASSWORD_INPUT_MESSAGE = 'The password must be at least 1 letter and 1 number.';
+export const ERROR_NEARBY_MESSAGE = 'Nothing found. Try later.';
+
+export const regExpPassword = /(?=.*[0-9])(?=.*[A-Za-z])[0-9A-Za-z]{2,}/;
+
+
+export const BASE_URL = 'https://8.react.pages.academy/six-cities';
+export const TIMEOUT = 5000;

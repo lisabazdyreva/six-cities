@@ -1,7 +1,9 @@
 import {ChangeEvent, memo} from 'react';
+import {CommentLength} from '../../const';
+
 
 type CommentFormMessageProps = {
-  comment: string,
+  comment: string;
   handleMessage: (evt:ChangeEvent<HTMLTextAreaElement>) => void;
 };
 
@@ -15,8 +17,8 @@ function CommentFormMessage({handleMessage, comment}: CommentFormMessageProps): 
       placeholder="Tell how was your stay, what you like and what can be improved"
       onChange={handleMessage}
       value={comment}
-      minLength={50}
-      maxLength={300}
+      minLength={CommentLength.MinLength}
+      maxLength={CommentLength.MaxLength}
     />
   );
 }

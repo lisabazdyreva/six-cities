@@ -1,9 +1,6 @@
 import classNames from 'classnames';
-
 import type {Offers} from '../../types/offer';
-
 import Card from '../card/card';
-
 import {isMainPage} from '../../utils/utils';
 
 
@@ -11,7 +8,7 @@ type CardsListProps = {
   cards: Offers;
   type: string;
   onFavoriteClick: (isFavorite: boolean, id: number) => void;
-}
+};
 
 
 function CardsList({cards, type, onFavoriteClick}: CardsListProps): JSX.Element {

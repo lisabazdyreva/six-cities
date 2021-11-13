@@ -1,23 +1,29 @@
 import {ChangeEvent, FormEvent, useCallback, useState} from 'react';
 import {useDispatch} from 'react-redux';
 
-import {postComment} from '../../store/actions/api-actions/api-actions-comments';
-
 import CommentFormRating from '../comment-form-rating/comment-form-rating';
 import CommentFormMessage from '../comment-form-message/comment-form-message';
+
+import {postComment} from '../../store/actions/api-actions/api-actions-comments';
 
 
 type CommentFormProps = {
   id: number;
 };
 
+
 function CommentForm({id}: CommentFormProps ): JSX.Element {
-  const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState('');
+  const dispatch = useDispatch();
+
+  const [rating, setRating] = useState<number>(0);
+  const [comment, setComment] = useState<string>('');
+
+  const isDisabled = rating === 0 || comment === '';
+  const isFieldsEmpty = rating !== 0 && comment !== '';
 
 
   const handleRating = useCallback(
-    (evt:ChangeEvent<HTMLInputElement>) => setRating(Number(evt.target.value)),
+    (evt:ChangeEvent<HTMLInputElement>): void => setRating(Number(evt.target.value)),
     [],
   );
 
@@ -26,12 +32,10 @@ function CommentForm({id}: CommentFormProps ): JSX.Element {
     [],
   );
 
-  const dispatch = useDispatch();
-
   function onSubmitComment(evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
 
-    if (rating !== 0 && comment !== '') {
+    if (isFieldsEmpty) {
       dispatch(postComment({
         id: id,
         comment: comment,
@@ -62,7 +66,7 @@ function CommentForm({id}: CommentFormProps ): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={rating === 0 || comment === ''}
+          disabled={isDisabled}
         >
           Submit
         </button>

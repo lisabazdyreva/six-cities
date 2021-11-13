@@ -1,6 +1,7 @@
 import {CardTypes, SortTypes} from '../const';
 
 import {Offers} from '../types/offer';
+import {Reviews} from '../types/review';
 
 
 const formatType = (typeText: string): string => {
@@ -45,5 +46,37 @@ const getSortedOffers = (type: string, cards: Offers): Offers => {
   }
 };
 
+const getSortedComments = (comments: Reviews) => comments.slice().sort((commentA, commentB) => {
+  const firstDate = new Date(commentA.date);
+  const secondDate = new Date(commentB.date);
 
-export {formatType, getRatingPercentValue, isMainPage, filterOffers, formatDateValue, formatDateAttr, getFavoriteCitiesList, getSortedOffers};
+  return Number(secondDate) - Number(firstDate);
+});
+
+
+type FavoriteCardsByCities = {
+  [propertyName: string] : Offers,
+}[];
+
+const getFavoriteCardsByCities = (cards: Offers): FavoriteCardsByCities =>  {
+  const favoriteCities = getFavoriteCitiesList(cards);
+  return favoriteCities.map((city) => Object.assign({}, {[city]: cards.filter((card) => card.city.name === city)}));
+};
+
+const getNoOffersMessage = (city: string) => {
+  return `We could not find any property available at the moment in ${city}`;
+};
+
+export {
+  formatType,
+  getRatingPercentValue,
+  isMainPage,
+  filterOffers,
+  formatDateValue,
+  formatDateAttr,
+  getFavoriteCitiesList,
+  getSortedOffers,
+  getSortedComments,
+  getFavoriteCardsByCities,
+  getNoOffersMessage
+};

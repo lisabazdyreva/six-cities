@@ -1,33 +1,31 @@
-import CommentMessage from '../comment-message/comment-message';
+import {useSelector} from 'react-redux';
+
 import {Reviews} from '../../types/review';
 
+import CommentMessage from '../comment-message/comment-message';
+
+import {FetchStatus, COMMENTS_MAX_LENGTH, ERROR_COMMENTS_MESSAGE} from '../../const';
+import {getSortedComments} from '../../utils/utils';
+
 import {getFetchStatusComments} from '../../store/app-data/selectors';
-import {useSelector} from 'react-redux';
-import {FetchStatus} from '../../const';
 
 
 type CommentsListProps = {
-  commentsList: Reviews,
-}
+  commentsList: Reviews;
+};
 
 
 function CommentsList({commentsList}: CommentsListProps):JSX.Element {
+
+  const getComments = (comments: Reviews) => getSortedComments(comments).slice(0, COMMENTS_MAX_LENGTH - 1);
+  const comments = getComments(commentsList);
+
   const fetchStatus = useSelector(getFetchStatusComments);
-  let comments = commentsList;
-  const COMMENTS_MAX_LENGTH = 10;
+  const isFetchError = fetchStatus === FetchStatus.Error;
 
-  if (fetchStatus === FetchStatus.Error) {
-    return <span>Comments did not found. Try later</span>;
-  }
 
-  if (commentsList.length > 1) {
-    comments = commentsList.slice().sort((a, b) => {
-      const firstDate = new Date(a.date);
-      const secondDate = new Date(b.date);
-
-      return Number(secondDate) - Number(firstDate);
-    });
-    comments = comments.slice(0, COMMENTS_MAX_LENGTH - 1);
+  if (isFetchError) {
+    return <span>{ERROR_COMMENTS_MESSAGE}</span>;
   }
 
   return (
@@ -36,7 +34,7 @@ function CommentsList({commentsList}: CommentsListProps):JSX.Element {
         comments.map((commentItem) => (
           <CommentMessage
             commentItem={commentItem}
-            key={new Date().getTime() + commentItem.id}
+            key={commentItem.id}
           />
         ))
       }
