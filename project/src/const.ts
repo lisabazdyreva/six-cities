@@ -112,7 +112,7 @@ export const DefaultValue = {
   Id: 0,
 } as const;
 
-export const DEFAULT_CURRENT_OFFER = { // TODO правильно ли по критерию капсом? думаю да
+export const DEFAULT_CURRENT_OFFER = {
   bedrooms: 0,
   city: {
     location: {

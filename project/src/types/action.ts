@@ -3,7 +3,6 @@ import {ThunkAction} from 'redux-thunk';
 import {AxiosInstance} from 'axios';
 import {State} from './state';
 
-//TODO Д20. Для именования типов действия (action type) применяется паттерн: домен/действие (something/action). Например: list/addFavorite, user/login и так далее. Стоит ли что-то поправить здесь?
 
 export enum ActionType {
   FillOffersList = 'data/fillOffersList',
