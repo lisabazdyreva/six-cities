@@ -28,7 +28,7 @@ function SortingForm(): JSX.Element {
     updateOffers(type);
   }
 
-  function onSortTypeClick (type: string) {
+  function handleSortClick (type: string) {
     const [sortType] = Object.values(SortTypes).filter((key) => key === type);
     changeSortType(sortType);
     setOpenSorting(!isOpenSorting);
@@ -53,7 +53,7 @@ function SortingForm(): JSX.Element {
         {sortTypesList.map((type: string) => (
           <li
             key={type}
-            onClick={() => onSortTypeClick(type)}
+            onClick={() => handleSortClick(type)}
             className={classNames(
               'places__option',
               {'places__option--active': activeSortType === type},

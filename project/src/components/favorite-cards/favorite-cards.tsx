@@ -18,7 +18,7 @@ function FavoriteCards({cardsByCity, typeCard}: FavoriteCardsProps): JSX.Element
 
   const authorizationStatus = useSelector(getAuthorizationStatus);
 
-  function onFavoriteDelete(id: number) {
+  function handleFavoriteDelete(id: number) {
     const status = FavoriteStatus.RemoveFromFavorite;
 
     dispatch(postFavorite({id, status, typeCard}));
@@ -51,7 +51,7 @@ function FavoriteCards({cardsByCity, typeCard}: FavoriteCardsProps): JSX.Element
                 <button
                   className="place-card__bookmark-button place-card__bookmark-button--active button"
                   type="button"
-                  onClick={() => onFavoriteDelete(id)}
+                  onClick={() => handleFavoriteDelete(id)}
                 >
                   <svg className="place-card__bookmark-icon" width="18" height="19">
                     <use xlinkHref="#icon-bookmark"/>

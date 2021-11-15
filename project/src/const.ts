@@ -104,12 +104,15 @@ export const currentIcon = {
   iconAnchor: IconsParams.IconAnchor,
 };
 
-export const INITIAL_CITY = Locations.Paris;
-export const INITIAL_LOGIN= '';
-export const DEFAULT_SORT_TYPE =  SortTypes.Popular;
-export const DEFAULT_ID = 0;
 
-export const DEFAULT_CURRENT_OFFER = {
+export const DefaultValue = {
+  City: Locations.Paris,
+  Login: '',
+  SortType: SortTypes.Popular,
+  Id: 0,
+} as const;
+
+export const DEFAULT_CURRENT_OFFER = { // TODO посмотреть критерии
   bedrooms: 0,
   city: {
     location: {
@@ -117,17 +120,17 @@ export const DEFAULT_CURRENT_OFFER = {
       longitude: 0,
       zoom: 0,
     },
-    name: INITIAL_CITY,
+    name: DefaultValue.City,
   },
   description: '',
   goods: [''],
   host: {
     avatarUrl: '',
-    id: DEFAULT_ID,
+    id: DefaultValue.Id,
     isPro: false,
     name: '',
   },
-  id: DEFAULT_ID,
+  id: DefaultValue.Id,
   images: [''],
   isFavorite: false,
   isPremium: false,
@@ -145,7 +148,7 @@ export const DEFAULT_CURRENT_OFFER = {
 };
 
 export const enum OfferRatingTitles {
-  Perfect = 'rating',
+  Perfect = 'rating',// TODO посмотреть проект
   Good = 'good',
   NotBad = 'not bad',
   Badly = 'badly',
@@ -181,7 +184,9 @@ export const enum ErrorMessage {
   NoFavorites = 'There are no favorite offers. Add some offers to favorite.',
 }
 
-export const regExpPassword = /(?=.*[0-9])(?=.*[A-Za-z])[0-9A-Za-z]{2,}/;
+export const REG_EXP_PASSWORD = /(?=.*[0-9])(?=.*[A-Za-z])[0-9A-Za-z]{2,}/;
 
-export const BASE_URL = 'https://8.react.pages.academy/six-cities';
-export const TIMEOUT = 5000;
+export const APISetting = {
+  BaseURL: 'https://8.react.pages.academy/six-cities',
+  Timeout: 5000,
+} as const;

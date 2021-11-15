@@ -4,11 +4,11 @@ import {OfferRatingValues} from '../../const';
 
 type CommentFormRatingProps = {
   rating: number;
-  handleRating: (evt: ChangeEvent<HTMLInputElement>) => void;
+  onRatingInput: (evt: ChangeEvent<HTMLInputElement>) => void;
 };
 
 
-function CommentFormRating({rating, handleRating}: CommentFormRatingProps): JSX.Element {
+function CommentFormRating({rating, onRatingInput}: CommentFormRatingProps): JSX.Element {
   return (
     <div className="reviews__rating-form form__rating">
       {
@@ -27,7 +27,7 @@ function CommentFormRating({rating, handleRating}: CommentFormRatingProps): JSX.
                 id={idValue}
                 type="radio"
                 checked={isCheckedValue}
-                onChange={handleRating}
+                onChange={onRatingInput}
               />
               <label htmlFor={htmlForValue} className="reviews__rating-label form__rating-label" title={ratingTitle}>
                 <svg className="form__star-image" width="37" height="33">

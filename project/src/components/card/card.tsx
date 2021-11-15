@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import type {Offer} from '../../types/offer';
 
 import {formatType, getRatingPercentValue, isMainPage} from '../../utils/utils';
-import {AppRoute, AuthorizationStatus, CardTypes, DEFAULT_ID, FavoriteStatus} from '../../const';
+import {AppRoute, AuthorizationStatus, CardTypes, DefaultValue, FavoriteStatus} from '../../const';
 
 import {setActiveId} from '../../store/actions/action';
 import {getAuthorizationStatus} from '../../store/app-user/selectors';
@@ -43,24 +43,25 @@ function Card({card, typeCard}: CardProps): JSX.Element {
 
   const setDefaultId = () => {
     if (isMainPage(typeCard)) {
-      dispatch(setActiveId(DEFAULT_ID));
+      dispatch(setActiveId(DefaultValue.Id));
     }
   };
 
 
-  const handleEnter = useCallback(
+  const handleCardEnter = useCallback(
     setId,
     [id, dispatch, typeCard],
   );
 
-  const handleLeave = useCallback(
+  const handleCardLeave = useCallback(
     setDefaultId,
     [dispatch, typeCard],
   );
 
-  const onFavoriteChange = () => {
+  const handleFavoriteChange = () => {
     if (isAuth) {
       const status = isFavorite ? FavoriteStatus.RemoveFromFavorite: FavoriteStatus.AddToFavorite;
+
       dispatch(postFavorite({id, status, typeCard}));
       dispatch(fetchFavoriteOffers(authorizationStatus));
     } else {
@@ -75,8 +76,8 @@ function Card({card, typeCard}: CardProps): JSX.Element {
         {'cities__place-card': isMainPage(typeCard)},
         {'near-places__card': !isMainPage(typeCard)},
       )}
-      onMouseEnter={handleEnter}
-      onMouseLeave={handleLeave}
+      onMouseEnter={handleCardEnter}
+      onMouseLeave={handleCardLeave}
     >
 
       {isPremium && isMainPage(typeCard) ? <div className="place-card__mark"><span>Premium</span></div> : ''}
@@ -114,7 +115,7 @@ function Card({card, typeCard}: CardProps): JSX.Element {
               {'place-card__bookmark-button--active': isFavorite},
             )}
             type="button"
-            onClick={onFavoriteChange}
+            onClick={handleFavoriteChange}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"/>

@@ -22,17 +22,17 @@ function CommentForm({id}: CommentFormProps ): JSX.Element {
   const isFieldsEmpty = rating !== 0 && comment !== '';
 
 
-  const handleRating = useCallback(
+  const handleRatingInput = useCallback(
     (evt:ChangeEvent<HTMLInputElement>): void => setRating(Number(evt.target.value)),
     [],
-  );
+  );//TODO Д10. Колбэки, переданные в props названы через on. Критерий не распространяется на props, полученные в результате применения mapDispatchToProps. Правильно ли у меня?
 
-  const handleMessage = useCallback(
+  const handleMessageInput = useCallback(
     (evt:ChangeEvent<HTMLTextAreaElement>):void => setComment(evt.target.value),
     [],
-  );
+  );//TODO Д10. Колбэки, переданные в props названы через on. Критерий не распространяется на props, полученные в результате применения mapDispatchToProps. Правильно ли у меня?
 
-  function onSubmitComment(evt: FormEvent<HTMLFormElement>) {
+  function handleCommentFormSubmit(evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
 
     if (isFieldsEmpty) {
@@ -48,14 +48,14 @@ function CommentForm({id}: CommentFormProps ): JSX.Element {
   }
 
   return (
-    <form className="reviews__form form" action="#" method="post" onSubmit={onSubmitComment}>
+    <form className="reviews__form form" action="#" method="post" onSubmit={handleCommentFormSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <CommentFormRating
-        handleRating={handleRating}
+        onRatingInput={handleRatingInput}
         rating={rating}
       />
       <CommentFormMessage
-        handleMessage={handleMessage}
+        onMessageInput={handleMessageInput}
         comment={comment}
       />
       <div className="reviews__button-wrapper">

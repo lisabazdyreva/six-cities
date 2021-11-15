@@ -15,7 +15,7 @@ import {adaptToClient} from '../../../utils/adapt-utils';
 import {
   APIRoute,
   FetchStatus,
-  INITIAL_CITY
+  DefaultValue
 } from '../../../const';
 
 
@@ -26,7 +26,7 @@ function fetchOffersList(): ThunkActionResult {
       .then(({data}) => adaptToClient(data))
       .then((data) => {
         dispatch(getOffers(data));
-        dispatch(fillOffersList(filterOffers(INITIAL_CITY, data)));
+        dispatch(fillOffersList(filterOffers(DefaultValue.City, data)));
       })
       .then(() => dispatch(setFetchStatusOffers(FetchStatus.Ok)))
 

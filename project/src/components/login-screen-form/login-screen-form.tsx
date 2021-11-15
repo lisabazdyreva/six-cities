@@ -1,7 +1,7 @@
 import {ChangeEvent, SyntheticEvent, useState} from 'react';
 import {useDispatch} from 'react-redux';
 
-import {regExpPassword, ErrorMessage} from '../../const';
+import {REG_EXP_PASSWORD, ErrorMessage} from '../../const';
 
 import {loginAction} from '../../store/actions/api-actions/api-actions-user';
 
@@ -15,7 +15,7 @@ function LoginScreenForm(): JSX.Element {
   const isFieldsEmpty = login !== '' && password !== '';
   const isDisabled = login === '' || password === '';
 
-  function handleSubmit(evt: SyntheticEvent) {
+  function handleAuthFormSubmit(evt: SyntheticEvent) {
     evt.preventDefault();
 
     if (isFieldsEmpty) {
@@ -26,8 +26,8 @@ function LoginScreenForm(): JSX.Element {
     }
   }
 
-  function onPasswordChange(evt: ChangeEvent<HTMLInputElement>) {
-    if (!evt.target.value.match(regExpPassword)) {
+  function handlePasswordChange(evt: ChangeEvent<HTMLInputElement>) {
+    if (!evt.target.value.match(REG_EXP_PASSWORD)) {
       evt.target.setCustomValidity(ErrorMessage.PasswordInput);
     } else {
       evt.target.setCustomValidity('');
@@ -36,7 +36,7 @@ function LoginScreenForm(): JSX.Element {
   }
 
   return (
-    <form className="login__form form" action="#" method="post" onSubmit={handleSubmit}>
+    <form className="login__form form" action="#" method="post" onSubmit={handleAuthFormSubmit}>
       <div className="login__input-wrapper form__input-wrapper">
         <label className="visually-hidden">E-mail</label>
         <input
@@ -56,7 +56,7 @@ function LoginScreenForm(): JSX.Element {
           type="password"
           name="password"
           placeholder="Password"
-          onChange={onPasswordChange}
+          onChange={handlePasswordChange}
           value={password}
           required
         />

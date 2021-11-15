@@ -12,10 +12,10 @@ function postFavorite({id, status, typeCard}: FavoriteData): ThunkActionResult {
       .then(({data}) => adaptToClient([data]))
       .then(() => {
         dispatch(updateOffer(id));
-        if (typeCard === CardTypes.Offer) {
+        if (typeCard === CardTypes.Offer) {  //TODO Д17. Логика изменения состояния описывается в редьюсере, а не в компоненте - так можно или вынести?
           dispatch(updateRoom(id));
         }
-        if (typeCard === CardTypes.Nearby) {
+        if (typeCard === CardTypes.Nearby) { //TODO Д17. Логика изменения состояния описывается в редьюсере, а не в компоненте - так можно или вынести?
           dispatch(updateNearby(id));
         }
 

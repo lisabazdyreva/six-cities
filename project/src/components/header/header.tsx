@@ -4,7 +4,7 @@ import {useSelector, useDispatch} from 'react-redux';
 
 import Logo from '../logo/logo';
 
-import {AppRoute, AuthorizationStatus, INITIAL_CITY} from '../../const';
+import {AppRoute, AuthorizationStatus, DefaultValue} from '../../const';
 
 import {logoutAction} from '../../store/actions/api-actions/api-actions-user';
 import {checkAuthorization} from '../../store/actions/api-actions/api-actions-user';
@@ -21,10 +21,10 @@ function Header(): JSX.Element {
 
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
 
-  const onLogout = () => {
+  const handleLogoutClick = () => {
     dispatch(logoutAction());
     dispatch(checkAuthorization());
-    dispatch(selectActiveCity(INITIAL_CITY));
+    dispatch(selectActiveCity(DefaultValue.City));
   };
 
   return (
@@ -44,7 +44,7 @@ function Header(): JSX.Element {
                       </Link>
                     </li>
                     <li className="header__nav-item">
-                      <Link className="header__nav-link" onClick={onLogout} to={AppRoute.Main}>
+                      <Link className="header__nav-link" onClick={handleLogoutClick} to={AppRoute.Main}>
                         <span className="header__signout">Sign out</span>
                       </Link>
                     </li>

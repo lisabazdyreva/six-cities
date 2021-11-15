@@ -1,6 +1,6 @@
 import {AppUser} from '../../types/state';
 
-import {AuthorizationStatus, INITIAL_LOGIN} from '../../const';
+import {AuthorizationStatus, DefaultValue} from '../../const';
 import {createReducer} from '@reduxjs/toolkit';
 
 import {
@@ -12,7 +12,7 @@ import {
 
 const initialState: AppUser = {
   authorizationStatus: AuthorizationStatus.Unknown,
-  login: INITIAL_LOGIN,
+  login: DefaultValue.Login,
 };
 
 

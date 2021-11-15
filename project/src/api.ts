@@ -5,7 +5,7 @@ import axios, {
   AxiosRequestConfig
 } from 'axios';
 
-import {BASE_URL, TIMEOUT} from './const';
+import {APISetting} from './const';
 
 import {getToken} from './services/token';
 
@@ -15,9 +15,10 @@ type UnauthorizedCb = () => void;
 
 function createAPI(onUnauthorized: UnauthorizedCb): AxiosInstance {
 
+
   const api = axios.create({
-    baseURL: BASE_URL,
-    timeout: TIMEOUT,
+    baseURL: APISetting.BaseURL,
+    timeout: APISetting.Timeout,
   });
 
 

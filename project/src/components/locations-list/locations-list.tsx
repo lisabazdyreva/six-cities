@@ -12,7 +12,7 @@ function LocationsList({onLocationClick, selectedCity}: LocationsListProps): JSX
   return (
     <ul className="locations__list tabs__list">
       {
-        cities.map((city) => <LocationsListTabs key={city} city={city} onClick={onLocationClick} selectedCity={selectedCity}/>)
+        cities.map((city) => <LocationsListTabs key={city} city={city} onLocationClick={onLocationClick} selectedCity={selectedCity}/>)
       }
     </ul>
   );

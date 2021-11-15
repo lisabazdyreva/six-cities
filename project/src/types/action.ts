@@ -3,6 +3,7 @@ import {ThunkAction} from 'redux-thunk';
 import {AxiosInstance} from 'axios';
 import {State} from './state';
 
+//TODO Д20. Для именования типов действия (action type) применяется паттерн: домен/действие (something/action). Например: list/addFavorite, user/login и так далее. Стоит ли что-то поправить здесь?
 
 export enum ActionType {
   FillOffersList = 'data/fillOffersList',
@@ -14,14 +15,14 @@ export enum ActionType {
   UpdateOffer = 'data/updateOffer',
   UpdateRoom = 'data/updateRoom',
   UpdateNearby = 'data/updateNearby',
-  SelectActiveCity = 'process/selectActiveCity',
-  ChangeActiveSortType = 'process/changeActiveSortType',
-  SetActiveId = 'process/setActiveId',
-  RedirectTo = 'process/redirectTo',
-  SetFetchStatusOffers = 'status/setFetchStatusOffers',
-  SetFetchStatusOffer = 'status/setFetchStatusOffer',
-  SetFetchStatusNearbyOffers = 'status/setFetchStatusNearbyOffers',
-  SetFetchStatusComments = 'status/setFetchStatusComments',
+  SelectActiveCity = 'main/selectActiveCity',
+  ChangeActiveSortType = 'main/changeActiveSortType',
+  SetActiveId = 'card/setActiveId',
+  RedirectTo = 'routing/redirectTo',
+  SetFetchStatusOffers = 'fetchStatus/setFetchStatusOffers',
+  SetFetchStatusOffer = 'fetchStatus/setFetchStatusOffer',
+  SetFetchStatusNearbyOffers = 'fetchStatus/setFetchStatusNearbyOffers',
+  SetFetchStatusComments = 'fetchStatus/setFetchStatusComments',
   RequireAuthorization = 'user/requireAuthorization',
   RequireLogout = 'user/requireLogout',
   SetLogin = 'user/setLogin',

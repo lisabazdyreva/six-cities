@@ -1,6 +1,6 @@
 import {AppProcess} from '../../types/state';
 
-import {DEFAULT_ID, DEFAULT_SORT_TYPE, INITIAL_CITY} from '../../const';
+import {DefaultValue} from '../../const';
 import {createReducer} from '@reduxjs/toolkit';
 import {
   selectActiveCity,
@@ -11,10 +11,10 @@ import {
 
 
 const initialState: AppProcess = {
-  selectedCity: INITIAL_CITY,
+  selectedCity: DefaultValue.City,
   sortedOffers: [],
-  activeSortType: DEFAULT_SORT_TYPE,
-  id: DEFAULT_ID,
+  activeSortType: DefaultValue.SortType,
+  id: DefaultValue.Id,
 };
 
 

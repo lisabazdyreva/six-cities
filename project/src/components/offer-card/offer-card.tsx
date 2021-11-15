@@ -41,7 +41,7 @@ function OfferCard({card, typeCard}: OfferCardProps): JSX.Element {
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
 
 
-  function onFavoriteClick() {
+  function handleFavoriteClick() {
     if (isAuth) {
       const status = isFavorite ? FavoriteStatus.RemoveFromFavorite: FavoriteStatus.AddToFavorite;
       dispatch(postFavorite({id, status, typeCard}));
@@ -69,7 +69,7 @@ function OfferCard({card, typeCard}: OfferCardProps): JSX.Element {
                 {'property__bookmark-button--active' : isFavorite},
               )}
               type="button"
-              onClick={onFavoriteClick}
+              onClick={handleFavoriteClick}
             >
               <svg className="property__bookmark-icon" width="31" height="33">
                 <use xlinkHref="#icon-bookmark"/>

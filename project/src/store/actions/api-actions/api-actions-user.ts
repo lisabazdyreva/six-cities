@@ -1,5 +1,5 @@
 import {ThunkActionResult} from '../../../types/action';
-import {APIRoute, AppRoute, AuthorizationStatus, INITIAL_LOGIN, WarningMessage} from '../../../const';
+import {APIRoute, AppRoute, AuthorizationStatus, DefaultValue, WarningMessage} from '../../../const';
 import {redirectTo, requireAuthorization, requireLogout, setLogin} from '../action';
 import {toast} from 'react-toastify';
 import {AuthorizationData} from '../../../types/authorization-data';
@@ -36,7 +36,7 @@ function logoutAction(): ThunkActionResult {
     await api.delete(APIRoute.Logout);
     deleteToken();
     dispatch(requireLogout());
-    dispatch(setLogin(INITIAL_LOGIN));
+    dispatch(setLogin(DefaultValue.Login));
     await dispatch(fetchOffersList());
   };
 }

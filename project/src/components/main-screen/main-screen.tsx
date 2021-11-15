@@ -10,7 +10,7 @@ import LocationsList from '../locations-list/locations-list';
 import SortingForm from '../sorting-form/sorting-form';
 
 import {
-  DEFAULT_SORT_TYPE,
+  DefaultValue,
   FetchStatus,
   Locations,
   MapStylesProperties
@@ -36,14 +36,14 @@ function MainScreen(): JSX.Element {
 
   const isFetchOk = fetchStatus === FetchStatus.Ok;
 
-  function onLocationClick(city: Locations) {
+  function handleLocationClick(city: Locations) {
     const updatedOffers = filterOffers(city, offers);
 
     dispatch(selectActiveCity(city));
-    dispatch(changeActiveSortType(DEFAULT_SORT_TYPE));
+    dispatch(changeActiveSortType(DefaultValue.SortType));
     dispatch(fillOffersList(updatedOffers));
   }
-
+  //TODO Д19. Для чтения состояния из хранилища применяются селекторы. Если требуется модифицировать результат при чтении (например, отфильтровать), применяется мемоизация (пакет reselect). Вроде нигде особо не нужно?
   return (
     <>
       <Icons />
@@ -56,7 +56,7 @@ function MainScreen(): JSX.Element {
           <h1 className="visually-hidden">Cities</h1>
           <div className="tabs">
             <section className="locations container">
-              <LocationsList onLocationClick={onLocationClick} selectedCity={selectedCity}/>
+              <LocationsList onLocationClick={handleLocationClick} selectedCity={selectedCity}/>
             </section>
           </div>
           {(cardsLength && isFetchOk) ?
