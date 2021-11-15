@@ -1,21 +1,31 @@
-import {Link} from 'react-router-dom';
 import {memo} from 'react';
+import {Link} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 
 import Logo from '../logo/logo';
 
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute, AuthorizationStatus, DefaultValue, TextMessage} from '../../const';
 
-import {logoutAction} from '../../store/actions/api-actions';
+import {logoutAction} from '../../store/actions/api-actions/api-actions-user';
+import {checkAuthorization} from '../../store/actions/api-actions/api-actions-user';
+
 import {getAuthorizationStatus, getLogin} from '../../store/app-user/selectors';
+import {selectActiveCity} from '../../store/actions/action';
 
 
 function Header(): JSX.Element {
-  const authorizationStatus = useSelector(getAuthorizationStatus);
-  const login = useSelector(getLogin);
-
   const dispatch = useDispatch();
-  const onLogout = () => dispatch(logoutAction());
+
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const userName = useSelector(getLogin);
+
+  const isAuth = authorizationStatus === AuthorizationStatus.Auth;
+
+  const handleLogoutClick = () => {
+    dispatch(logoutAction());
+    dispatch(checkAuthorization());
+    dispatch(selectActiveCity(DefaultValue.City));
+  };
 
   return (
     <header className="header">
@@ -25,18 +35,18 @@ function Header(): JSX.Element {
           <nav className="header__nav">
             <ul className="header__nav-list">
               {
-                authorizationStatus === AuthorizationStatus.Auth ? (
+                isAuth ? (
                   <>
                     <li className="header__nav-item user">
                       <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
                         <div className="header__avatar-wrapper user__avatar-wrapper" />
-                        <span className="header__user-name user__name">{login}</span>
+                        <span className="header__user-name user__name">{userName}</span>
                       </Link>
                     </li>
-                    <li className="header__nav-item" onClick={onLogout}>
-                      <a className="header__nav-link" >
-                        <span className="header__signout">Sign out</span>
-                      </a>
+                    <li className="header__nav-item">
+                      <Link className="header__nav-link" onClick={handleLogoutClick} to={AppRoute.Main}>
+                        <span className="header__signout">{TextMessage.SignOut}</span>
+                      </Link>
                     </li>
                   </>
                 ) : (
@@ -48,7 +58,7 @@ function Header(): JSX.Element {
                     </li>
                     <li className="header__nav-item">
                       <Link className="header__nav-link" to={AppRoute.Login}>
-                        <span className="header__signout">Sign in</span>
+                        <span className="header__signout">{TextMessage.SignIn}</span>
                       </Link>
                     </li>
                   </>

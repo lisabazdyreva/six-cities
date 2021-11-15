@@ -6,13 +6,18 @@ import {RootState} from '../store/root-reducer';
 
 export type AppData = {
   offers: Offers,
-  isDataLoaded: boolean,
   currentOffer: Offer,
-  fetchStatusOffers: FetchStatus,
-  fetchStatusNearbyOffers: FetchStatus,
-  fetchStatusComments: FetchStatus,
   commentsList: Reviews,
   nearbyOffers: Offers,
+  favoriteOffers: Offers,
+  isDataLoaded: boolean,
+};
+
+export type AppStatus = {
+  fetchStatusOffers: FetchStatus,
+  fetchStatusOffer: FetchStatus,
+  fetchStatusNearbyOffers: FetchStatus,
+  fetchStatusComments: FetchStatus,
 };
 
 export type AppUser = {
@@ -23,7 +28,7 @@ export type AppUser = {
 export type AppProcess = {
   selectedCity: Locations,
   sortedOffers: Offers,
-  activeSortType: string | SortTypes,
+  activeSortType: SortTypes,
   id: number,
 };
 

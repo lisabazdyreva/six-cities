@@ -12,22 +12,22 @@ import Spinner from '../spinner/spinner';
 import browserHistory from '../../browser-history';
 
 import {AppRoute, AuthorizationStatus, FetchStatus} from '../../const';
-import {
-  getFetchStatusOffers,
-  getIsDataLoaded
-} from '../../store/app-data/selectors';
+
+import {getIsDataLoaded} from '../../store/app-data/selectors';
+import {getFetchStatusOffers} from '../../store/app-status/selectors';
 import {getAuthorizationStatus} from '../../store/app-user/selectors';
 
 
 function App(): JSX.Element {
-
   const isDataLoaded = useSelector(getIsDataLoaded);
   const fetchStatus = useSelector(getFetchStatusOffers);
-
   const authorizationStatus = useSelector(getAuthorizationStatus);
 
+  const isAuth = authorizationStatus === AuthorizationStatus.Auth;
+  const isFetchTrying = fetchStatus === FetchStatus.Trying;
 
-  if (!isDataLoaded && fetchStatus === FetchStatus.Trying) {
+
+  if (!isDataLoaded && isFetchTrying) {
     return <Spinner />;
   }
 
@@ -40,7 +40,7 @@ function App(): JSX.Element {
         <Route
           path={AppRoute.Login}
           exact
-          render={() => (authorizationStatus === AuthorizationStatus.Auth) ? <Redirect to={AppRoute.Main} /> : <LoginScreen/>}
+          render={() => (isAuth) ? <Redirect to={AppRoute.Main} /> : <LoginScreen/>}
         />
         <PrivateRoute
           exact

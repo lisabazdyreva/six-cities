@@ -1,16 +1,14 @@
 import classNames from 'classnames';
-
 import type {Offers} from '../../types/offer';
-
 import Card from '../card/card';
-
 import {isMainPage} from '../../utils/utils';
+import {CardTypes} from '../../const';
 
 
 type CardsListProps = {
   cards: Offers;
-  type: string;
-}
+  type: CardTypes;
+};
 
 
 function CardsList({cards, type}: CardsListProps): JSX.Element {

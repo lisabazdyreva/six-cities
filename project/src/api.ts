@@ -5,18 +5,20 @@ import axios, {
   AxiosRequestConfig
 } from 'axios';
 
+import {APISetting} from './const';
+
 import {getToken} from './services/token';
 
-const BASE_URL = 'https://8.react.pages.academy/six-cities';
-const TIMEOUT = 5000;
 
 type UnauthorizedCb = () => void;
 
+
 function createAPI(onUnauthorized: UnauthorizedCb): AxiosInstance {
 
+
   const api = axios.create({
-    baseURL: BASE_URL,
-    timeout: TIMEOUT,
+    baseURL: APISetting.BaseURL,
+    timeout: APISetting.Timeout,
   });
 
 

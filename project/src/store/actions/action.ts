@@ -4,7 +4,7 @@ import {ActionType} from '../../types/action';
 import type {Offer, Offers} from '../../types/offer';
 import type {Reviews} from '../../types/review';
 
-import {AppRoute, AuthorizationStatus, FetchStatus, Locations} from '../../const';
+import {AppRoute, AuthorizationStatus, FetchStatus, Locations, SortTypes} from '../../const';
 
 
 export const selectActiveCity = createAction(
@@ -23,7 +23,7 @@ export const fillOffersList = createAction(
 
 export const changeActiveSortType = createAction(
   ActionType.ChangeActiveSortType,
-  (sortingValue: string) => ({
+  (sortingValue: SortTypes) => ({
     payload: sortingValue,
   }),
 );
@@ -31,6 +31,27 @@ export const changeActiveSortType = createAction(
 export const setActiveId = createAction(
   ActionType.SetActiveId,
   (id: number) => ({
+    payload: id,
+  }),
+);
+
+export const updateOffer = createAction(
+  ActionType.UpdateOffer,
+  (id) => ({
+    payload: id,
+  }),
+);
+
+export const updateRoom = createAction(
+  ActionType.UpdateRoom,
+  (id) => ({
+    payload: id,
+  }),
+);
+
+export const updateNearby = createAction(
+  ActionType.UpdateNearby,
+  (id) => ({
     payload: id,
   }),
 );
@@ -79,8 +100,22 @@ export const setCommentsList = createAction(
   }),
 );
 
+export const setFavoriteOffers = createAction(
+  ActionType.SetFavoriteOffers,
+  (offers: Offers) => ({
+    payload: offers,
+  }),
+);
+
 export const setFetchStatusOffers = createAction(
   ActionType.SetFetchStatusOffers,
+  (status: FetchStatus) => ({
+    payload: status,
+  }),
+);
+
+export const setFetchStatusOffer = createAction(
+  ActionType.SetFetchStatusOffer,
   (status: FetchStatus) => ({
     payload: status,
   }),

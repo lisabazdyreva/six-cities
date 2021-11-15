@@ -1,48 +1,70 @@
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import classNames from 'classnames';
 
 import Icons from '../icons/icons';
 import MainCardsList from '../main-cards-list/main-cards-list';
-import NotFoundScreen from '../not-found-screen/not-found-screen';
 import NoOffers from '../no-offers/no-offers';
 import Header from '../header/header';
 import Map from '../map/map';
 import LocationsList from '../locations-list/locations-list';
 import SortingForm from '../sorting-form/sorting-form';
 
-import {FetchStatus, MapStylesProperties} from '../../const';
+import {
+  DefaultValue,
+  FetchStatus,
+  Locations,
+  MapStylesProperties
+} from '../../const';
+import {filterOffers} from '../../utils/sort-utils';
+
 import {getSelectedCity, getSortedOffers} from '../../store/app-process/selectors';
-import {getFetchStatusOffers} from '../../store/app-data/selectors';
+import {getOffers} from '../../store/app-data/selectors';
+import {getFetchStatusOffers} from '../../store/app-status/selectors';
+import {changeActiveSortType, fillOffersList, selectActiveCity} from '../../store/actions/action';
 
 
 function MainScreen(): JSX.Element {
+  const dispatch = useDispatch();
 
   const cards = useSelector(getSortedOffers);
   const selectedCity = useSelector(getSelectedCity);
   const fetchStatus = useSelector(getFetchStatusOffers);
+  const offers = useSelector(getOffers);
 
   const cardsLength = cards.length;
+  const placesValue = cardsLength === 1 ? 'place' : 'places';
 
-  if (fetchStatus === FetchStatus.Error) {
-    return <NotFoundScreen />;
+  const isFetchOk = fetchStatus === FetchStatus.Ok;
+
+  function handleLocationClick(city: Locations) {
+    const updatedOffers = filterOffers(city, offers);
+
+    dispatch(selectActiveCity(city));
+    dispatch(changeActiveSortType(DefaultValue.SortType));
+    dispatch(fillOffersList(updatedOffers));
   }
+
   return (
     <>
       <Icons />
       <div className="page page--gray page--main">
         <Header />
-        <main className="page__main page__main--index">
+        <main className={classNames(
+          'page__main page__main--index',
+          {'page__main--index-empty' : cardsLength})}
+        >
           <h1 className="visually-hidden">Cities</h1>
           <div className="tabs">
             <section className="locations container">
-              <LocationsList />
+              <LocationsList onLocationClick={handleLocationClick} selectedCity={selectedCity}/>
             </section>
           </div>
-          {cards.length ?
+          {(cardsLength && isFetchOk) ?
             <div className="cities">
               <div className="cities__places-container container">
                 <section className="cities__places places">
                   <h2 className="visually-hidden">Places</h2>
-                  <b className="places__found">{cardsLength} {cardsLength === 1 ? 'place' : 'places'} to stay in {selectedCity}</b>
+                  <b className="places__found">{cardsLength} {placesValue} to stay in {selectedCity}</b>
                   <SortingForm />
                   <MainCardsList cards={cards}/>
                 </section>
@@ -56,8 +78,7 @@ function MainScreen(): JSX.Element {
                   </section>
                 </div>
               </div>
-            </div> :
-            <NoOffers city={selectedCity}/>}
+            </div> : <NoOffers city={selectedCity} fetchStatus={fetchStatus}/>}
         </main>
       </div>
     </>

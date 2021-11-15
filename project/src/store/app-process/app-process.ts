@@ -1,20 +1,20 @@
 import {AppProcess} from '../../types/state';
 
-import {DEFAULT_ID, DEFAULT_SORT_TYPE, INITIAL_CITY} from '../../const';
+import {DefaultValue} from '../../const';
 import {createReducer} from '@reduxjs/toolkit';
 import {
   selectActiveCity,
   fillOffersList,
   changeActiveSortType,
-  setActiveId
+  setActiveId, updateOffer
 } from '../actions/action';
 
 
 const initialState: AppProcess = {
-  selectedCity: INITIAL_CITY,
+  selectedCity: DefaultValue.City,
   sortedOffers: [],
-  activeSortType: DEFAULT_SORT_TYPE,
-  id: DEFAULT_ID,
+  activeSortType: DefaultValue.SortType,
+  id: DefaultValue.Id,
 };
 
 
@@ -31,5 +31,13 @@ export const appProcess = createReducer(initialState, (builder) => {
     })
     .addCase(setActiveId, (state, action) => {
       state.id = action.payload;
+    })
+    .addCase(updateOffer, (state, action) => {
+      state.sortedOffers.map((offer) => {
+        if (offer.id === action.payload) {
+          offer.isFavorite = !offer.isFavorite;
+        }
+        return state.sortedOffers;
+      });
     });
 });

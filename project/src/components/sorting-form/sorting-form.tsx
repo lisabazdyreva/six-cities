@@ -4,35 +4,33 @@ import classNames from 'classnames';
 
 import {changeActiveSortType, fillOffersList} from '../../store/actions/action';
 
-import {getSortedOffers} from '../../utils/utils';
-import {SortTypes} from '../../const';
-import {getActiveSortType, getSortedOffers as getOffers} from '../../store/app-process/selectors'; // !TODO нейминг
+import {sortOffers} from '../../utils/sort-utils';
+import {SortTypes, sortTypesList} from '../../const';
 
+import {getActiveSortType, getSortedOffers} from '../../store/app-process/selectors';
 
-const sortTypesList = Object.values(SortTypes);
 
 function SortingForm(): JSX.Element {
-  const sortedOffers = useSelector(getOffers);
-  const activeSortType = useSelector(getActiveSortType);
-
   const dispatch = useDispatch();
 
+  const sortedOffers = useSelector(getSortedOffers);
+  const activeSortType = useSelector(getActiveSortType);
 
   const [isOpenSorting, setOpenSorting] = useState(false);
 
-  function sortOffers(type: string) {
-    const sortingOffers = getSortedOffers(type, sortedOffers);
-
+  function updateOffers(type: SortTypes) {
+    const sortingOffers = sortOffers(type, sortedOffers);
     dispatch(fillOffersList(sortingOffers));
   }
 
-  function changeSortType(type: string) {
+  function changeSortType(type: SortTypes) {
     dispatch(changeActiveSortType(type));
-    sortOffers(type);
+    updateOffers(type);
   }
 
-  function onSortTypeClick (type: string) {
-    changeSortType(type);
+  function handleSortClick (type: string) {
+    const [sortType] = Object.values(SortTypes).filter((key) => key === type);
+    changeSortType(sortType);
     setOpenSorting(!isOpenSorting);
   }
 
@@ -55,7 +53,7 @@ function SortingForm(): JSX.Element {
         {sortTypesList.map((type: string) => (
           <li
             key={type}
-            onClick={() => onSortTypeClick(type)}
+            onClick={() => handleSortClick(type)}
             className={classNames(
               'places__option',
               {'places__option--active': activeSortType === type},

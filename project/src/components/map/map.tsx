@@ -17,9 +17,9 @@ const defaultCustomIcon = new Icon(defaultIcon);
 const currentCustomIcon = new Icon(currentIcon);
 
 type MapProps = {
-  cards: Offers,
-  styles?: CSSProperties,
-  activeCity? : string,
+  cards: Offers;
+  styles?: CSSProperties;
+  activeCity? : string;
 };
 
 

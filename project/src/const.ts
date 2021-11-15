@@ -22,6 +22,11 @@ export enum APIRoute {
   Logout = '/logout',
 }
 
+export enum FavoriteStatus {
+  AddToFavorite = 1,
+  RemoveFromFavorite = 0,
+}
+
 
 export enum AuthorizationStatus {
   Auth = 'AUTH',
@@ -73,6 +78,8 @@ export const MapStylesProperties: MapStylesPropertiesTypes = {
 export enum CardTypes {
   Main = 'Main',
   Offer = 'Offer',
+  Nearby = 'Nearby',
+  Favorite = 'Favorite',
 }
 
 
@@ -83,6 +90,7 @@ export enum SortTypes {
   Rating = 'Top rated first',
 }
 
+export const sortTypesList = Object.values(SortTypes);
 
 export const defaultIcon = {
   iconUrl: IconsURL.Default,
@@ -96,13 +104,13 @@ export const currentIcon = {
   iconAnchor: IconsParams.IconAnchor,
 };
 
-export const INITIAL_CITY = Locations.Paris;
 
-export const INITIAL_LOGIN= '';
-
-export const DEFAULT_SORT_TYPE =  SortTypes.Popular;
-
-export const DEFAULT_ID = 0;
+export const DefaultValue = {
+  City: Locations.Paris,
+  Login: '',
+  SortType: SortTypes.Popular,
+  Id: 0,
+} as const;
 
 export const DEFAULT_CURRENT_OFFER = {
   bedrooms: 0,
@@ -112,17 +120,17 @@ export const DEFAULT_CURRENT_OFFER = {
       longitude: 0,
       zoom: 0,
     },
-    name: INITIAL_CITY,
+    name: DefaultValue.City,
   },
   description: '',
   goods: [''],
   host: {
     avatarUrl: '',
-    id: DEFAULT_ID,
+    id: DefaultValue.Id,
     isPro: false,
     name: '',
   },
-  id: DEFAULT_ID,
+  id: DefaultValue.Id,
   images: [''],
   isFavorite: false,
   isPremium: false,
@@ -140,7 +148,7 @@ export const DEFAULT_CURRENT_OFFER = {
 };
 
 export const enum OfferRatingTitles {
-  Perfect = 'rating',
+  Perfect = 'perfect',
   Good = 'good',
   NotBad = 'not bad',
   Badly = 'badly',
@@ -154,3 +162,39 @@ export const OfferRatingValues = {
   [OfferRatingTitles.Badly]: 2,
   [OfferRatingTitles.Terribly]: 1,
 };
+
+export const enum WarningMessage {
+  FetchFavorite = 'Sorry we could not show your favorites right now. Please try later.',
+  PostFavorite = 'Sorry we could not add the offer to favorite right now. Please try later.',
+  PostComment = 'Sorry we could not post your comment right now. Please try later.',
+  CheckAuthorization = 'Please login to get access to all functionality of the app',
+}
+
+export const enum CommentLength {
+  MaxLength = 300,
+  MinLength= 50,
+  ListLength = 10,
+}
+
+export const enum ErrorMessage {
+  Comments = 'Comments did not found. Try later',
+  NoOffers = 'Sorry, server is not respond right now.',
+  NoOffersInCity = 'We could not find any property available at the moment in',
+  PasswordInput = 'The password must be at least 1 letter and 1 number.',
+  Nearby = 'Nothing found. Try later.',
+  NoFavorites = 'There are no favorite offers. Add some offers to favorite.',
+}
+
+export const REG_EXP_PASSWORD = /(?=.*[0-9])(?=.*[A-Za-z])[0-9A-Za-z]{2,}/;
+
+export const APISetting = {
+  BaseURL: 'https://8.react.pages.academy/six-cities',
+  Timeout: 5000,
+} as const;
+
+export const enum TextMessage {
+  SignIn = 'Sign in',
+  SignOut = 'Sign out',
+  HomePage = 'Back to home page',
+  NotFound = '404. Page not found.',
+}

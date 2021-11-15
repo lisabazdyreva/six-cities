@@ -1,18 +1,24 @@
-import {SyntheticEvent, useState} from 'react';
+import {ChangeEvent, SyntheticEvent, useState} from 'react';
 import {useDispatch} from 'react-redux';
-import {loginAction} from '../../store/actions/api-actions';
+
+import {REG_EXP_PASSWORD, ErrorMessage, TextMessage} from '../../const';
+
+import {loginAction} from '../../store/actions/api-actions/api-actions-user';
 
 
 function LoginScreenForm(): JSX.Element {
   const dispatch = useDispatch();
 
-  const [login, setLogin] = useState('');
-  const [password, setPassword] = useState('');
+  const [login, setLogin] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
-  function handleSubmit(evt: SyntheticEvent) {
+  const isFieldsEmpty = login !== '' && password !== '';
+  const isDisabled = login === '' || password === '';
+
+  function handleAuthFormSubmit(evt: SyntheticEvent) {
     evt.preventDefault();
 
-    if (login !== '' && password !== '') {
+    if (isFieldsEmpty) {
       dispatch(loginAction({
         login: login,
         password: password,
@@ -20,8 +26,17 @@ function LoginScreenForm(): JSX.Element {
     }
   }
 
+  function handlePasswordChange(evt: ChangeEvent<HTMLInputElement>) {
+    if (!evt.target.value.match(REG_EXP_PASSWORD)) {
+      evt.target.setCustomValidity(ErrorMessage.PasswordInput);
+    } else {
+      evt.target.setCustomValidity('');
+    }
+    setPassword(evt.target.value);
+  }
+
   return (
-    <form className="login__form form" action="#" method="post" onSubmit={handleSubmit}>
+    <form className="login__form form" action="#" method="post" onSubmit={handleAuthFormSubmit}>
       <div className="login__input-wrapper form__input-wrapper">
         <label className="visually-hidden">E-mail</label>
         <input
@@ -41,7 +56,7 @@ function LoginScreenForm(): JSX.Element {
           type="password"
           name="password"
           placeholder="Password"
-          onChange={(evt) => setPassword(evt.target.value)}
+          onChange={handlePasswordChange}
           value={password}
           required
         />
@@ -49,9 +64,9 @@ function LoginScreenForm(): JSX.Element {
       <button
         className="login__submit form__submit button"
         type="submit"
-        disabled={login === '' || password === ''}
+        disabled={isDisabled}
       >
-        Sign in
+        {TextMessage.SignIn}
       </button>
     </form>
   );
