@@ -1,8 +1,8 @@
-import {CardTypes} from '../const';
+import {CardTypes, ErrorMessage} from '../const';
 
 const isMainPage = (type: string): boolean => type === CardTypes.Main;
 
-const getNoOffersMessage = (city: string): string => `We could not find any property available at the moment in ${city}`;
+const getNoOffersMessage = (city: string): string => `${ErrorMessage.NoOffersInCity} ${city}`;
 
 const formatType = (typeText: string): string => {
   const result = typeText.slice(0, 1).toUpperCase() + typeText.slice(1);

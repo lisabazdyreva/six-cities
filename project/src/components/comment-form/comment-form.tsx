@@ -25,12 +25,12 @@ function CommentForm({id}: CommentFormProps ): JSX.Element {
   const handleRatingInput = useCallback(
     (evt:ChangeEvent<HTMLInputElement>): void => setRating(Number(evt.target.value)),
     [],
-  );//TODO Д10. Колбэки, переданные в props названы через on. Критерий не распространяется на props, полученные в результате применения mapDispatchToProps. Правильно ли у меня?
+  );
 
   const handleMessageInput = useCallback(
     (evt:ChangeEvent<HTMLTextAreaElement>):void => setComment(evt.target.value),
     [],
-  );//TODO Д10. Колбэки, переданные в props названы через on. Критерий не распространяется на props, полученные в результате применения mapDispatchToProps. Правильно ли у меня?
+  );
 
   function handleCommentFormSubmit(evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();

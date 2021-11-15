@@ -1,7 +1,7 @@
 import {ChangeEvent, SyntheticEvent, useState} from 'react';
 import {useDispatch} from 'react-redux';
 
-import {REG_EXP_PASSWORD, ErrorMessage} from '../../const';
+import {REG_EXP_PASSWORD, ErrorMessage, TextMessage} from '../../const';
 
 import {loginAction} from '../../store/actions/api-actions/api-actions-user';
 
@@ -66,7 +66,7 @@ function LoginScreenForm(): JSX.Element {
         type="submit"
         disabled={isDisabled}
       >
-        Sign in
+        {TextMessage.SignIn}
       </button>
     </form>
   );

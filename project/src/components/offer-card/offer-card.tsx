@@ -11,7 +11,7 @@ import {AppRoute, AuthorizationStatus, CardTypes, FavoriteStatus} from '../../co
 
 import {getAuthorizationStatus} from '../../store/app-user/selectors';
 
-import {fetchFavoriteOffers, postFavorite} from '../../store/actions/api-actions/api-actions-favorite';
+import {postFavorite} from '../../store/actions/api-actions/api-actions-favorite';
 
 
 type OfferCardProps = {
@@ -32,7 +32,7 @@ function OfferCard({card, typeCard}: OfferCardProps): JSX.Element {
 
   const bedroomsValue = (bedrooms > 1) ? `${bedrooms} Bedrooms` : `${bedrooms} Bedroom`;
   const priceValue = `€${price}`;
-  const maxAdultsValue = (maxAdults > 1) ? `Max ${maxAdults} adults`: `Max ${maxAdults} adult`;
+  const maxAdultsValue =  `Max ${maxAdults} adult${(maxAdults > 1) ? 's' : ''}`;
 
   const checkedImagesOverflow = (images.length > 5) ? images.slice(0, 6) : images;
 
@@ -43,9 +43,8 @@ function OfferCard({card, typeCard}: OfferCardProps): JSX.Element {
 
   function handleFavoriteClick() {
     if (isAuth) {
-      const status = isFavorite ? FavoriteStatus.RemoveFromFavorite: FavoriteStatus.AddToFavorite;
-      dispatch(postFavorite({id, status, typeCard}));
-      dispatch(fetchFavoriteOffers(authorizationStatus));
+      const status = isFavorite ? FavoriteStatus.RemoveFromFavorite : FavoriteStatus.AddToFavorite;
+      dispatch(postFavorite({id, status, typeCard, authorizationStatus}));
     } else {
       history.push(AppRoute.Login);
     }
@@ -55,7 +54,11 @@ function OfferCard({card, typeCard}: OfferCardProps): JSX.Element {
     <>
       <div className="property__gallery-container container">
         <div className="property__gallery">
-          {isImages && checkedImagesOverflow.map((image) => <div key={image} className="property__image-wrapper"><img className="property__image" src={image} alt={title}/></div>)}
+          {isImages && checkedImagesOverflow.map((image) => (
+            <div key={image} className="property__image-wrapper">
+              <img className="property__image" src={image} alt={title}/>
+            </div>
+          ))}
         </div>
       </div>
       <div className="property__container container">

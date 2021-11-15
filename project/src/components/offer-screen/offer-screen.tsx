@@ -31,7 +31,7 @@ function OfferScreen(): JSX.Element {
 
   const params: {id: string} = useParams();
 
-  const { id } = params;
+  const {id} = params;
   const idNum = Number(id);
 
   dispatch(setActiveId(idNum));

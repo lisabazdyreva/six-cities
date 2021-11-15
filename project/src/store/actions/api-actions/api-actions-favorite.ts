@@ -6,18 +6,19 @@ import {AuthorizationStatus, CardTypes, WarningMessage} from '../../../const';
 import {toast} from 'react-toastify';
 
 
-function postFavorite({id, status, typeCard}: FavoriteData): ThunkActionResult {
+function postFavorite({id, status, typeCard, authorizationStatus}: FavoriteData): ThunkActionResult {
   return async (dispatch, _getState, api): Promise<void> => {
     await api.post( `/favorite/${id}/${status}`)
       .then(({data}) => adaptToClient([data]))
       .then(() => {
         dispatch(updateOffer(id));
-        if (typeCard === CardTypes.Offer) {  //TODO Д17. Логика изменения состояния описывается в редьюсере, а не в компоненте - так можно или вынести?
+        if (typeCard === CardTypes.Offer) {
           dispatch(updateRoom(id));
         }
-        if (typeCard === CardTypes.Nearby) { //TODO Д17. Логика изменения состояния описывается в редьюсере, а не в компоненте - так можно или вынести?
+        if (typeCard === CardTypes.Nearby) {
           dispatch(updateNearby(id));
         }
+        dispatch(fetchFavoriteOffers(authorizationStatus));
 
       })
       .catch(() => toast.warning(WarningMessage.PostFavorite));

@@ -43,7 +43,7 @@ function MainScreen(): JSX.Element {
     dispatch(changeActiveSortType(DefaultValue.SortType));
     dispatch(fillOffersList(updatedOffers));
   }
-  //TODO Д19. Для чтения состояния из хранилища применяются селекторы. Если требуется модифицировать результат при чтении (например, отфильтровать), применяется мемоизация (пакет reselect). Вроде нигде особо не нужно?
+
   return (
     <>
       <Icons />

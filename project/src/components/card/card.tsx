@@ -10,7 +10,7 @@ import {AppRoute, AuthorizationStatus, CardTypes, DefaultValue, FavoriteStatus} 
 
 import {setActiveId} from '../../store/actions/action';
 import {getAuthorizationStatus} from '../../store/app-user/selectors';
-import {fetchFavoriteOffers, postFavorite} from '../../store/actions/api-actions/api-actions-favorite';
+import {postFavorite} from '../../store/actions/api-actions/api-actions-favorite';
 
 
 type CardProps = {
@@ -30,7 +30,7 @@ function Card({card, typeCard}: CardProps): JSX.Element {
   const typeValue = formatType(type);
   const ratingPercentValue = getRatingPercentValue(rating);
   const priceValue = `€ ${price}`;
-  const linkValue = `${AppRoute.Room}/${ id }`;
+  const linkValue = `${AppRoute.Room}/${id}`;
 
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
 
@@ -61,9 +61,7 @@ function Card({card, typeCard}: CardProps): JSX.Element {
   const handleFavoriteChange = () => {
     if (isAuth) {
       const status = isFavorite ? FavoriteStatus.RemoveFromFavorite: FavoriteStatus.AddToFavorite;
-
-      dispatch(postFavorite({id, status, typeCard}));
-      dispatch(fetchFavoriteOffers(authorizationStatus));
+      dispatch(postFavorite({id, status, typeCard, authorizationStatus}));
     } else {
       history.push(AppRoute.Login);
     }

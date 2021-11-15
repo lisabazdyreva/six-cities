@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import Icons from '../icons/icons';
 import FavoritesCardsList from '../favorites-cards-list/favorites-cards-list';
 import Header from '../header/header';
+import FavoritesCardsListEmpty from '../favorites-cards-list-empty/favorites-cards-list-empty';
 
 import {ErrorMessage} from '../../const';
 import {getFavoriteCardsByCities} from '../../utils/sort-utils';
@@ -22,9 +23,10 @@ function FavoritesScreen(): JSX.Element {
   const isOffers = offers.length;
   const favoriteCardsByCities = getFavoriteCardsByCities(offers.slice());
 
+
   useEffect(() => {
     dispatch(fetchFavoriteOffers(authorizationStatus));
-  }, [offers, authorizationStatus, dispatch]);
+  }, [authorizationStatus, dispatch]);
 
   return (
     <>
@@ -37,7 +39,7 @@ function FavoritesScreen(): JSX.Element {
               <h1 className="favorites__title">Saved listing</h1>
               {isOffers ?
                 <FavoritesCardsList favoriteCardsByCities={favoriteCardsByCities} /> :
-                <span>{ErrorMessage.NoFavorites}</span>}
+                <FavoritesCardsListEmpty message={ErrorMessage.NoFavorites}/>}
             </section>
           </div>
         </main>

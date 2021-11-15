@@ -4,7 +4,7 @@ import {useSelector, useDispatch} from 'react-redux';
 
 import Logo from '../logo/logo';
 
-import {AppRoute, AuthorizationStatus, DefaultValue} from '../../const';
+import {AppRoute, AuthorizationStatus, DefaultValue, TextMessage} from '../../const';
 
 import {logoutAction} from '../../store/actions/api-actions/api-actions-user';
 import {checkAuthorization} from '../../store/actions/api-actions/api-actions-user';
@@ -45,7 +45,7 @@ function Header(): JSX.Element {
                     </li>
                     <li className="header__nav-item">
                       <Link className="header__nav-link" onClick={handleLogoutClick} to={AppRoute.Main}>
-                        <span className="header__signout">Sign out</span>
+                        <span className="header__signout">{TextMessage.SignOut}</span>
                       </Link>
                     </li>
                   </>
@@ -58,7 +58,7 @@ function Header(): JSX.Element {
                     </li>
                     <li className="header__nav-item">
                       <Link className="header__nav-link" to={AppRoute.Login}>
-                        <span className="header__signout">Sign in</span>
+                        <span className="header__signout">{TextMessage.SignIn}</span>
                       </Link>
                     </li>
                   </>

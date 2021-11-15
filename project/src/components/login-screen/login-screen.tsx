@@ -5,7 +5,7 @@ import Icons from '../icons/icons';
 import Logo from '../logo/logo';
 import LoginScreenForm from '../login-screen-form/login-screen-form';
 
-import {AppRoute} from '../../const';
+import {AppRoute, TextMessage} from '../../const';
 
 import {getSelectedCity} from '../../store/app-process/selectors';
 
@@ -26,7 +26,7 @@ function LoginScreen(): JSX.Element {
         <main className="page__main page__main--login">
           <div className="page__login-container container">
             <section className="login">
-              <h1 className="login__title">Sign in</h1>
+              <h1 className="login__title">{TextMessage.SignIn}</h1>
               <LoginScreenForm />
             </section>
             <section className="locations locations--login locations--current">

@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import type {Offers, Offer} from '../../types/offer';
 import {formatType, getRatingPercentValue} from '../../utils/utils';
 import {AppRoute, CardTypes, FavoriteStatus} from '../../const';
-import {fetchFavoriteOffers, postFavorite} from '../../store/actions/api-actions/api-actions-favorite';
+import {postFavorite} from '../../store/actions/api-actions/api-actions-favorite';
 import {getAuthorizationStatus} from '../../store/app-user/selectors';
 
 
@@ -21,8 +21,7 @@ function FavoriteCards({cardsByCity, typeCard}: FavoriteCardsProps): JSX.Element
   function handleFavoriteDelete(id: number) {
     const status = FavoriteStatus.RemoveFromFavorite;
 
-    dispatch(postFavorite({id, status, typeCard}));
-    dispatch(fetchFavoriteOffers(authorizationStatus));
+    dispatch(postFavorite({id, status, typeCard, authorizationStatus}));
   }
 
   return (
@@ -32,7 +31,7 @@ function FavoriteCards({cardsByCity, typeCard}: FavoriteCardsProps): JSX.Element
 
         const ratingPercentValue = getRatingPercentValue(rating);
         const typeValue = formatType(type);
-        const linkValue = `${AppRoute.Room}/${ id }`;
+        const linkValue = `${AppRoute.Room}/${id}`;
         const priceValue = `€${price}`;
 
         return (

@@ -179,6 +179,7 @@ export const enum CommentLength {
 export const enum ErrorMessage {
   Comments = 'Comments did not found. Try later',
   NoOffers = 'Sorry, server is not respond right now.',
+  NoOffersInCity = 'We could not find any property available at the moment in',
   PasswordInput = 'The password must be at least 1 letter and 1 number.',
   Nearby = 'Nothing found. Try later.',
   NoFavorites = 'There are no favorite offers. Add some offers to favorite.',
@@ -190,3 +191,10 @@ export const APISetting = {
   BaseURL: 'https://8.react.pages.academy/six-cities',
   Timeout: 5000,
 } as const;
+
+export const enum TextMessage {
+  SignIn = 'Sign in',
+  SignOut = 'Sign out',
+  HomePage = 'Back to home page',
+  NotFound = '404. Page not found.',
+}

@@ -35,7 +35,10 @@ const getSortedComments = (comments: Reviews): Reviews => comments.slice().sort(
 
 
 const getFavoriteCardsByCities = (cards: Offers): FavoriteCardsByCities =>  {
-  const getFavoriteCitiesList = (): string[] => Array.from(new Set(cards.reduce((prev, current) => `${prev} ${current.city.name}`, '').trim().split(' ')));
+  const makeUniqueSet = (items: string[]) => Array.from(new Set(items));
+  const splitByWords = (message: string) => message.trim().split(' ');
+
+  const getFavoriteCitiesList = (): string[] => makeUniqueSet(splitByWords(cards.reduce((prev, current) => `${prev} ${current.city.name}`, '')));
 
   const favoriteCities = getFavoriteCitiesList();
   return favoriteCities.map((city) => Object.assign({}, {[city]: cards.filter((card) => card.city.name === city)}));
