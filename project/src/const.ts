@@ -112,7 +112,7 @@ export const DefaultValue = {
   Id: 0,
 } as const;
 
-export const DEFAULT_CURRENT_OFFER = { // TODO посмотреть критерии
+export const DEFAULT_CURRENT_OFFER = { // TODO правильно ли по критерию капсом? думаю да
   bedrooms: 0,
   city: {
     location: {
@@ -148,7 +148,7 @@ export const DEFAULT_CURRENT_OFFER = { // TODO посмотреть критер
 };
 
 export const enum OfferRatingTitles {
-  Perfect = 'rating',// TODO посмотреть проект
+  Perfect = 'perfect',
   Good = 'good',
   NotBad = 'not bad',
   Badly = 'badly',
