@@ -68,5 +68,4 @@ function SortingForm(): JSX.Element {
   );
 }
 
-export {SortingForm};
 export default SortingForm;

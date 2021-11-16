@@ -41,5 +41,4 @@ function CommentsSection(): JSX.Element {
   );
 }
 
-export {CommentsSection};
 export default CommentsSection;

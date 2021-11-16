@@ -59,5 +59,4 @@ function App(): JSX.Element {
   );
 }
 
-export {App};
 export default App;

@@ -18,5 +18,4 @@ function LocationsList({onLocationClick, selectedCity}: LocationsListProps): JSX
   );
 }
 
-export {LocationsList};
 export default LocationsList;

@@ -85,5 +85,4 @@ function MainScreen(): JSX.Element {
   );
 }
 
-export {MainScreen};
 export default MainScreen;

@@ -72,5 +72,4 @@ function LoginScreenForm(): JSX.Element {
   );
 }
 
-export {LoginScreenForm};
 export default LoginScreenForm;

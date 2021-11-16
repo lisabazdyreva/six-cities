@@ -48,5 +48,4 @@ function FavoritesCardsList({favoriteCardsByCities}: FavoritesCardsListProps): J
   );
 }
 
-export {FavoritesCardsList};
 export default FavoritesCardsList;
