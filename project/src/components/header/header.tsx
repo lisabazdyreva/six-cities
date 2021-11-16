@@ -72,5 +72,4 @@ function Header(): JSX.Element {
   );
 }
 
-export {Header};
 export default memo(Header);

@@ -69,5 +69,4 @@ function Map({cards, activeCity, styles}: MapProps): JSX.Element {
   );
 }
 
-export {Map};
 export default Map;

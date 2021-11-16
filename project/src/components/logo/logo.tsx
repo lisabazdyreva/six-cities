@@ -17,5 +17,4 @@ function Logo():JSX.Element {
   );
 }
 
-export {Logo};
 export default Logo;

@@ -77,5 +77,4 @@ function OfferScreen(): JSX.Element {
   }
 }
 
-export {OfferScreen};
 export default OfferScreen;

@@ -75,5 +75,4 @@ function CommentForm({id}: CommentFormProps ): JSX.Element {
   );
 }
 
-export {CommentForm};
 export default CommentForm;

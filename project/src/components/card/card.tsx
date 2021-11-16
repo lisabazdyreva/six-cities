@@ -138,6 +138,4 @@ function Card({card, typeCard}: CardProps): JSX.Element {
   );
 }
 
-
-export {Card};
 export default Card;
