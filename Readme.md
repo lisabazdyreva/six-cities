@@ -11,6 +11,8 @@ Authorized users can add any of offer in favorites list. By click on offer card 
 ## Six Cities technical description
 
 For developing the app I used:
+- TypeScript
+- Axios
 - React with hooks 
 - Redux
 - 
