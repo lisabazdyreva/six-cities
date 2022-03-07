@@ -19,7 +19,3 @@ For developing the app I used:
 - classnames
 - jest for tests
 - toastify for notifications
-
-
-# Личный проект «Шесть городов»
-
