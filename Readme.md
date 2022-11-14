@@ -14,14 +14,15 @@ Below the map you can see a list of similar offers. They are very helpful when y
 ## Six Cities technical description
 
 For developing the app I used:
-- TypeScript
-- Axios
-- React with hooks, react dom router
-- ReduxJs
-- leaflet for maps
-- classnames
-- jest for tests
-- toastify for notifications
+- TypeScript,
+- Axios,
+- React, 
+- React Dom Router,
+- ReduxJs,
+- leaflet,
+- classnames,
+- jest,
+- toastify.
 
 
 Implemented simple athorization, catching errors and simple tests.
