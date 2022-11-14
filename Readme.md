@@ -1,10 +1,13 @@
-# Six Cities learning project
+# Six Cities
 
-## Six Cities learning app description
+Six Cities - is a service for tourists to take a short-term rent (like airbnb). User should select one of the six popular destinations (Paris, Cologne, Brussels, Amsterdam, Hamburg, Dusseldorf). He will recieve an actual list of rental ads, which he can sort by some values like rating. Also you can view all available apartments to stay in on the interactive map. User-friendly interface of the application will help the tourist to quickly find a perfect place to spend holidays. 
 
-Six Cities is a SPA for tourists for take a rent. User can choose the city to take an actual list of available rent offers. All of the offers also is placed in map with brief info card. You can sort ads by popularity, price or rating.
 
-Authorized users can add any of offer in favorites list. By click on offer card you take a detailed information about offer. Also you can read a commennt about apartments or leave your review (only with athorization). At the bottom of the page are placed brief info cards of nearest offers.
+User can view a detailed information about offer with rating and other user comments. Moreover, you can leave a comment yourself and it will be immideatly showed in the list.
+
+A convinient feature of the application - is the opportunity to add interesting adds to your favorite list. But you should log in with email and password to save your personal list. 
+
+Below the map you can see a list of similar offers. They are very helpful when you are not sure what exactly you want.
 
 
 
