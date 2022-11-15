@@ -24,9 +24,7 @@ A convinient feature of the application - is the opportunity to add interesting 
 
 Below the map you can see a list of similar offers. They are very helpful when you are not sure what exactly you want.
 
-
-
-## Six Cities technical description
+## Stack
 
 For developing the app I used:
 - TypeScript,
@@ -41,3 +39,35 @@ For developing the app I used:
 
 
 Implemented simple athorization, catching errors and simple tests.
+
+
+## Demo site
+
+[Go to Six Cities application >>](https://six-cities-lisabazdyreva.vercel.app/)
+
+
+## How to run app locally:
+
+
+- Clone repository:
+```bash
+git clone git@github.com:lisabazdyreva/six-cities.git
+```
+
+- Go to project folder:
+
+```bash
+cd project
+```
+
+- Install dependencies:
+
+```bash
+npm install
+```
+
+- Run application:
+```bash
+npm start
+```
+
